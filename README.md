@@ -2,7 +2,7 @@
 
 # ZERO-BLOAT-SKILLS
 
-**16 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**17 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Hardware Lab](https://img.shields.io/badge/Laboratory-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
@@ -88,7 +88,7 @@ Cost and resource analysis comparing commercial software house deliverables agai
 |---|---|---|---|
 | Monthly Cloud Hosting | 8GB RAM Cloud VPS + Managed DB: $45 / mo | Repurposed i3 Workshop PC + SQLite WAL: $0 | Saves $540 / year |
 | Static Public IP Fee | Business ISP Static IP Addon: $18 / mo | Cloudflare Tunnel + Tailscale Subnet: $0 | Saves $216 / year |
-| Custom Internal Tooling | Commercial desktop tooling contract: $1,200 | 16 Specialized modular skills: Included | Saves $1,200 one-time |
+| Custom Internal Tooling | Commercial desktop tooling contract: $1,200 | 17 Specialized modular skills: Included | Saves $1,200 one-time |
 | Technician Triage Time | Manual probing without boardview copilot: ~90 min | Boardview copilot + current injection: ~15 min | Saves 75 min bench time / unit |
 
 ---
@@ -103,7 +103,7 @@ zero-bloat-skills/
 ├── install.sh                            # Universal multi-agent installer (auto-symlink)
 ├── uninstall.sh                          # Clean symlink removal script
 │
-├── skills/                               # 16 Specialized Workbench & Systems Skills
+├── skills/                               # 17 Specialized Workbench & Systems Skills
 │   ├── hardware-boardview-skill/         # Short-circuit diagnostics, 1A injection, rails tracing
 │   ├── browser-pdf-canvas-skill/         # PDF.js Canvas, lazy virtualization, anti-ghost-scroll
 │   ├── eeprom-flashing-skill/            # SPI flashrom 24/25 series via CH341A + Clean ME
@@ -119,7 +119,8 @@ zero-bloat-skills/
 │   ├── mesh-and-tunnel-ops-skill/        # Cloudflare Tunnel ingress + Tailscale private mesh
 │   ├── zero-bloat-web-stack-skill/       # FastAPI + Alpine + HTMX + Tailwind (<40MB RAM)
 │   ├── privacy-analytics-waf-skill/      # Zero-cookie visitor analytics + WAF rate limiter
-│   └── print-shop-canvas-skill/          # High-DPI Pillow canvas generator for physical print
+│   ├── print-shop-canvas-skill/          # High-DPI Pillow canvas generator for physical print
+│   └── liquid-apple-ui-skill/            # Apple-style liquid dark UI, pill badges, Alpine tabs
 │
 └── examples/
     └── starter-app/                      # Complete runnable workbench ticketing demo

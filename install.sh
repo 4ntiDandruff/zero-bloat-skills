@@ -65,7 +65,8 @@ for TARGET in "${TARGET_DIRS[@]}"; do
                 LINKED_COUNT=$((LINKED_COUNT + 1))
             fi
         done
-        echo "    └─ 16 skills symlinked to $TARGET"
+        SKILL_COUNT=$(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
+        echo "    └─ $SKILL_COUNT skills symlinked to $TARGET"
     fi
 done
 

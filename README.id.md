@@ -2,7 +2,7 @@
 
 # ZERO-BLOAT-SKILLS
 
-**16 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**17 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Hardware Lab](https://img.shields.io/badge/Laboratory-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
@@ -82,7 +82,7 @@ Tabel perbandingan nilai rekayasa antara menggunakan jasa vendor/software house 
 |---|---|---|---|
 | Server & Database Bulanan | Sewa VPS Cloud 8GB RAM + Managed DB: Rp 650.000 / bulan | PC Bekas Ruko (i3/STB) + SQLite WAL: Rp 0 (Lokal) | Hemat Rp 7.800.000 / tahun |
 | Lisensi & Domain IP Publik | Sewa IP Publik Statis ISP: Rp 250.000 / bulan | Cloudflare Tunnel + Tailscale Subnet: Rp 0 | Hemat Rp 3.000.000 / tahun |
-| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 16 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
+| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 17 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
 | Waktu Diagnosa Teknisi | Pelacakan manual tanpa AI/skema: ~90 menit/unit | Copilot boardview + injeksi arus: ~15 menit/unit | Menghemat 75 menit waktu kerja/unit |
 
 ---
@@ -96,7 +96,7 @@ zero-bloat-skills/
 ├── install.sh                            # Installer universal multi-agent (symlink otomatis)
 ├── uninstall.sh                          # Skrip pencabutan symlink bersih
 │
-├── skills/                               # 16 Modul Keahlian Meja Servis & Zero-Bloat
+├── skills/                               # 17 Modul Keahlian Meja Servis & Zero-Bloat
 │   ├── hardware-boardview-skill/         # Diagnosa short circuit, injeksi 1A, urutan rails
 │   ├── browser-pdf-canvas-skill/         # PDF.js Canvas, lazy observer, anti-ghost-scroll
 │   ├── eeprom-flashing-skill/            # SPI flashrom 24/25 series via CH341A + Clean ME
@@ -112,7 +112,8 @@ zero-bloat-skills/
 │   ├── mesh-and-tunnel-ops-skill/        # Cloudflare Tunnel publik + Tailscale privat mesh
 │   ├── zero-bloat-web-stack-skill/       # FastAPI + Alpine + HTMX + Tailwind (RAM <40MB)
 │   ├── privacy-analytics-waf-skill/      # Zero-cookie visitor analytics + WAF rate limiter
-│   └── print-shop-canvas-skill/          # Generator grafis dinamis Pillow/PIL presisi cetak
+│   ├── print-shop-canvas-skill/          # Generator grafis dinamis Pillow/PIL presisi cetak
+│   └── liquid-apple-ui-skill/            # UI web ala Apple liquid dark mode, pill status & transisi
 │
 └── examples/
     └── starter-app/                      # Aplikasi percontohan meja servis siap jalan
