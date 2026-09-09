@@ -1,44 +1,44 @@
 ---
 name: watchdog-resilience-skill
-description: "SOP sistem self-healing Linux ruko: recovery loop PM2 & systemd, perbaikan DNS negative cache lockout AdGuard Home, watchdog Cloudflare Tunnel, dan sinkronisasi multi-agent symlink hub."
+description: "Self-healing Linux workbench SOP: PM2 and systemd restart loops, AdGuard Home DNS negative cache lockout flusher, Cloudflare Tunnel watchdog, and symmetric multi-agent hub sync."
 ---
 
 # Watchdog Resilience & Self-Healing Skill
 
-SOP sistem self-healing tingkat daemon untuk mendeteksi service macet, mengatasi kebocoran memori, memulihkan kegagalan DNS seketika, dan menjaga integritas cluster mesin ruko.
+Operating procedures for daemon self-healing: detecting frozen processes, mitigating memory leaks, instantly clearing persistent DNS resolver blackholes, and keeping multi-agent hub symlinks synchronized.
 
 ---
 
-## 1. SOP Penanganan Cache Negatif DNS AdGuard Home
+## 1. AdGuard Home DNS Negative Cache Lockout Remediation
 
-### Gejala:
-Domain publik baru didaftarkan atau subdomain Cloudflare Tunnel diubah. Domain dapat di-resolve via DNS publik (1.1.1.1), tetapi seluruh komputer di LAN ruko mengalami `NXDOMAIN` atau gagal koneksi saat diarahkan ke IP AdGuard Home.
+### Symptom:
+A new public domain or Cloudflare Tunnel subdomain is provisioned. The domain resolves properly via upstream resolvers (1.1.1.1), but all LAN workstation machines return `NXDOMAIN` or connection timeouts when querying the local AdGuard Home resolver.
 
-### Akar Masalah:
-AdGuard Home menyimpan respon NXDOMAIN sebelumnya ke dalam cache memori persisten mengikuti nilai SOA TTL. Me-restart service saja tidak selalu menghapus entri negatif ini.
+### Root Cause:
+AdGuard Home retains negative `NXDOMAIN` records in memory cache respecting authoritative SOA TTL values (often 30+ minutes). Simply restarting the service frequently fails to flush persistent zone caches.
 
-### Solusi Resiliensi 10 Detik:
-1. Tambahkan DNS rewrite sementara di konfigurasi `/opt/AdGuardHome/AdGuardHome.yaml`:
+### 10-Second Resilience Procedure:
+1. Inject a transient explicit DNS rewrite in `/opt/AdGuardHome/AdGuardHome.yaml`:
    ```yaml
    rewrites:
      - domain: "subdomain.example.com"
        answer: "192.168.1.50"
-       enabled: true # WAJIB: Tanpa ini AdGuard mengabaikan rewrite
+       enabled: true # MANDATORY: Without enabled: true AdGuard ignores rewrite
    ```
-2. Restart service:
+2. Restart the daemon:
    ```bash
    sudo systemctl restart AdGuardHome
    ```
-3. Verifikasi instan:
+3. Verify resolution immediately:
    ```bash
    dig @127.0.0.1 subdomain.example.com +short
    ```
 
 ---
 
-## 2. Watchdog Pemulih Cloudflare Tunnel
+## 2. Cloudflare Tunnel Health Watchdog
 
-Skrip cron yang memeriksa kelancaran arus tunnel publik setiap 3 menit:
+A lightweight cron watchdog verifying public ingress health every 3 minutes:
 
 ```bash
 #!/usr/bin/env bash
@@ -47,7 +47,7 @@ CHECK_URL="https://health.example.com/ping"
 STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$CHECK_URL" || true)
 
 if [[ "$STATUS_CODE" != "200" ]]; then
-    echo "[!] Tunnel drop terdeteksi (HTTP $STATUS_CODE). Merestart cloudflared..."
+    echo "[!] Tunnel drop detected (HTTP $STATUS_CODE). Restarting cloudflared..."
     sudo systemctl restart cloudflared
     sleep 5
 fi
@@ -55,25 +55,25 @@ fi
 
 ---
 
-## 3. PM2 Safety & Anti-Disaster Rule
+## 3. PM2 Operational Safety & Anti-Disaster Rule
 
-- **DILARANG**: `pm2 delete all` (menghapus seluruh konfigurasi proses lain yang sedang aktif melayani klien).
-- **Wajib Selalu Spesifik**: `pm2 restart <nama-aplikasi>` atau `pm2 reload <nama-aplikasi>`.
-- **Prosedur Pemulihan Bencana**:
-  Jika terjadi reboot mendadak atau kecelakaan terminal:
+- **STRICTLY PROHIBITED**: `pm2 delete all` (wipes active configurations of all running production services).
+- **Mandatory Targeted Commands**: `pm2 restart <app_name>` or `pm2 reload <app_name>`.
+- **Disaster Recovery**:
+  In the event of an unexpected power failure or accidental PM2 state loss:
   ```bash
   pm2 resurrect
   ```
-  Selalu simpan snapshot konfigurasi setelah menambah service baru:
+  Always commit state snapshots after adding or updating services:
   ```bash
   pm2 save
   ```
 
 ---
 
-## 4. Sinkronisasi Hub Multi-Agent Simetris
+## 4. Symmetric Multi-Agent Skill Synchronization
 
-Gunakan skrip `update-agents.sh` untuk memelihara symlink skill secara otomatis ke seluruh platform coding AI:
+Maintain synchronized symlinks across all AI coding agent directories via an automated script (`update-agents.sh`):
 ```bash
 ln -sfn ~/.hermes/skills/* ~/.claude/skills/
 ln -sfn ~/.hermes/skills/* ~/.gemini/config/skills/

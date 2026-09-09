@@ -1,46 +1,46 @@
 ---
 name: android-bench-debloat-skill
-description: "SOP pembersihan bloatware Android konsumen meja servis via ADB tanpa root: whitelist sistem vital, katalog blacklist vendor (Samsung, Xiaomi, Oppo, Vivo), dan batch automation."
+description: "Non-root ADB Android debloater SOP for workbench servicing: critical system whitelist, OEM package blacklist catalog (Samsung, Xiaomi, Oppo, Vivo), and batch removal automation."
 ---
 
 # Android Bench Debloat Skill
 
-Panduan meja servis untuk merevitalisasi ponsel Android konsumen yang lemot, memori penuh, dan terbebani aplikasi sistem pihak ketiga (bloatware) tanpa memerlukan akses root yang membatalkan garansi atau memicu deteksi keamanan perbankan.
+Standard operating procedure for reviving laggy, storage-exhausted Android client devices without voiding hardware warranty or tripping financial Knox/SafetyNet triggers via root access.
 
 ---
 
-## 1. Prinsip: Disable vs Uninstall User 0
+## 1. Principle: Disable vs User 0 Uninstallation
 
-- Perintah `pm uninstall -k --user 0 <package>` menghapus aplikasi dari ruang kerja pengguna utama, namun file APK asli tetap tersimpan aman di partisi `/system` read-only.
-- Jika pengguna membutuhkan kembali aplikasi tersebut atau terjadi kendala fungsionalitas, aplikasi dapat dipulihkan instan tanpa download ulang:
+- Running `pm uninstall -k --user 0 <package>` uninstalls the application from primary user space while keeping the signed factory APK in the read-only `/system` partition.
+- If a customer requires an uninstalled service restored, it can be reinstituted immediately without downloading:
   ```bash
   adb shell cmd package install-existing <package>
   ```
 
 ---
 
-## 2. Whitelist Kritis: DILARANG Dihapus
+## 2. Vital System Whitelist: DO NOT UNINSTALL
 
-Menghapus paket-paket ini akan mengakibatkan *bootloop* atau sistem crash permanen:
-- `com.android.systemui` (System UI / status bar)
+Removing these packages will induce permanent bootloops or catastrophic System UI crashes:
+- `com.android.systemui` (System UI, notifications, status bar)
 - `com.google.android.packageinstaller` / `com.android.packageinstaller`
-- `com.android.settings` (Menu Pengaturan)
-- `com.android.providers.telephony` (Fungsi SMS & Jaringan SIM)
+- `com.android.settings` (Core system settings)
+- `com.android.providers.telephony` (Telephony & SIM baseband services)
 - `com.android.providers.media` / `com.android.providers.downloads`
-- Paket keyboard default sebelum memasang keyboard pengganti (Gboard).
+- The default input method (keyboard) before configuring a verified replacement (Gboard).
 
 ---
 
-## 3. Blacklist Bloatware per Vendor
+## 3. OEM Package Blacklist Catalog
 
 ### Xiaomi / MIUI / HyperOS:
 ```bash
-# Iklan sistem (Analytics & MSA)
+# System Telemetry & Ad Engines
 adb shell pm uninstall -k --user 0 com.miui.analytics
 adb shell pm uninstall -k --user 0 com.miui.msa.global
 adb shell pm uninstall -k --user 0 com.xiaomi.mipicks
 
-# Aplikasi bloatware
+# Preinstalled Third-Party Bloat
 adb shell pm uninstall -k --user 0 com.mi.globalbrowser
 adb shell pm uninstall -k --user 0 com.facebook.katana
 adb shell pm uninstall -k --user 0 com.facebook.services
@@ -48,7 +48,7 @@ adb shell pm uninstall -k --user 0 com.facebook.services
 
 ### Samsung / One UI:
 ```bash
-# Layanan Bixby & Iklan
+# Telemetry & Redundant Background Services
 adb shell pm uninstall -k --user 0 com.samsung.android.bixby.agent
 adb shell pm uninstall -k --user 0 com.samsung.android.bixby.service
 adb shell pm uninstall -k --user 0 com.samsung.android.game.gamehome
@@ -57,13 +57,13 @@ adb shell pm uninstall -k --user 0 com.samsung.android.app.spage
 
 ---
 
-## 4. Skrip Eksekusi Otomatis Batch
+## 4. Automated Batch Script Execution
 
-Simpan daftar paket target ke file `debloat_list.txt`, lalu eksekusi satu baris:
+Place target package identifiers into `debloat_list.txt`, then run:
 ```bash
 while read -r package; do
     [[ -z "$package" || "$package" =~ ^# ]] && continue
-    echo "[*] Menghapus: $package"
+    echo "[*] Removing package: $package"
     adb shell pm uninstall -k --user 0 "$package" || true
 done < debloat_list.txt
 ```

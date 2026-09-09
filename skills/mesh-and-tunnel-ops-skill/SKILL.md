@@ -1,84 +1,84 @@
 ---
 name: mesh-and-tunnel-ops-skill
-description: "Topologi jaringan ruko zero-port-forwarding: Cloudflare Tunnel untuk ingress publik HTTPS gratis + Tailscale subnet mesh privat antar PC/node."
+description: "Zero-port-forwarding workshop networking: Cloudflare Tunnel for secure public HTTPS ingress and Tailscale WireGuard subnet mesh for private node interconnects."
 ---
 
 # Mesh & Tunnel Ops Skill
 
-Panduan topologi jaringan aman untuk server homelab dan ruko tanpa membuka port publik di router ISP (anti-DDoS, zero IP publik statis, dan HTTPS otomatis).
+Zero-port-forwarding network topology pattern for workshop servers and homelab machines without exposing ports on consumer ISP routers (anti-DDoS, zero static IP dependencies, and automatic SSL encryption).
 
 ---
 
-## 1. Topologi Dual-Layer (Publik vs Privat)
+## 1. Dual-Layer Topology (Public vs Private)
 
 ```
-[ Internet Publik ] 
-        ↓
-  [ Cloudflare Edge (WAF + DDOS Shield + SSL Gratis) ]
-        ↓ (Outbound Encrypted Tunnel)
-  [ PC Server Ruko (cloudflared daemon) ]
-        ↓
-[ Aplikasi Web Lokal (localhost:8000) ]
+[ Public Internet Traffic ] 
+             ↓
+  [ Cloudflare Edge (WAF + DDoS Protection + Free SSL Certificate) ]
+             ↓ (Outbound Encrypted Tunnel)
+  [ Local Workbench Server (cloudflared daemon) ]
+             ↓
+[ Local Application Endpoints (localhost:8000) ]
 
 -----------------------------------------------------
 
-[ Akses Teknisi / Antar-Node Privat ]
-        ↓
+[ Technician & Point-to-Point Node Traffic ]
+             ↓
   [ Tailscale WireGuard Mesh (100.x.y.z) ]
-        ↓
-[ Akses SSH Direct / Transfer File Antar PC Tanpa Batasan Cloudflare ]
+             ↓
+[ Direct SSH & Bulk File Transfers Bypassing Cloudflare Limits ]
 ```
 
 ---
 
-## 2. Konfigurasi Cloudflare Tunnel Standar Produksi
+## 2. Production Cloudflare Tunnel Configuration
 
-File konfigurasi resmi berada di `/etc/cloudflared/config.yml`:
+Official service configuration lives at `/etc/cloudflared/config.yml`:
 
 ```yaml
 tunnel: a1b2c3d4-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 credentials-file: /etc/cloudflared/cert.json
 
 ingress:
-  # Endpoint Layanan 1
-  - hostname: app.domain.com
+  # Service Endpoint 1
+  - hostname: app.example.com
     service: http://localhost:8000
     originRequest:
       noTLSVerify: true
       connectTimeout: 10s
 
-  # Endpoint Layanan 2
-  - hostname: cctv.domain.com
+  # Service Endpoint 2
+  - hostname: cctv.example.com
     service: http://localhost:1984
 
-  # Fallback 404 wajib untuk keamanan
+  # Mandatory 404 security fallback
   - service: http_status:404
 ```
 
 ---
 
-## 3. Tailscale Subnet Router
+## 3. Tailscale Subnet Router Configuration
 
-Agar seluruh perangkat di LAN ruko dapat diakses dari luar tanpa memasang client Tailscale di setiap printer atau CCTV:
+Expose entire local workshop LAN subnets without installing Tailscale clients on legacy printers or test benches:
 
 ```bash
-# Aktifkan IP Forwarding di kernel Linux
+# Enable IPv4 packet forwarding in Linux kernel
 echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
 sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
 
-# Pasang subnet router LAN
+# Advertise local LAN subnet routes
 sudo tailscale up --advertise-routes=192.168.1.0/24 --accept-routes
 ```
 
 ---
 
-## 4. SOP Verifikasi Jaringan
+## 4. Verification Routines
 
 ```bash
-# Uji status tunnel Cloudflare
+# Inspect Cloudflare Tunnel service status
 sudo systemctl status cloudflared
 
-# Uji konektivitas mesh Tailscale
+# Check mesh node status
 tailscale status
 tailscale ping 100.100.100.1
 ```

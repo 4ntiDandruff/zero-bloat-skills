@@ -1,57 +1,56 @@
 ---
 name: browser-pdf-canvas-skill
-description: "Arsitektur PDF.js HTML5 Canvas viewer kustom: lazy virtualized rendering via IntersectionObserver, eliminasi feedback loop animasi scroll hantu, dan in-document text search."
+description: "Custom PDF.js HTML5 Canvas viewer architecture: lazy virtualized rendering via IntersectionObserver, elimination of ghost-scroll feedback loops, and isolated in-document text search."
 ---
 
 # Browser PDF Canvas Engine Skill
 
-Solusi arsitektur web viewer PDF untuk dokumen teknis besar (skema boardview 50-150 halaman) tanpa menggunakan iframe bawaan browser yang membatasi kontrol mouse dan event.
+Web architectural pattern for embedding large technical documents (50-150 page boardview schematics) without relying on browser native iframes that restrict DOM interaction and event handling.
 
 ---
 
-## 1. Kegagalan Iframe Bawaan Browser
+## 1. Native Iframe Limitations
 
-- Tag `<iframe>` PDF standar browser berjalan di dalam sandbox native C++ terisolasi.
-- Event mouse (drag pan, click, selection, scroll zoom) ditelan habis oleh viewer browser dan tidak dapat diakses oleh JavaScript aplikasi utama.
-- Fitur pencarian `Ctrl+F` browser menelusuri seluruh DOM halaman web (label sidebar, riwayat chat AI, tombol navigasi), bukan hanya teks dalam dokumen PDF.
+- Native `<iframe>` PDF viewers execute within isolated browser sandboxes. Mouse events (dragging, panning, precise selection, wheel zoom) are captured internally and hidden from parent JavaScript.
+- Native `Ctrl+F` searches the entire browser DOM (including navigation menus, sidebars, and AI chat panels) rather than restricting queries to technical schematic text.
 
 ---
 
-## 2. Solusi: HTML5 Canvas + Virtualized Lazy Rendering
+## 2. Virtualized Lazy Rendering via HTML5 Canvas
 
-Rendering seluruh halaman PDF (100+ halaman) sekaligus ke Canvas akan membuat browser crash atau memakan memori berlebih. Gunakan pola virtualisasi berikut:
+Rendering all pages of a 100+ page schematic concurrently crashes browser tabs. Use virtualized viewport observers:
 
 ```javascript
-// 1. Buat placeholder div kosong dengan atribut data-page-num
+// 1. Create lightweight empty placeholder div preserving document scroll geometry
 const placeholder = document.createElement('div');
 placeholder.className = 'pdf-page-container relative';
 placeholder.dataset.pageNum = pageNum;
 placeholder.style.minHeight = `${estimatedHeight}px`;
 
-// 2. Pasang IntersectionObserver untuk lazy-rendering
+// 2. Attach IntersectionObserver for viewport-driven rendering
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     const pageNumber = parseInt(entry.target.dataset.pageNum, 10);
     if (entry.isIntersecting) {
       renderPageCanvas(pageNumber, entry.target);
     } else {
-      // Bersihkan canvas yang keluar dari viewport untuk hemat RAM
+      // Purge non-visible canvas to conserve system memory
       cleanupPageCanvas(entry.target);
     }
   });
 }, {
-  rootMargin: '400px 0px' // Buffer pre-fetch 1 halaman sebelum masuk layar
+  rootMargin: '400px 0px' // Buffer pre-fetching 1 page ahead
 });
 ```
 
 ---
 
-## 3. Eliminasi Bug "Scroll Hantu" (Infinite Feedback Loop)
+## 3. Eliminating Ghost-Scroll Loops (`jumpTargetRef` Lock)
 
-### Akar Masalah:
-Observer mendeteksi posisi halaman baru → memanggil callback `onPageChange(p)` → state parent berubah → memicu `scrollIntoView({ behavior: 'smooth' })` → browser beranimasi melewati halaman lain → observer terpicu lagi berulang kali hingga halaman melompat tanpa kendali.
+### Root Cause:
+Observer identifies a new page -> invokes `onPageChange(p)` -> parent state updates -> triggers `scrollIntoView({ behavior: 'smooth' })` -> animated scroll travels past adjacent pages -> observer triggers repeatedly, creating an uncontrollable jumping loop.
 
-### Solusi Sekring Ganda (`lastPageRef` + `jumpTargetRef`):
+### Dual-Fuse Circuit Breaker (`lastPageRef` + `jumpTargetRef`):
 ```javascript
 let isProgrammaticScroll = false;
 let targetPage = null;
@@ -66,20 +65,20 @@ function navigateToPage(pageNum) {
   }
 }
 
-// Di dalam observer handler:
+// Inside IntersectionObserver handler:
 if (isProgrammaticScroll) {
   if (detectedPage === targetPage) {
-    isProgrammaticScroll = false; // Buka kunci sekring setelah target tercapai
+    isProgrammaticScroll = false; // Release lock upon reaching destination
   }
-  return; // Abaikan event transisi selama animasi scroll berlangsung
+  return; // Suppress observer events during programmatic transition
 }
 ```
 
 ---
 
-## 4. In-Document Text Search Mandiri
+## 4. Isolated In-Document Text Search
 
-Alih-alih bergantung pada pencarian browser:
-1. Panggil `page.getTextContent()` per halaman untuk membaca seluruh string teks dan koordinatnya.
-2. Buat array indeks kata kunci lokal (`[{ page: 12, count: 3 }]`).
-3. Sediakan kontrol navigasi Previous/Next khusus pada toolbar viewer untuk melompat langsung ke halaman yang memiliki kecocokan kata kunci.
+Instead of relying on browser global search:
+1. Call `page.getTextContent()` per page to index exact string matches and coordinates.
+2. Build an in-memory page hit table (`[{ page: 14, matches: 3 }]`).
+3. Provide dedicated Previous/Next controls on the canvas toolbar to jump directly to matching schematic nodes.

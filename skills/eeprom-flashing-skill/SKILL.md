@@ -1,64 +1,64 @@
 ---
 name: eeprom-flashing-skill
-description: "SOP pembacaan, validasi, dan flashing SPI BIOS/EEPROM (24/25 series) via CH341A programmer & flashrom, pembersihan Intel ME Region, dan binding native Rust Tauri v2."
+description: "SPI BIOS/EEPROM (24/25 series) read, verification, and flashing SOP using CH341A programmers and flashrom, Intel ME Region cleanup, and native Rust Tauri v2 bindings."
 ---
 
 # EEPROM Firmware Flashing Skill
 
-SOP tingkat sirkuit untuk membaca, memverifikasi, memanipulasi, dan menulis ulang chip SPI Flash EEPROM pada motherboard komputer dan laptop.
+Circuit-level operating procedures for reading, verifying, modifying, and programming SPI Flash EEPROM chips on computer motherboards.
 
 ---
 
-## 1. Persiapan Fisik & Voltage Pin 3.3V vs 5V (CH341A Mod)
+## 1. Voltage Verification: 3.3V vs 5V (CH341A Hardware Mod)
 
-- **Peringatan Kritis**: Modul programmer CH341A hitam standar pabrik sering memiliki kesalahan sirkuit bawaan: jalur data VCC/I/O mengalirkan tegangan 5.0V meskipun saklar diatur ke 3.3V.
-- Sebagian besar chip SPI Flash motherboard modern (Winbond, Macronix, GigaDevice 25QXX) bekerja pada **3.3V** atau **1.8V** (seri low-voltage seperti 25Q64FW).
-- Mengalirkan 5.0V ke chip 3.3V/1.8V dapat merusak struktur gerbang silikon chip secara permanen.
-- Selalu pastikan jalur pinout regulator 1117-3.3V terhubung ke pin 28 chip CH341A sebelum menyambungkan klip SOIC8 ke motherboard.
+- **Critical Pre-Check**: Stock black CH341A USB programmers frequently feature a PCB routing design flaw: data lines (MOSI, MISO, CLK, CS) carry 5.0V even when configured for 3.3V operation.
+- Modern motherboard SPI Flash chips (Winbond, Macronix, GigaDevice 25QXX) operate at **3.3V** or **1.8V** (such as 25Q64FW series).
+- Supplying 5.0V directly to 3.3V/1.8V silicon gates will cause irreversible semiconductor degradation.
+- Always verify that the 1117-3.3V regulator output connects to CH341A pin 28 before attaching the SOIC8 test clip to the motherboard.
 
 ---
 
-## 2. Prosedur Pembacaan & Verifikasi Dump (Aturan MD5 Tiga Kali)
+## 2. Dump Verification Procedure (Three-Pass Hash Rule)
 
-Dilarang menghapus atau menulis file baru sebelum dump firmware asli terbukti valid:
+Never erase or write to a chip before the original factory firmware dump is verified:
 
 ```bash
-# 1. Baca chip percobaan pertama
+# 1. Read first dump
 flashrom -p ch341a_spi -r dump_01.bin
 
-# 2. Baca chip percobaan kedua
+# 2. Read second dump
 flashrom -p ch341a_spi -r dump_02.bin
 
-# 3. Uji kesamaan hash MD5
+# 3. Compare MD5 checksums
 md5sum dump_01.bin dump_02.bin
 ```
 
-Jika hash kedua file tidak identik 100%:
-- Bersihkan kaki-kaki IC dari korosi atau flux menggunakan sikat dan IPA 99%.
-- Pastikan jepitan klip SOIC8 menempel sempurna pada seluruh pin.
-- Ulangi pembacaan hingga didapatkan hash yang identik 3 kali berturut-turut.
+If hashes differ:
+- Clean IC pins with a brush and 99% isopropyl alcohol to eliminate flux residue.
+- Reseat the SOIC8 test clip ensuring firm, parallel contact on all pins.
+- Repeat reading until three consecutive reads produce matching hashes.
 
 ---
 
-## 3. Pembersihan Intel Management Engine (Clean ME Region)
+## 3. Intel Management Engine Region Cleanup (Clean ME)
 
-Masalah umum setelah penggantian motherboard atau chip BIOS:
-- Laptop mati otomatis tepat 30 menit sekali.
-- Kipas berputar kecepatan penuh (100%) terus menerus sejak pertama kali menyala.
-- Boot delay (tampil gambar membutuhkan waktu 1-2 menit setelah tombol ditekan).
+Common symptoms of an uncleaned or corrupted ME region after motherboard repair:
+- System powers down automatically after precisely 30 minutes.
+- CPU fan runs at 100% maximum RPM continuously from cold boot.
+- Display initialization delay (black screen for 60-90 seconds before POST).
 
-### Prosedur Clean ME:
-1. Ekstrak bagian ME Region dari file dump menggunakan `me_cleaner` atau Intel FIT (Flash Image Tool).
-2. Masukkan repository CSE/ME Region bersih (*unconfigured*) yang cocok dengan SKU chipset.
-3. Rekonstruksi file BIOS dan tulis kembali ke chip via `flashrom`:
+### Clean ME Procedure:
+1. Extract the ME Region partition from the firmware dump using `me_cleaner` or Intel Flash Image Tool (FIT).
+2. Substitute a clean, unconfigured repository CSE/ME region corresponding to the exact chipset SKU.
+3. Rebuild the BIOS binary and write it back via `flashrom`:
    ```bash
    flashrom -p ch341a_spi -w bios_clean_me.bin
    ```
 
 ---
 
-## 4. Pola Rust Native Binding (Tauri v2)
+## 4. Native Rust Binding Architecture (Tauri v2)
 
-Untuk aplikasi desktop tanpa dependensi berat:
-- Gunakan libftdi atau binding libusb di Rust untuk berkomunikasi langsung dengan chip CH341A.
-- Pantau progress bar byte per byte via background thread tanpa memblokir thread UI.
+For zero-bloat desktop flasher utilities:
+- Use `libftdi` or `libusb` Rust bindings to interface directly with the CH341A USB controller.
+- Stream byte progress through background worker threads to maintain smooth, non-blocking UI responsiveness.

@@ -1,17 +1,17 @@
 ---
 name: telegram-ops-control-skill
-description: "Infrastruktur bot Telegram untuk kendali remote server meja servis: tombol inline SSH, trigger saklar Wake-on-LAN (WOL), alerting beban sistem, dan manajemen proses PM2."
+description: "Telegram bot infrastructure for remote server management: interactive inline keyboard buttons, Wake-on-LAN (WOL) triggers, proactive resource alerting, and PM2 process monitoring."
 ---
 
 # Telegram Ops Control Bot Skill
 
-Pola arsitektur bot Telegram untuk memantau dan mengendalikan armada PC meja servis, homelab, dan server edge langsung dari smartphone melalui tombol inline keyboard interaktif.
+Architectural pattern for monitoring and controlling workbench machines, edge servers, and homelab nodes directly from a mobile device via interactive Telegram inline keyboard buttons.
 
 ---
 
-## 1. Arsitektur Tombol Saklar & Wake-On-LAN (WOL)
+## 1. Remote Trigger Buttons & Wake-On-LAN (WOL)
 
-Teknisi tidak perlu membuka laptop untuk menyalakan PC kerja atau merestart service yang macet:
+Control remote hardware without requiring a laptop terminal session:
 
 ```python
 from telebot import TeleBot
@@ -23,36 +23,36 @@ bot = TeleBot("TOKEN_PLACEHOLDER")
 def main_menu():
     markup = InlineKeyboardMarkup(row_width=2)
     markup.add(
-        InlineKeyboardButton("[⚡] Bangunkan Ryzen (WOL)", callback_data="wol_ryzen"),
-        InlineKeyboardButton("[🔄] Restart AdGuard", callback_data="restart_adguard"),
-        InlineKeyboardButton("[📊] Cek Beban RAM", callback_data="check_ram"),
-        InlineKeyboardButton("[🛡️] Status Cloudflare", callback_data="check_cf")
+        InlineKeyboardButton("[⚡] Wake Workbench PC (WOL)", callback_data="wol_pc"),
+        InlineKeyboardButton("[🔄] Restart DNS Service", callback_data="restart_dns"),
+        InlineKeyboardButton("[📊] Memory Health Check", callback_data="check_ram"),
+        InlineKeyboardButton("[🛡️] Cloudflare Tunnel Status", callback_data="check_cf")
     )
     return markup
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_query(call):
-    if call.data == "wol_ryzen":
-        # Kirim magic packet Wake-on-LAN ke kartu jaringan target
+    if call.data == "wol_pc":
         subprocess.run(["wakeonlan", "AA:BB:CC:DD:EE:FF"], check=True)
-        bot.answer_callback_query(call.id, "Magic packet WOL terkirim!")
+        bot.answer_callback_query(call.id, "WOL magic packet dispatched.")
     elif call.data == "check_ram":
         out = subprocess.check_output(["free", "-h"]).decode()
-        bot.send_message(call.message.chat.id, f"Status Memori:\n```\n{out}```", parse_mode="Markdown")
+        bot.send_message(call.message.chat.id, f"Memory State:\n```\n{out}```", parse_mode="Markdown")
 ```
 
 ---
 
-## 2. Sekring Keamanan (Whitelist Chat ID & Rate Limiting)
+## 2. Authentication Gate & Rate Limiting
 
-Untuk mencegah akses liar jika token bot bocor:
+Mitigate security exposure if bot tokens leak:
+
 ```python
-AUTHORIZED_USERS = {123456789} # Ganti dengan ID telegram pemilik asli
+AUTHORIZED_USERS = {123456789} # Replace with verified operator Telegram ID
 
 def auth_required(func):
     def wrapper(message, *args, **kwargs):
         if message.from_user.id not in AUTHORIZED_USERS:
-            bot.reply_to(message, "[!] Akses ditolak. Insiden dicatat.")
+            bot.reply_to(message, "[!] Access denied. Incident logged.")
             return
         return func(message, *args, **kwargs)
     return wrapper
@@ -60,9 +60,9 @@ def auth_required(func):
 
 ---
 
-## 3. Monitoring Proaktif Latar Belakang (Watchdog Alert)
+## 3. Proactive Health Watchdog Loop
 
-Bot berjalan sebagai thread daemon yang secara periodik mengecek kesehatan sirkuit:
-- Disk space < 10% -> Kirim pesan darurat ke Telegram.
-- RAM usage > 90% selama 5 menit berturut-turut -> Kirim notifikasi peringatan.
-- Status service PM2 error -> Kirim ringkasan error log 20 baris terakhir.
+Runs as an unprivileged background daemon checking system telemetry:
+- Available storage < 10% -> Immediate urgent alert dispatched.
+- Memory usage > 90% sustained for 5 consecutive minutes -> Warning alert dispatched.
+- Monitored process crashes -> Tail 20 lines of diagnostic error logs to chat.

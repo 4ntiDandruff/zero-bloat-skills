@@ -1,31 +1,31 @@
 ---
 name: zero-transcode-media-skill
-description: "Arsitektur media streaming CCTV di hardware terbatas (edge STB/i3) tanpa beban transcoding CPU: pass-through RTSP ke WebRTC/HLS via go2rtc dan memory limit <30MB."
+description: "Edge CCTV media streaming architecture on constrained hardware (STB/i3) without CPU transcoding: RTSP to WebRTC/HLS pass-through via go2rtc and memory footprint <30MB."
 ---
 
 # Zero-Transcode Edge Media Skill
 
-Pola arsitektur streaming video CCTV real-time untuk perangkat edge berdaya rendah (STB Android Armbian, Raspberry Pi, atau PC lawas) tanpa membebani CPU dengan proses re-encoding/transcoding.
+Real-time CCTV and bench monitoring streaming pattern for low-power edge hardware (Armbian TV boxes, repurposed laptops, or edge single-board computers) without exhausting CPU cores on software video re-encoding.
 
 ---
 
-## 1. Masalah Transcoding Video di Hardware Terbatas
+## 1. The Cost of Transcoding on Constrained Hardware
 
-- Memproses ulang stream video H.264/H.265 via FFmpeg CPU software decoding mengonsumsi 80-100% kapasitas prosesor pada mesin non-GPU.
-- Akibatnya: suhu CPU melonjak, frame drop, dan perangkat hang dalam beberapa jam.
+- Re-encoding incoming H.264/H.265 video streams via FFmpeg CPU decoders absorbs 80-100% of CPU capacity on non-GPU edge appliances.
+- High thermal throttling, frame stuttering, and eventual system freeze follow within hours.
 
 ---
 
-## 2. Solusi Sirkuit: Pure Pass-Through Streaming (go2rtc)
+## 2. Circuit Solution: Native RTP Pass-Through (go2rtc)
 
-Gunakan engine media biner native Go (`go2rtc`) yang hanya mengalirkan paket RTP tanpa mendekode ulang frame video:
+Utilize a compiled Go binary (`go2rtc`) that forwards raw RTP packets directly to browser endpoints without decoding video frames:
 
-### Konfigurasi `go2rtc.yaml`:
+### `go2rtc.yaml` Configuration:
 ```yaml
 streams:
-  kamera_depan:
+  bench_camera:
     - rtsp://admin:pass@192.168.1.100:554/stream1
-  kamera_servis:
+  workshop_overhead:
     - rtsp://admin:pass@192.168.1.101:554/live/ch0
 
 api:
@@ -37,23 +37,22 @@ webrtc:
 
 ---
 
-## 3. Metrik Efisiensi Arus Data
+## 3. Data Flow & Efficiency Comparison
 
-| Metrik | FFmpeg Transcoder | go2rtc Pass-Through | Efisiensi |
+| Metric | FFmpeg Transcoder | go2rtc Pass-Through | Real Gain |
 |---|---|---|---|
-| Konsumsi CPU | 65% - 95% | 0.2% - 1.5% | Hemat beban ~98% |
-| Alokasi RAM | ~250 MB / stream | ~15 MB / stream | Hemat RAM ~94% |
-| Latensi Glass-to-Glass | 3.0 - 5.0 detik | <0.3 detik (WebRTC) | Instan tanpa delay |
+| CPU Utilization | 65% - 95% | 0.2% - 1.5% | ~98% CPU reduction |
+| Memory Allocation | ~250 MB / stream | ~15 MB / stream | ~94% RAM reduction |
+| Glass-to-Glass Latency | 3.0 - 5.0 seconds | <0.3 seconds (WebRTC) | Sub-second real-time |
 
 ---
 
-## 4. Integrasi Web UI Minimalis
+## 4. Minimalist Web Client Integration
 
-Tampilkan video ke dashboard web menggunakan tag standar WebRTC atau HLS native:
+Render live video feeds into browser interfaces using standard HTML5 WebRTC:
 
 ```html
 <div class="rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
-    <!-- WebRTC Player Native -->
     <video id="cctv-stream" autoplay muted playsinline class="w-full h-auto"></video>
 </div>
 
@@ -68,7 +67,7 @@ async function connectStream() {
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     
-    const resp = await fetch('/api/webrtc?src=kamera_servis', {
+    const resp = await fetch('/api/webrtc?src=bench_camera', {
         method: 'POST',
         body: offer.sdp
     });

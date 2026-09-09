@@ -1,49 +1,49 @@
 ---
 name: ai-rotary-shield-skill
-description: "Arsitektur reverse proxy gateway & multi-account pooling untuk AI agent CLI: deteksi otomatis HTTP 429/quota exhaustion, auto-failover ke token cadangan, dan peredam rate limit rotary."
+description: "Reverse proxy gateway and multi-account token pooling architecture for AI agent CLIs: automated HTTP 429 and quota exhaustion detection, instantaneous rotary failover, and cooldown dampers."
 ---
 
 # AI Rotary Shield Pool Skill
 
-Arsitektur gateway proxy cerdas untuk menjaga kontinuitas proses coding agen AI (Claude Code, Google Antigravity CLI, Oh My Pi, OpenCode) agar tidak terhenti di tengah jalan akibat batasan kuota (HTTP 429 Too Many Requests / Resource Exhausted).
+Intelligent reverse proxy gateway architecture engineered to preserve execution continuity for autonomous AI coding agents (Claude Code, Google Antigravity CLI, Oh My Pi, OpenCode) when upstream API quotas are exhausted (HTTP 429 Too Many Requests / Resource Exhausted).
 
 ---
 
-## 1. Masalah Kuota AI Agentic Coding
+## 1. The Autonomous Coding Quota Challenge
 
-- Sesi koding autonomous agents mengonsumsi puluhan ribu token dalam waktu singkat saat menjalankan refactoring atau audit besar.
-- Saat akun utama mencapai batas rate limit per-menit atau kuota harian habis, terminal agent akan berhenti mendadak dan membatalkan progres kerja.
-- Solusi konvensional (menunggu kuota reset manual) menghabiskan waktu produktif hingga beberapa jam.
+- Agentic coding loops consume tens of thousands of tokens per minute during multi-file refactoring and AST inspections.
+- When an account hits minute rate limits or daily usage caps, the agent session terminates immediately, discarding intermediate working state.
+- Conventional manual interventions (waiting for reset windows) waste hours of productive workbench time.
 
 ---
 
-## 2. Prinsip Sirkuit Rotary Shield
+## 2. Rotary Shield Circuit Topology
 
 ```
 [ AI Agent Terminal (Claude / Antigravity / OMP) ]
                       ↓
-[ Gateway Reverse Proxy Lokal (FastAPI / Node.js) ]
+[ Local Reverse Proxy Gateway (FastAPI / Node.js) ]
                       ↓
   [ Token Rotary Circuit Pool ]
-    ├── Akun Pool 1 (Aktif - Primary)
-    ├── Akun Pool 2 (Siap Siaga - Warm Standby)
-    └── Akun Pool 3 (Siap Siaga)
+    ├── Pool Account 1 (Active - Primary)
+    ├── Pool Account 2 (Standby - Warm)
+    └── Pool Account 3 (Standby)
                       ↓
   [ Upstream Provider API (Google / Anthropic / OpenRouter) ]
 ```
 
-### Logika Fail-Safe:
-1. Permintaan masuk dialirkan ke `Akun Pool 1`.
-2. Jika upstream mengembalikan kode status **429**, **403 Quota**, atau string error `RESOURCE_EXHAUSTED`:
-   * Jangan teruskan error ke terminal agent.
-   * Tandai `Akun Pool 1` dalam status `COOLING_DOWN` (periode pendinginan 15-60 menit).
-   * Putar relai (*rotate switch*) secara instan ke `Akun Pool 2`.
-   * Ulangi (*replay*) request yang gagal secara transparan.
-3. Terminal agent menerima response valid HTTP 200 tanpa pernah menyadari adanya pergantian akun di belakang layar.
+### Fail-Safe Relay Logic:
+1. Incoming agent payloads route to `Pool Account 1`.
+2. If the upstream provider returns status **429**, **403 Quota**, or `RESOURCE_EXHAUSTED`:
+   * Intercept the error response; do not propagate it back to the agent CLI.
+   * Mark `Pool Account 1` with a `COOLING_DOWN` timestamp (15-60 minute dampening period).
+   * Instantly switch the relay to `Pool Account 2`.
+   * Transparently replay the failed request.
+3. The coding agent receives an HTTP 200 payload without session disruption.
 
 ---
 
-## 3. Implementasi Rotary Switch di Python FastAPI
+## 3. Rotary Switch Implementation (Python FastAPI)
 
 ```python
 import httpx
@@ -67,7 +67,7 @@ def get_next_available_token():
         if acc["cooling_until"] <= now:
             return acc
         current_index = (current_index + 1) % len(TOKEN_POOL)
-    return None # Seluruh pool sedang cooling down
+    return None # Entire pool is currently cooling down
 
 @app.post("/v1/chat/completions")
 async def proxy_completions(request: Request):
@@ -78,18 +78,18 @@ async def proxy_completions(request: Request):
     for attempt in range(3):
         acc = get_next_available_token()
         if not acc:
-            return Response("Seluruh kuota pool sedang habis.", status_code=429)
+            return Response("Entire account pool is cooling down.", status_code=429)
             
         headers["Authorization"] = f"Bearer {acc['token']}"
         async with httpx.AsyncClient(timeout=60.0) as client:
             resp = await client.post("https://api.upstream.example.com/v1/chat/completions", content=body, headers=headers)
             
             if resp.status_code in [429, 403] or "RESOURCE_EXHAUSTED" in resp.text:
-                acc["cooling_until"] = time.time() + 900 # Pendinginan 15 menit
+                acc["cooling_until"] = time.time() + 900 # 15-minute cooldown
                 current_index = (current_index + 1) % len(TOKEN_POOL)
-                continue # Coba akun berikutnya
+                continue # Retry next account in rotary sequence
                 
             return Response(content=resp.content, status_code=resp.status_code, media_type=resp.headers.get("content-type"))
             
-    return Response("Gagal setelah memutar pool.", status_code=500)
+    return Response("Gateway failed across all pool retries.", status_code=500)
 ```

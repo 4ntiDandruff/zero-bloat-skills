@@ -1,76 +1,76 @@
 ---
 name: windows-repair-from-linux-skill
-description: "Toolkit reparasi OS Windows dari lingkungan Linux: reset password lokal chntpw, edit registry offline, perbaikan bootloader BCD, penyelamatan data bad sector ddrescue, dan unlock BitLocker."
+description: "Windows OS triage and servicing from Linux: offline SAM password reset via chntpw, registry hive editing, BCD bootloader recovery, ddrescue bad-sector imaging, and BitLocker partition unlocks."
 ---
 
 # Windows Bench Repair From Linux Skill
 
-Panduan operasional teknisi meja servis untuk mendiagnosa, memulihkan data, dan memperbaiki instalasi Windows yang rusak menggunakan mesin Linux (live USB atau workstation servis).
+Operating instructions for diagnosing, salvaging, and repairing damaged Windows client installations directly from a Linux workstation or technician live environment.
 
 ---
 
-## 1. Penanganan Partisi NTFS & Fast Startup Windows
+## 1. NTFS Partitions & Windows Fast Startup
 
-Windows 10/11 menggunakan fitur Fast Startup yang membuat sistem operasi tidak shutdown sempurna, melainkan hibernasi kernel. Hal ini mengunci partisi NTFS dalam status "dirty".
+Windows 10 and 11 utilize Fast Startup (hybrid hibernation), leaving NTFS volumes in a dirty, locked state:
 
 ```bash
-# Identifikasi partisi target
+# Identify storage partition
 lsblk -f
 
-# Perbaiki status partisi NTFS tanpa merusak data
+# Clear hibernation locks safely without data loss
 sudo ntfsfix -d /dev/nvme0n1p3
 
-# Mount partisi dalam mode aman
+# Mount volume cleanly
 sudo mkdir -p /mnt/client_windows
 sudo mount -t ntfs-3g -o remove_hiberfile /dev/nvme0n1p3 /mnt/client_windows
 ```
 
 ---
 
-## 2. Reset Password Akun Lokal Windows (Offline)
+## 2. Offline Windows Local Password Reset (`chntpw`)
 
-Gunakan utilitas `chntpw` untuk mereset akun lokal yang terkunci atau lupa password:
+Reset locked local administrator or user passwords offline without modifying system files:
 
 ```bash
 cd /mnt/client_windows/Windows/System32/config
 
-# Tampilkan seluruh daftar user di SAM hive
+# List local users stored in the SAM registry hive
 sudo chntpw -l SAM
 
-# Buka menu interaktif untuk user tertentu
-sudo chntpw -u "NamaUser" SAM
-# Pilihan menu:
+# Reset password for target user
+sudo chntpw -u "TargetUser" SAM
+# Menu options:
 # 1 -> Clear (blank) user password
-# 2 -> Unlock and enable user account
-# q -> Keluar dan simpan perubahan (ketik 'y')
+# 2 -> Unlock and enable account
+# q -> Write hive changes and quit (confirm with 'y')
 ```
 
 ---
 
-## 3. Penyelamatan Data dari Media Bad Sector (`ddrescue`)
+## 3. Bad Sector Disk Salvage (`ddrescue`)
 
-Jangan gunakan `cp` atau file manager grafis untuk menyalin data dari harddisk/SSD yang mengalami bad sector. File manager akan freeze saat menabrak bad block.
+Never use standard file managers or `cp` on failing drives; disk read errors will freeze the I/O bus:
 
 ```bash
-# Salin image disk dengan logging peta bad sector
-sudo ddrescue -d -r 2 /dev/sdb /home/michael/backup_disk.img /home/michael/rescue.map
+# Image failing drive with persistent block logging
+sudo ddrescue -d -r 2 /dev/sdb /home/michael/client_disk.img /home/michael/rescue.map
 
-# Mount file image hasil rescue untuk mengambil dokumen pelanggan
-sudo losetup -Pf /home/michael/backup_disk.img
+# Mount rescued raw image safely to recover client documents
+sudo losetup -Pf /home/michael/client_disk.img
 ```
 
 ---
 
-## 4. Buka Kunci Partisi BitLocker via Linux (`dislocker`)
+## 4. Unlocking BitLocker Partitions via Linux (`dislocker`)
 
-Jika partisi klien terenkripsi BitLocker dan klien memiliki recovery key 48 digit:
+When servicing BitLocker-encrypted drives where the client possesses the 48-digit recovery key:
 
 ```bash
 sudo mkdir -p /mnt/bitlocker_raw /mnt/bitlocker_data
 
-# Dekripsi partisi ke block device virtual
+# Decrypt partition to a virtual block device
 sudo dislocker /dev/nvme0n1p3 -p484848-XXXXXX-XXXXXX-... -- /mnt/bitlocker_raw
 
-# Mount file virtual hasil dekripsi
+# Mount decrypted virtual volume read-only
 sudo mount -t ntfs-3g -o ro /mnt/bitlocker_raw/dislocker-file /mnt/bitlocker_data
 ```

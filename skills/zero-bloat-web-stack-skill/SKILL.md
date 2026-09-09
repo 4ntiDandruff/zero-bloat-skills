@@ -5,23 +5,23 @@ description: "Arsitektur web zero-bloat ultra-ringan: FastAPI/Flask + SQLite WAL
 
 # Zero-Bloat Web Stack Skill
 
-Panduan pengembangan aplikasi web modern berkinerja tinggi, responsif di HP, dan hemat memori (<40MB RAM) tanpa beban ratusan megabyte dependensi Node.js di server.
+Architectural guidelines for building high-performance, mobile-responsive web interfaces consuming <40MB RAM without gigabytes of Node.js dependencies on production servers.
 
 ---
 
-## 1. Filosofi Beban Arus Nol (Zero-Bloat Creed)
+## 1. The Zero-Bloat Philosophy
 
-- **Menolak React/Next.js untuk Aplikasi Internal**: Bundling kompleks, konsumsi RAM server ratusan megabyte, dan kerentanan breaking-changes antar rilis.
-- **Memilih Native Web Standards**:
-  - **Kerangka**: HTML5 SSR (Jinja2 / FastAPI) untuk load awal instan (FCP <100ms).
-  - **Tampilan**: Tailwind CSS (CDN standalone atau micro-compiled file tunggal).
-  - **Gerakan**: Alpine.js (state lokal reaktif tanpa bundle build).
-  - **Arus Data**: HTMX (AJAX HTML swap langsung dari server tanpa menulis custom fetch API).
-  - **Simbol**: Lucide inline SVG (nol dependensi font icon atau emoji murahan).
+- **Say No to Heavy SPA Frameworks for Internal Utilities**: Massive bundles, hundreds of megabytes of server memory overhead, and churn across major library versions.
+- **Embrace Native Web Standards**:
+  - **Structure**: HTML5 SSR (Jinja2 / FastAPI) for instant First Contentful Paint (<100ms).
+  - **Visuals**: Tailwind CSS (standalone CDN or micro-compiled single CSS file).
+  - **Reactivity**: Alpine.js (declarative local component state without build steps).
+  - **Data Flow**: HTMX (partial AJAX DOM swaps driven directly by server responses).
+  - **Icons**: Lucide inline SVG vectors (zero icon-font dependencies or emoji clutter).
 
 ---
 
-## 2. Struktur Dasar Aplikasi Single-File (`app.py`)
+## 2. Minimalist Single-File Backend Pattern (`app.py`)
 
 ```python
 from fastapi import FastAPI, Request
@@ -43,7 +43,7 @@ async def home(request: Request):
     conn = get_db()
     items = conn.execute("SELECT * FROM items ORDER BY id DESC LIMIT 20").fetchall()
     conn.close()
-    return templates.TemplateResponse("index.html", {"request": request, "items": items})
+    return templates.TemplateResponse(request=request, name="index.html", context={"items": items})
 
 @app.post("/items/add")
 async def add_item(request: Request):
@@ -57,48 +57,48 @@ async def add_item(request: Request):
     conn.commit()
     conn.close()
     
-    # Kembalikan partial HTML instan untuk di-swap oleh HTMX
+    # Return instantaneous partial HTML swapped directly by HTMX
     return HTMLResponse(f"""
         <li class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between">
             <span>{title}</span>
-            <span class="text-xs text-emerald-400">Baru</span>
+            <span class="text-xs text-emerald-400 font-mono">New</span>
         </li>
     """)
 ```
 
 ---
 
-## 3. Template HTML Bersih (`templates/index.html`)
+## 3. Clean Responsive Interface Template (`templates/index.html`)
 
 ```html
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zero-Bloat Console</title>
-    <!-- Tailwind CSS Standalone & Alpine.js -->
+    <!-- Standalone Zero-Bloat Assets (No node_modules at runtime) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans antialiased">
     <div class="max-w-2xl mx-auto space-y-6">
-        <!-- Form Input Instan via HTMX -->
+        <!-- Instant Form Submission via HTMX -->
         <form hx-post="/items/add" hx-target="#item-list" hx-swap="afterbegin" class="flex gap-2">
-            <input type="text" name="title" placeholder="Catat order servis baru..." required
+            <input type="text" name="title" placeholder="Record new repair order..." required
                    class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-cyan-500">
             <button type="submit" class="bg-cyan-600 hover:bg-cyan-500 px-4 py-2 rounded-lg text-sm font-medium transition">
-                Tambah
+                Submit
             </button>
         </form>
 
-        <!-- Daftar Reaktif -->
+        <!-- Reactive Item List -->
         <ul id="item-list" class="space-y-2">
             {% for item in items %}
             <li class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between">
                 <span>{{ item.title }}</span>
-                <span class="text-xs text-slate-500">#{{ item.id }}</span>
+                <span class="text-xs text-slate-500 font-mono">#{{ item.id }}</span>
             </li>
             {% endfor %}
         </ul>
