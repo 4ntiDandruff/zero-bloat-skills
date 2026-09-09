@@ -155,6 +155,18 @@ Output terminal terverifikasi:
 [+] SELURUH SMOKE TEST LOLOS DENGAN EXIT CODE 0.
 ```
 
+### Cara Memperbarui Skill (Updating)
+
+Karena instalasi menggunakan symlink atomik, menarik pembaruan terbaru akan seketika memperbarui seluruh coding agent tanpa perlu instalasi ulang:
+
+```bash
+# Pembaruan 1-perintah via installer
+./install.sh --update
+
+# Atau via git pull standar
+git pull origin main
+```
+
 ---
 
 ## 7. Potensi Pengembangan

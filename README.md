@@ -162,6 +162,18 @@ Expected terminal output:
 [+] ALL SMOKE TESTS PASSED WITH EXIT CODE 0.
 ```
 
+### Keeping Skills Updated
+
+Because installation relies on atomic symlinks, fetching updates immediately refreshes all connected AI agents without re-running full configuration:
+
+```bash
+# Quick update via installer flag
+./install.sh --update
+
+# Or standard git pull
+git pull origin main
+```
+
 ---
 
 ## 7. Future Roadmap

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =====================================================================
-# ZERO-BLOAT-SKILLS — Universal Multi-Agent Symlink Installer
+# ZERO-BLOAT-SKILLS — Universal Multi-Agent Symlink Installer & Updater
 # Megapass Intra Solusindo • Sidoarjo, Indonesia
 # =====================================================================
 set -euo pipefail
@@ -8,8 +8,31 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
 
-echo "[*] Menjalankan installer universal zero-bloat-skills..."
-echo "[*] Sumber skill: $SKILLS_DIR"
+# Tampilkan panduan jika parameter --help diberikan
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    echo "Usage: $0 [OPTION]"
+    echo ""
+    echo "Options:"
+    echo "  (no args)    Install and symlink all 16 skills to detected AI coding agents"
+    echo "  --update, -u Pull latest updates from Git repository and refresh symlinks"
+    echo "  --help, -h   Display this help message"
+    exit 0
+fi
+
+# Jalankan pembaruan Git jika parameter --update diberikan
+if [[ "${1:-}" == "--update" || "${1:-}" == "-u" ]]; then
+    echo "[*] Pulling latest updates from upstream repository..."
+    if [[ -d "$SCRIPT_DIR/.git" ]]; then
+        git -C "$SCRIPT_DIR" pull origin main
+        echo "[+] Git repository updated successfully."
+    else
+        echo "[!] Warning: .git directory not found. Skipping git pull."
+    fi
+    echo ""
+fi
+
+echo "[*] Installing/refreshing zero-bloat-skills symlinks..."
+echo "[*] Source path: $SKILLS_DIR"
 
 # Target direktori skills untuk masing-masing agent coding AI
 TARGET_DIRS=(
@@ -30,7 +53,7 @@ for TARGET in "${TARGET_DIRS[@]}"; do
     # Pasang HANYA jika platform agent tersebut terpasang / foldernya ada di sistem
     if [[ -d "$PARENT_DIR" || -d "$TARGET" ]]; then
         mkdir -p "$TARGET"
-        echo "[+] Terdeteksi platform di: $TARGET"
+        echo "[+] Detected active AI platform environment: $TARGET"
         
         for SKILL_PATH in "$SKILLS_DIR"/*; do
             if [[ -d "$SKILL_PATH" ]]; then
@@ -42,12 +65,12 @@ for TARGET in "${TARGET_DIRS[@]}"; do
                 LINKED_COUNT=$((LINKED_COUNT + 1))
             fi
         done
-        echo "    └─ 16 skill berhasil di-symlink ke $TARGET"
+        echo "    └─ 16 skills symlinked to $TARGET"
     fi
 done
 
 echo ""
 echo "====================================================================="
-echo "[+] PEMASANGAN SELESAI: $LINKED_COUNT symlink berhasil dipasang."
-echo "[+] Seluruh platform AI kini dapat memuat zero-bloat-skills otomatis."
+echo "[+] SUCCESS: $LINKED_COUNT symlinks actively configured."
+echo "[+] All detected coding agents are now equipped with zero-bloat-skills."
 echo "====================================================================="
