@@ -13,7 +13,7 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
     echo "Usage: $0 [OPTION]"
     echo ""
     echo "Options:"
-    echo "  (no args)    Install and symlink all 16 skills to detected AI coding agents"
+    echo "  (no args)    Install and symlink all zero-bloat skills to detected AI coding agents"
     echo "  --update, -u Pull latest updates from Git repository and refresh symlinks"
     echo "  --help, -h   Display this help message"
     exit 0
@@ -40,6 +40,7 @@ TARGET_DIRS=(
     "$HOME/.claude/skills"
     "$HOME/.config/everything-claude-code/skills"
     "$HOME/.omp/skills"
+    "$HOME/.config/omp/skills"
     "$HOME/.config/opencode/skills"
     "$HOME/.hermes/skills"
     "$HOME/.codex/skills"
@@ -60,8 +61,9 @@ for TARGET in "${TARGET_DIRS[@]}"; do
                 SKILL_NAME="$(basename "$SKILL_PATH")"
                 TARGET_LINK="$TARGET/$SKILL_NAME"
                 
-                # Buat symlink atomik (-sfn: symbolic, force, no-dereference)
-                ln -sfn "$SKILL_PATH" "$TARGET_LINK"
+                # Buat symlink atomik (hapus link lama dulu agar tidak bersarang)
+                rm -f "$TARGET_LINK" 2>/dev/null || true
+                ln -s "$SKILL_PATH" "$TARGET_LINK"
                 LINKED_COUNT=$((LINKED_COUNT + 1))
             fi
         done
