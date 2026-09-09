@@ -44,7 +44,7 @@ Dapat dipasang dan dimuat secara otomatis oleh **Google Antigravity CLI**, **Cla
 Pasang dan hubungkan 21 modul keahlian ini ke seluruh AI coding agent yang terpasang di sistem Linux Anda hanya dengan satu baris perintah terminal:
 
 ```bash
-curl -sSL https://skill.megapass.web.id/install.sh | bash
+curl -fsSL https://skill.megapass.web.id/install.sh | bash
 ```
 
 Atau lakukan clone manual dan jalankan skrip installer lokal:

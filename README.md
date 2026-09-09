@@ -46,7 +46,7 @@ Fully compatible with **Google Antigravity CLI**, **Claude Code**, **Oh My Pi (O
 Deploy and symlink all 21 skills across every installed coding agent on your system with a single command:
 
 ```bash
-curl -sSL https://skill.megapass.web.id/install.sh | bash
+curl -fsSL https://skill.megapass.web.id/install.sh | bash
 ```
 
 Or clone manually and run the local installer:
