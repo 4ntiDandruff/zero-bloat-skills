@@ -82,7 +82,7 @@ Tabel perbandingan nilai rekayasa antara menggunakan jasa vendor/software house 
 |---|---|---|---|
 | Server & Database Bulanan | Sewa VPS Cloud 8GB RAM + Managed DB: Rp 650.000 / bulan | PC Bekas Ruko (i3/STB) + SQLite WAL: Rp 0 (Lokal) | Hemat Rp 7.800.000 / tahun |
 | Lisensi & Domain IP Publik | Sewa IP Publik Statis ISP: Rp 250.000 / bulan | Cloudflare Tunnel + Tailscale Subnet: Rp 0 | Hemat Rp 3.000.000 / tahun |
-| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 19 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
+| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 21 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
 | Waktu Diagnosa Teknisi | Pelacakan manual tanpa AI/skema: ~90 menit/unit | Copilot boardview + injeksi arus: ~15 menit/unit | Menghemat 75 menit waktu kerja/unit |
 
 ---
@@ -96,7 +96,7 @@ zero-bloat-skills/
 ├── install.sh                            # Installer universal multi-agent (symlink otomatis)
 ├── uninstall.sh                          # Skrip pencabutan symlink bersih
 │
-├── skills/                               # 19 Modul Keahlian Meja Servis & Zero-Bloat
+├── skills/                               # 21 Modul Keahlian Meja Servis & Zero-Bloat
 │   ├── hardware-boardview-skill/         # Diagnosa short circuit, injeksi 1A, urutan rails
 │   ├── browser-pdf-canvas-skill/         # PDF.js Canvas, lazy observer, anti-ghost-scroll
 │   ├── eeprom-flashing-skill/            # SPI flashrom 24/25 series via CH341A + Clean ME
@@ -115,7 +115,9 @@ zero-bloat-skills/
 │   ├── print-shop-canvas-skill/          # Generator grafis dinamis Pillow/PIL presisi cetak
 │   ├── liquid-apple-ui-skill/            # UI web ala Apple liquid dark mode, pill status & transisi
 │   ├── longform-reader-ux-skill/         # Table scroll hint, progress bar, copy code, shimmer
-│   └── portfolio-timeline-lightbox-skill/# Milestone roadmap, collapsible phase, lightbox A11y
+│   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap, collapsible phase, lightbox A11y
+│   ├── browser-speech-to-text-skill/     # STT Web Speech browser, PWA mic bridge, terbilang
+│   └── token-frugal-intent-ladder-skill/ # Tangga AI 0-token, semantik hutang/piutang, clean note
 │
 └── examples/
     └── starter-app/                      # Aplikasi percontohan meja servis siap jalan
