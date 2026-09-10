@@ -43,6 +43,8 @@ Strictly avoid generic dark hacker themes or flat muddy grays. The authentic App
 | **Tactile Pill Button** | `rgba(255,255,255,0.94)` + border `rgba(0,0,0,0.08)` | `.btn-apple-pill` | Secondary controls, modal triggers, segmented buttons |
 | **Tactile Action Chip** | Micro-scaling `scale(0.95)` with cubic-bezier dampening | `.btn-tactile` | Interactive chips, copy buttons, dropdown items, switches |
 | **Sidebar Navigation** | Dynamic active gradient `#0077ED` ➔ `#0066CC` | `.nav-item` / `.nav-item.active` | Left rail navigation with subtle horizontal sliding |
+| **Form Inputs & Search** | `bg-white/95` + Apple blue glow ring `focus:ring-[#0071E3]/10` | `.apple-input` | Clean form controls with keyboard shortcut badges |
+| **Segmented Control** | Track `bg-black/[0.03]` + active card pill `bg-white shadow-2xs` | `.apple-segmented` | Tab switcher, period filter, view modes |
 | **Progress Meters** | Silk flow ease with inset track shadow | `.fuel-progress-fill` + `.apple-meter-track` | Quota visualizers, usage histograms, fuel gauges |
 | **Fluid Scrollbar** | Native slim 5px translucent track | `::-webkit-scrollbar` | Discrete, unobtrusive scrolling for cards and timelines |
 
@@ -72,6 +74,29 @@ Implementation in layout:
   <!-- Content -->
 </body>
 ```
+
+### Critical Anti-Pattern: The Opaque Container Trap (Sekring Wadah Solid)
+
+> [!CAUTION]
+> **DILARANG memberikan class background solid pada wrapper anak** (seperti `<div class="min-h-screen bg-[#F5F5F7]">`, `<main class="bg-gray-100">`, atau `<div class="bg-white">`).
+> Menaruh background solid di container pembungkus konten akan **menutup total gradien iridescent mesh pada `<body>`**, membuat tampilan layu dan berubah menjadi abu-abu semen datar.
+>
+> **SOP Baku Wadah**:
+> - Wrapper utama, `<main>`, dan kontainer halaman WAJIB transparan: `bg-transparent` atau tanpa deklarasi `bg-`.
+> - Warna putih dan translusen HANYA boleh dipasang pada level kartu (`.crystal-card`, `bg-white/80`, `bg-white/88`, `bg-white/94`).
+
+### Critical Anti-Pattern: The Conflicting Stylesheet Trap (`app.css` Shorthand Reset)
+
+> [!WARNING]
+> **DILARANG menghubungkan stylesheet eksternal generic/legacy** yang berisi reset shorthand seperti:
+> ```css
+> body { background: var(--bg); } /* SINTAKS RUSAK: Mereset background-image dan background-attachment! */
+> ```
+> Shorthand CSS `background:` otomatis menghapus nilai `background-image` dan `background-attachment: fixed` yang sudah diset oleh `.apple-ambient-canvas`.
+>
+> **SOP Baku CSS**:
+> - Jangan load stylesheet eksternal yang memanipulasi tag `body` atau `html`.
+> - Seluruh konfigurasi canvas, custom class, dan font WAJIB diletakkan di dalam blok `<style>` di `<head>` setelah pemanggilan Tailwind CDN.
 
 ---
 
@@ -315,7 +340,93 @@ AGY Router Changelog and About dialogs use multi-stage layered frosted glass wit
 
 ---
 
-## 6. Concentric Nested Radii & Typography Rules
+## 6. Cupertino Form Controls & Segmented Switches
+
+Authentic Apple controls prioritize optical softness, crystal transparency, and clear focus state geometry:
+
+### A. Apple Search Bar with Keyboard Shortcut Badge
+
+A clean search bar with high contrast placeholder and physical slash (`/`) hotkey tag:
+
+```html
+<div class="relative w-full max-w-md">
+  <svg class="w-4 h-4 text-[#86868B] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <input type="text"
+         placeholder="Filter records, domains, or logs..."
+         class="w-full bg-white/95 border border-black/[0.08] focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 rounded-xl pl-10 pr-9 py-2 text-xs font-mono-apple text-[#1D1D1F] placeholder:text-[#86868B] transition-all outline-none">
+  <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono font-medium text-[#86868B] bg-black/[0.04] px-1.5 py-0.5 rounded border border-black/[0.06] pointer-events-none">/</kbd>
+</div>
+```
+
+### B. Standard Form Input & Select with Apple Glow Ring
+
+Never use harsh dark blue rings or square borders. Apple focus rings are subtle 4px halos with 10% opacity:
+
+```html
+<!-- Text Input -->
+<div class="space-y-1.5">
+  <label class="text-xs font-semibold text-[#1D1D1F]">Target Hostname</label>
+  <input type="text"
+         class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-all">
+</div>
+
+<!-- Select Dropdown -->
+<div class="space-y-1.5">
+  <label class="text-xs font-semibold text-[#1D1D1F]">Record Type</label>
+  <select class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-all cursor-pointer">
+    <option value="A">A Record (IPv4)</option>
+    <option value="CNAME">CNAME Alias</option>
+  </select>
+</div>
+```
+
+### C. Apple Segmented Control (Pill Switch Tab)
+
+Cupertino-style radio/tab switcher inside a sunken track:
+
+```html
+<div class="inline-flex p-1 rounded-xl bg-black/[0.03] border border-black/[0.05] space-x-1">
+  <!-- Active Tab -->
+  <button type="button"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-[#1D1D1F] shadow-2xs border border-black/[0.04] transition-all cursor-pointer">
+    Active View
+  </button>
+  <!-- Inactive Tab -->
+  <button type="button"
+          class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-[#86868B] hover:text-[#1D1D1F] transition-all cursor-pointer">
+    Archived
+  </button>
+</div>
+```
+
+---
+
+## 7. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
+
+> [!IMPORTANT]
+> **AGY Router DNA adalah 100% Light Crystal (Daylight Cupertino).**
+> Estetika Liquid Apple dirancang khusus untuk refraksi cahaya kristal di atas latar platinum `#F5F5F7` dengan saturasi 190%. Mencampur dark mode merusak kalibrasi kontras dan membebani template dengan bloat utility classes.
+
+### Aturan Disiplin Anti-Dark Mode:
+1. **Dilarang Menambahkan `darkMode: 'class'`**:
+   Dalam inisialisasi script Tailwind Play:
+   ```javascript
+   tailwind.config = {
+     // DILARANG: darkMode: 'class',
+     theme: { ... }
+   }
+   ```
+2. **Dilarang Menulis Class Prefiks `dark:`**:
+   Semua class `dark:bg-...`, `dark:text-...`, `dark:border-...` adalah **banned**. Jangan menyisakan residu dark mode pada template HTML.
+3. **Dilarang Menyematkan Tombol Toggle Dark Theme**:
+   Kecuali Cak secara eksplisit meminta switch mode gelap, jangan buat saklar tema matahari/bulan atau script `localStorage.getItem('theme')`.
+
+---
+
+## 8. Concentric Nested Radii & Typography Rules
 
 To avoid awkward optical clashes, corner radii must be scaled concentrically based on nesting depth:
 
@@ -331,9 +442,20 @@ To avoid awkward optical clashes, corner radii must be scaled concentrically bas
 
 ---
 
-## 7. Zero-Bloat Standalone Stack Checklist
+## 9. Zero-Bloat Standalone Stack & Pre-Flight Verification
 
-- Standalone Tailwind CSS loaded via `<script src="https://cdn.tailwindcss.com"></script>`.
-- Alpine.js loaded via deferred script tag (`<script src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js" defer></script>`).
-- Zero `node_modules` required at runtime.
-- Fast initial cold-start, pure client wire size < 60 KB.
+### Checklist Arsitektur:
+- [ ] Standalone Tailwind CSS dimuat via `<script src="https://cdn.tailwindcss.com"></script>`.
+- [ ] Alpine.js dimuat via deferred script tag (`<script src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js" defer></script>`).
+- [ ] Zero `node_modules` di runtime.
+- [ ] Cold-start instan, pure client wire size < 60 KB.
+
+### Pre-Flight Inspection (Wajib Verifikasi Sebelum Selesai):
+1. **Verifikasi Transparansi Wrapper**:
+   Pastikan tidak ada `<div class="bg-[#F5F5F7] ...">` atau `<main class="bg-...">` yang menutupi `apple-ambient-canvas` pada `<body>`.
+2. **Verifikasi CSS Reset Body**:
+   Pastikan tidak ada stylesheet eksternal (`app.css`) dengan rule `body { background: ...; }` yang merusak radial gradient dan `background-attachment: fixed`.
+3. **Verifikasi Residu Dark Mode**:
+   Jalankan pemeriksaan grep: `grep -rn "dark:" templates/` wajib menghasilkan 0 baris.
+4. **Verifikasi DOM Balance**:
+   Selisih tag pembuka vs penutup `<div>`, `<section>`, `<nav>` harus sama dengan 0.
