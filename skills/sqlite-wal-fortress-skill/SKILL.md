@@ -93,11 +93,11 @@ sqlite3 damaged.db "PRAGMA wal_checkpoint(TRUNCATE);"
 ```
 
 ### Step 2: Single-Command Stream Recovery
-The `.recover` command parses uncorrupted B-tree pages even if root pointers are damaged:
+The `.recover` command parses uncorrupted B-tree pages even if root pointers are damaged (available in standard `sqlite3` CLI v3.29.0+):
 ```bash
-sqlite3 damaged.db ".recover" | sqlite3 recovered.db
+# Pipe raw SQL recovery stream directly with transaction bail
+sqlite3 damaged.db ".recover" | sqlite3 -bail recovered.db
 ```
-
 ### Step 3: Integrity Verification
 ```bash
 sqlite3 recovered.db "PRAGMA integrity_check;"

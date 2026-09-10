@@ -39,12 +39,10 @@ CREATE INDEX IF NOT EXISTS idx_path_time ON page_views(path, timestamp);
 
 Unbounded dictionaries (`REQUEST_BUCKET = {}`) without active key eviction lead to catastrophic Out-Of-Memory (OOM) crashes on web servers facing scraper swarms.
 
-This hardened ASGI middleware enforces a strict memory ceiling and dynamic TTL expiration:
-
 ```python
 import time
-from fastapi import Request, HTTPException, Response
-
+from fastapi import Request, Response
+from fastapi.responses import JSONResponse
 # In-memory storage with active TTL boundaries
 REQUEST_BUCKET: dict[str, list[float]] = {}
 BAN_REGISTRY: dict[str, float] = {} # {ip: unban_timestamp}
@@ -84,9 +82,9 @@ async def waf_rate_limiter(request: Request, call_next):
         unban_time = BAN_REGISTRY[client_ip]
         if now < unban_time:
             remaining = int(unban_time - now)
-            raise HTTPException(
+            return JSONResponse(
                 status_code=403, 
-                detail=f"Access blocked by circuit WAF. Cooldown active for {remaining}s."
+                content={"detail": f"Access blocked by circuit WAF. Cooldown active for {remaining}s."}
             )
         else:
             del BAN_REGISTRY[client_ip] # Ban expired, restore access
@@ -97,9 +95,9 @@ async def waf_rate_limiter(request: Request, call_next):
     if len(timestamps) >= RATE_LIMIT:
         BAN_REGISTRY[client_ip] = now + BAN_DURATION
         REQUEST_BUCKET.pop(client_ip, None)
-        raise HTTPException(
+        return JSONResponse(
             status_code=429, 
-            detail="Rate limit exceeded. Temporary 30-minute block enforced."
+            content={"detail": "Rate limit exceeded. Temporary 30-minute block enforced."}
         )
         
     timestamps.append(now)

@@ -132,6 +132,8 @@ async def proxy_completions(request: Request):
                 finally:
                     await upstream_resp.aclose()
 
+            # Note: Streaming handoff begins immediately. Any mid-stream network drop
+            # or provider disconnect will close the client generator cleanly.
             return StreamingResponse(
                 sse_generator(),
                 status_code=upstream_resp.status_code,
