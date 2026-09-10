@@ -1,11 +1,11 @@
 ---
 name: windows-repair-from-linux-skill
-description: "Windows OS triage and servicing from Linux: offline SAM password reset via chntpw, registry hive editing, BCD bootloader recovery, ddrescue bad-sector imaging, and BitLocker partition unlocks."
+description: "Windows OS triage and servicing from Linux: atomic SAM/SYSTEM hive backup, offline password reset via chntpw, UEFI BCD bootloader repair, ddrescue bad-sector imaging, and BitLocker unlocks."
 ---
 
 # Windows Bench Repair From Linux Skill
 
-Operating instructions for diagnosing, salvaging, and repairing damaged Windows client installations directly from a Linux workstation or technician live environment.
+Operating instructions for diagnosing, salvaging, and repairing damaged Windows client installations directly from a Linux workstation or technician live USB environment.
 
 ---
 
@@ -27,41 +27,81 @@ sudo mount -t ntfs-3g -o remove_hiberfile /dev/nvme0n1p3 /mnt/client_windows
 
 ---
 
-## 2. Offline Windows Local Password Reset (`chntpw`)
+## 2. Offline Password Reset with Atomic Registry Hive Backup
 
-Reset locked local administrator or user passwords offline without modifying system files:
+Modifying Windows registry hives directly with `chntpw` carries corruption risks if system shutdown was improper. Always create atomic timestamped backups before editing:
 
 ```bash
 cd /mnt/client_windows/Windows/System32/config
 
-# List local users stored in the SAM registry hive
+# 1. Mandatory Atomic Backup Rule
+sudo cp SAM SAM.bak_$(date +%Y%m%d_%H%M%S)
+sudo cp SYSTEM SYSTEM.bak_$(date +%Y%m%d_%H%M%S)
+
+# 2. List local users in SAM hive
 sudo chntpw -l SAM
 
-# Reset password for target user
+# 3. Reset password for target account
 sudo chntpw -u "TargetUser" SAM
 # Menu options:
 # 1 -> Clear (blank) user password
 # 2 -> Unlock and enable account
 # q -> Write hive changes and quit (confirm with 'y')
+
+# 4. Clean unmount to sync dirty buffers
+cd /
+sudo umount /mnt/client_windows
 ```
 
 ---
 
-## 3. Bad Sector Disk Salvage (`ddrescue`)
+## 3. UEFI BCD Bootloader Reconstruction from Linux
 
-Never use standard file managers or `cp` on failing drives; disk read errors will freeze the I/O bus:
+When a client drive encounters `0xc000000e` or missing EFI boot configuration after cloning or partition resizing:
 
 ```bash
-# Image failing drive with persistent block logging
+# 1. Identify EFI System Partition (ESP) - usually FAT32, ~100MB to 500MB
+sudo fdisk -l /dev/nvme0n1
+# Suppose /dev/nvme0n1p1 is EFI (FAT32) and /dev/nvme0n1p3 is Windows OS (NTFS)
+
+# 2. Mount ESP and Windows OS
+sudo mkdir -p /mnt/esp /mnt/win
+sudo mount /dev/nvme0n1p1 /mnt/esp
+sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/win
+
+# 3. Verify Bootloader Files Exist
+# Windows boot manager should live at: /mnt/esp/EFI/Microsoft/Boot/bootmgfw.efi
+ls -la /mnt/esp/EFI/Microsoft/Boot/
+
+# If missing, copy clean EFI binaries directly from Windows system:
+sudo mkdir -p /mnt/esp/EFI/Microsoft/Boot
+sudo cp -r /mnt/win/Windows/Boot/EFI/* /mnt/esp/EFI/Microsoft/Boot/
+
+# 4. Register UEFI NVRAM Boot Entry via Linux
+sudo efibootmgr -c -d /dev/nvme0n1 -p 1 -L "Windows Boot Manager" -l "\\EFI\\Microsoft\\Boot\\bootmgfw.efi"
+
+# Verify active boot order
+sudo efibootmgr -v
+```
+
+---
+
+## 4. Bad Sector Disk Salvage (`ddrescue`)
+
+Never use standard file managers or `cp` on failing drives; hardware read timeouts will freeze the SATA/NVMe bus:
+
+```bash
+# Image failing drive with persistent log map for resume support
 sudo ddrescue -d -r 2 /dev/sdb /home/michael/client_disk.img /home/michael/rescue.map
 
 # Mount rescued raw image safely to recover client documents
 sudo losetup -Pf /home/michael/client_disk.img
+sudo mount -t ntfs-3g -o ro /dev/loop0p3 /mnt/rescued_data
 ```
 
 ---
 
-## 4. Unlocking BitLocker Partitions via Linux (`dislocker`)
+## 5. Unlocking BitLocker Partitions via Linux (`dislocker`)
 
 When servicing BitLocker-encrypted drives where the client possesses the 48-digit recovery key:
 

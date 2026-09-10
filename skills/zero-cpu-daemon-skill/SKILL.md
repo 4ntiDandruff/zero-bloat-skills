@@ -1,11 +1,11 @@
 ---
 name: zero-cpu-daemon-skill
-description: "Event-driven Linux daemon architecture with 0% standby CPU load via inotifywait, fortified with 9 physical circuit fuses (anti zip-slip, symlink bombs, partial write debounce, disk limits)."
+description: "Event-driven Linux daemon architecture with 0% standby CPU load via inotifywait, fortified with 9 physical circuit fuses, kernel watch limit tuning, and debounce handling."
 ---
 
 # Zero-CPU Linux Inotify Daemons Skill
 
-Event-driven Linux background daemon design built with POSIX shell and `inotifywait`. Leverages native OS kernel filesystem notifications to maintain 0.0% CPU utilization while idle, eliminating resource-draining polling loops.
+Event-driven Linux background daemon design built with POSIX shell and `inotifywait`. Leverages native OS kernel filesystem notifications to maintain 0.0% CPU utilization while idle, eliminating resource-draining polling loops and kernel table overflows.
 
 ---
 
@@ -13,19 +13,37 @@ Event-driven Linux background daemon design built with POSIX shell and `inotifyw
 
 - **Traditional Polling Loop**:
   `while true; do check_files; sleep 2; done`
-  Generates continuous context switches, drains portable battery power, and introduces response latency.
+  Generates continuous context switches, drains battery power, and introduces response latency.
 - **Zero-CPU Inotify Daemon**:
   Process sleeps in kernel state (`TASK_INTERRUPTIBLE`). Only when the kernel dispatches `close_write` or `moved_to` events does the daemon awaken, completing actions in <0.1s.
 
 ---
 
-## 2. 9 Circuit Safety Fuses Implementation
+## 2. Kernel Inotify Limits Pre-Flight Check
+
+When monitoring deep directory trees, default Linux kernel limits (`8192` watches) can trigger fatal `No space left on device` errors:
+
+```bash
+# Check current system watch allocation
+cat /proc/sys/fs/inotify/max_user_watches
+
+# Permanent production elevation (up to 524,288 directories):
+echo "fs.inotify.max_user_watches=524288" | sudo tee /etc/sysctl.d/99-inotify.conf
+sudo sysctl --system
+```
+
+---
+
+## 3. 9 Circuit Safety Fuses Implementation
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
 WATCH_DIR="$HOME/Downloads"
+
+# Ensure target directory exists before attaching watch
+mkdir -p "$WATCH_DIR"
 
 inotifywait -m -e close_write,moved_to --format "%w%f" "$WATCH_DIR" | while read -r FILE_PATH; do
     # Fuse 1: Physical file existence check
@@ -77,23 +95,28 @@ done
 
 ---
 
-## 3. Systemd User Service Integration
+## 4. Systemd User Service Integration
 
 Persist configuration to `~/.config/systemd/user/zero-daemon.service`:
 
 ```ini
 [Unit]
-Description=Zero-CPU Inotify Event Daemon
-After=default.target
+Description=Zero-CPU Event-Driven Inotify Extractor
+After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/zero-daemon.sh
-Restart=always
+ExecStart=%h/scripts/auto-extract.sh
+Restart=on-failure
 RestartSec=5s
-MemoryMax=64M
-CPUQuota=10%
+MemoryMax=50M
 
 [Install]
 WantedBy=default.target
+```
+
+Enable and start user service:
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now zero-daemon.service
 ```

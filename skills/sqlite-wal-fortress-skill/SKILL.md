@@ -1,11 +1,11 @@
 ---
 name: sqlite-wal-fortress-skill
-description: "Fortified SQLite configuration for sudden power outages in workshop servers: WAL mode, PRAGMA synchronous=NORMAL, auto-checkpoint tuning, and atomic online hot-backups."
+description: "Fortified SQLite configuration for sudden power outages in workshop servers: WAL mode, PRAGMA synchronous=NORMAL, busy_timeout tuning, atomic online hot-backups, and single-command .recover triage."
 ---
 
 # SQLite WAL Fortress Skill
 
-Standard configuration and operational procedures for running SQLite on workshop servers and bench workstations, engineered to remain invulnerable to sudden electrical power loss, high read concurrency, and non-blocking online hot-backups.
+Standard configuration and operational procedures for running SQLite on workshop servers and bench workstations, engineered to remain invulnerable to sudden electrical power loss, high concurrency lock contention, and non-blocking online hot-backups.
 
 ---
 
@@ -17,7 +17,7 @@ Under default journaling (`PRAGMA journal_mode = DELETE`):
 
 ---
 
-## 2. Mandatory Circuit PRAGMAs for Power Resilience
+## 2. Mandatory Circuit PRAGMAs for Power Resilience & Lock Contention
 
 Execute these pragmas immediately whenever a database connection opens:
 
@@ -25,7 +25,8 @@ Execute these pragmas immediately whenever a database connection opens:
 import sqlite3
 
 def get_db_connection(db_path: str) -> sqlite3.Connection:
-    conn = sqlite3.connect(db_path, timeout=20.0)
+    # Set generous connection timeout to handle lock contention gracefully
+    conn = sqlite3.connect(db_path, timeout=30.0)
     conn.row_factory = sqlite3.Row
     
     # 1. Enable Write-Ahead Logging (readers never block writers)
@@ -34,16 +35,19 @@ def get_db_connection(db_path: str) -> sqlite3.Connection:
     # 2. Synchronous NORMAL (resilient to sudden power cutoffs & 10x faster)
     conn.execute("PRAGMA synchronous = NORMAL;")
     
-    # 3. Allocate in-memory page cache (e.g. -64000 = 64 MB RAM)
+    # 3. Busy Timeout (wait up to 5000ms before raising OperationalError: database is locked)
+    conn.execute("PRAGMA busy_timeout = 5000;")
+    
+    # 4. Allocate in-memory page cache (-64000 = 64 MB RAM)
     conn.execute("PRAGMA cache_size = -64000;")
     
-    # 4. Direct temporary storage to RAM
+    # 5. Direct temporary storage to RAM
     conn.execute("PRAGMA temp_store = MEMORY;")
     
-    # 5. Checkpoint WAL log automatically every 1000 pages (~4MB)
+    # 6. Checkpoint WAL log automatically every 1000 pages (~4MB)
     conn.execute("PRAGMA wal_autocheckpoint = 1000;")
     
-    # 6. Enforce relational foreign keys
+    # 7. Enforce relational foreign keys
     conn.execute("PRAGMA foreign_keys = ON;")
     
     return conn
@@ -79,17 +83,23 @@ def perform_atomic_backup(source_db: str, backup_dir: str):
 
 ---
 
-## 4. Emergency Database Recovery Procedures
+## 4. Emergency Database Recovery (Corrupted Database Salvage)
 
-If operating system crashes corrupt database structures:
+When a sudden power loss leaves a database with `database disk image is malformed`:
 
+### Step 1: Force WAL Checkpoint Flush
 ```bash
-# 1. Verify integrity
-sqlite3 database.db "PRAGMA integrity_check;"
+sqlite3 damaged.db "PRAGMA wal_checkpoint(TRUNCATE);"
+```
 
-# 2. Emergency raw SQL dump recovery
-sqlite3 database.db ".recover" | sqlite3 recovered.db
+### Step 2: Single-Command Stream Recovery
+The `.recover` command parses uncorrupted B-tree pages even if root pointers are damaged:
+```bash
+sqlite3 damaged.db ".recover" | sqlite3 recovered.db
+```
 
-# 3. Verify recovered database
+### Step 3: Integrity Verification
+```bash
 sqlite3 recovered.db "PRAGMA integrity_check;"
+# Output must return: ok
 ```

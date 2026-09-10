@@ -117,18 +117,18 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 ### Hardware & Diagnostics (3 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
-|---|---|---|
-| [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Short circuit detection, safe 1A current injection, power rails sequencing (19V VIN, 3.3V/5V ALW, S3/S0), boardview analysis. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
-| [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | SPI BIOS/EEPROM (24/25 series) read/verification/flashing using CH341A and flashrom, Intel ME Region cleanup. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
+| [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Short circuit detection, high-side MOSFET punch-through protection, safe injection voltage ceilings, S5-to-S0 rail sequencing, boardview analysis. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
+| [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | SPI BIOS/EEPROM 24/25 reading & flashing, 1.8V adapter level-shifting, status register write-protect unlock, three-pass dump verification, Clean ME. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
+| [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Offline SAM password reset via chntpw with atomic hive backup, UEFI BCD bootloader reconstruction, ddrescue bad-sector imaging, BitLocker unlock. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Offline SAM password reset via chntpw, registry hive repair, BCD bootloader recovery, ddrescue bad-sector imaging. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 
 ### Linux Bare-Metal & Daemons (5 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
-|---|---|---|
+| [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Event-driven Linux daemons with 0.0% standby CPU load via inotifywait, 9 physical circuit fuses, and kernel inotify watch limits tuning. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
 | [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Event-driven Linux daemons with 0.0% standby CPU load via inotifywait, fortified with 9 physical circuit fuses. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
 | [`watchdog-resilience-skill`](skills/watchdog-resilience-skill/SKILL.md) | PM2/systemd restart loop recovery, AdGuard Home DNS negative-cache flusher, Cloudflare Tunnel watchdog. | `watchdog`, `resilience`, `dns lockout`, `pm2 restart loop` |
-| [`mesh-and-tunnel-ops-skill`](skills/mesh-and-tunnel-ops-skill/SKILL.md) | Zero-port-forwarding Cloudflare Tunnel for secure public HTTPS ingress + Tailscale WireGuard subnet interconnects. | `cloudflare tunnel`, `tailscale`, `port forwarding`, `wireguard` |
+| [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Interactive Telegram bot with inline keyboard buttons, Wake-on-LAN (WOL), crash-proof safe HTML parsing, and infinity polling auto-reconnect. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Interactive Telegram bot with inline keyboard buttons, Wake-on-LAN (WOL) remote triggers, resource alerting. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Non-root ADB package debloater, critical system package whitelist, batch OEM package cleanup (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
@@ -147,11 +147,11 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
-| [`token-frugal-intent-ladder-skill`](skills/token-frugal-intent-ladder-skill/SKILL.md) | Deterministic transactional parser: 0-token regex ladder, active vs passive cashflow disambiguation, clean notes. | `tangga ai`, `parsing nominal`, `terbilang`, `hutang piutang` |
+| [`ai-rotary-shield-skill`](skills/ai-rotary-shield-skill/SKILL.md) | Reverse proxy pool with multi-account rotation: automated HTTP 429 detection, zero-buffer SSE streaming pass-through, instant failover. | `limit 429`, `kuota habis`, `resource exhausted`, `putar akun ai` |
 | [`ai-rotary-shield-skill`](skills/ai-rotary-shield-skill/SKILL.md) | Reverse proxy pool with multi-account rotation: automated HTTP 429 rate limit detection and instant cooldown failover. | `limit 429`, `kuota habis`, `resource exhausted`, `putar akun ai` |
 | [`browser-speech-to-text-skill`](skills/browser-speech-to-text-skill/SKILL.md) | Zero-server-cost Web Speech STT: Android PWA microphone bridge, visualViewport soft-keyboard avoidance. | `suara ke teks browser`, `web speech stt`, `dikte web`, `mic pwa` |
-| [`voice-hud-wayland-skill`](skills/voice-hud-wayland-skill/SKILL.md) | Hands-free technician voice HUD under Linux Wayland: local faster-whisper streaming and KWin glass overlay. | `dikte suara`, `hands-free`, `voice hud`, `wayland`, `solder` |
-| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Self-hosted zero-cookie web analytics on SQLite WAL + lightweight IP rate limiting WAF security fuse. | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
+| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Self-hosted zero-cookie web analytics on SQLite WAL + bounded sliding-window WAF rate limiter with auto TTL unban (zero memory leak). | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
+| [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Outage-proof SQLite setup: WAL mode, synchronous=NORMAL, busy_timeout contention tuning, atomic hot backups, 1-line .recover salvage. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Outage-proof SQLite configuration: WAL mode, PRAGMA synchronous=NORMAL, auto-checkpoint tuning, atomic hot backups. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STBs/i3): RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 

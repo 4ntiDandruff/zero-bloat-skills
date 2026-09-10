@@ -1,22 +1,23 @@
 ---
 name: telegram-ops-control-skill
-description: "Telegram bot infrastructure for remote server management: interactive inline keyboard buttons, Wake-on-LAN (WOL) triggers, proactive resource alerting, and PM2 process monitoring."
+description: "Telegram bot infrastructure for remote server management: interactive inline keyboard buttons, Wake-on-LAN (WOL) triggers, HTML safe parsing, proactive resource alerting, and infinity polling auto-reconnect."
 ---
 
 # Telegram Ops Control Bot Skill
 
-Architectural pattern for monitoring and controlling workbench machines, edge servers, and homelab nodes directly from a mobile device via interactive Telegram inline keyboard buttons.
+Architectural pattern for monitoring and controlling workbench machines, edge servers, and homelab nodes directly from a mobile device via interactive Telegram inline keyboard buttons, fortified against API parser crashes and network disconnection loops.
 
 ---
 
 ## 1. Remote Trigger Buttons & Wake-On-LAN (WOL)
 
-Control remote hardware without requiring a laptop terminal session:
+Control remote hardware without requiring an SSH terminal session on a laptop:
 
 ```python
+import html
+import subprocess
 from telebot import TeleBot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-import subprocess
 
 bot = TeleBot("TOKEN_PLACEHOLDER")
 
@@ -37,7 +38,13 @@ def handle_query(call):
         bot.answer_callback_query(call.id, "WOL magic packet dispatched.")
     elif call.data == "check_ram":
         out = subprocess.check_output(["free", "-h"]).decode()
-        bot.send_message(call.message.chat.id, f"Memory State:\n```\n{out}```", parse_mode="Markdown")
+        # Enforce HTML escaping to prevent Telegram API 400 Bad Request
+        safe_out = html.escape(out)
+        bot.send_message(
+            call.message.chat.id, 
+            f"<b>Memory Health State:</b>\n<pre>{safe_out}</pre>", 
+            parse_mode="HTML"
+        )
 ```
 
 ---
@@ -47,7 +54,7 @@ def handle_query(call):
 Mitigate security exposure if bot tokens leak:
 
 ```python
-AUTHORIZED_USERS = {123456789} # Replace with verified operator Telegram ID
+AUTHORIZED_USERS = {123456789}  # Replace with verified operator Telegram ID
 
 def auth_required(func):
     def wrapper(message, *args, **kwargs):
@@ -60,9 +67,36 @@ def auth_required(func):
 
 ---
 
-## 3. Proactive Health Watchdog Loop
+## 3. Resilient Long-Polling Guard (Infinity Polling)
 
-Runs as an unprivileged background daemon checking system telemetry:
-- Available storage < 10% -> Immediate urgent alert dispatched.
-- Memory usage > 90% sustained for 5 consecutive minutes -> Warning alert dispatched.
-- Monitored process crashes -> Tail 20 lines of diagnostic error logs to chat.
+Never use bare `bot.polling()` in production; transient Wi-Fi drops or DNS timeouts will terminate the Python script:
+
+```python
+import time
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+def run_resilient_bot():
+    while True:
+        try:
+            logging.info("[*] Starting Telegram bot infinity polling...")
+            bot.infinity_polling(
+                timeout=20,
+                long_polling_timeout=10,
+                logger_level=logging.WARNING
+            )
+        except Exception as e:
+            logging.error(f"[!] Polling connection crashed: {e}. Retrying in 5 seconds...")
+            time.sleep(5)
+
+if __name__ == "__main__":
+    run_resilient_bot()
+```
+
+---
+
+## 4. Safe Formatting Rule: HTML > Markdown
+
+- Telegram's MarkdownV2 parser throws fatal HTTP 400 exceptions if characters like `_`, `*`, `[`, `]`, `(`, `)`, `~`, `` ` ``, `>`, `#`, `+`, `-`, `=`, `|`, `{`, `}`, `.`, or `!` are unescaped.
+- **Mandatory Standard**: Always use `parse_mode="HTML"` combined with Python's built-in `html.escape()` for terminal outputs, log snippets, and exception traces.

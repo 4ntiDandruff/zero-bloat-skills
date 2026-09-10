@@ -116,18 +116,18 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
-| [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Deteksi short circuit, suntik tegangan aman 1A, urutan rel daya motherboard (19V VIN, 3.3V/5V ALW, S3/S0), analisis skema & boardview. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
-| [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | Pembacaan, verifikasi, dan flashing SPI BIOS/EEPROM seri 24/25 via CH341A dan flashrom, pembersihan Intel ME Region corrupt. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
-| [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Reset offline password SAM via chntpw, edit registry offline, pemulihan bootloader BCD, kloning bad sector via ddrescue. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
+| [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Deteksi short circuit, proteksi punch-through High-Side MOSFET, batas aman suntik tegangan per rail, urutan daya S5 ke S0, analisis skema & boardview. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
+| [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | Pembacaan dan flashing SPI BIOS 24/25 via CH341A, proteksi chip 1.8V via adapter level-shifter, unlock status register, verifikasi dump 3-pass, Clean ME. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
+| [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Reset offline password SAM via chntpw dengan backup hive atomik, rekonstruksi bootloader UEFI BCD, kloning bad sector via ddrescue, unlock BitLocker. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 
 ### Linux Bare-Metal & Daemon (5 Modul)
 
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
-| [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Daemon event-driven berbasis kernel inotifywait dengan 0% CPU standby dan 9 sekring pengaman sirkuit fisik. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
+| [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Daemon event-driven berbasis kernel inotifywait dengan 0% CPU standby, 9 sekring pengaman sirkuit fisik, dan tuning batas watch kernel. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
 | [`watchdog-resilience-skill`](skills/watchdog-resilience-skill/SKILL.md) | Penanganan crash loop PM2 & systemd, pembersihan negative cache DNS AdGuard Home, pengawas Cloudflare Tunnel. | `watchdog`, `resilience`, `dns lockout`, `pm2 restart loop` |
 | [`mesh-and-tunnel-ops-skill`](skills/mesh-and-tunnel-ops-skill/SKILL.md) | Ingress publik HTTPS aman via Cloudflare Tunnel tanpa port forwarding ISP + interkoneksi privat Tailscale WireGuard. | `cloudflare tunnel`, `tailscale`, `port forwarding`, `wireguard` |
-| [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Bot Telegram remote ops interaktif dengan inline keyboard, pemicu Wake-on-LAN (WOL), dan alert lonjakan beban server. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
+| [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Bot Telegram remote ops interaktif dengan inline keyboard, Wake-on-LAN (WOL), sanitasi HTML aman anti-crash, dan resiliensi infinity polling. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Pembersih bloatware ADB Android non-root untuk meja servis: whitelist sistem krusial dan katalog blacklist vendor (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
 ### Arsitektur Web & UI Cupertino (6 Modul)
@@ -146,11 +146,11 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
 | [`token-frugal-intent-ladder-skill`](skills/token-frugal-intent-ladder-skill/SKILL.md) | Parsing nominal transaksi percakapan: tangga deterministik 0-token regex, pemisahan aktif vs pasif hutang-piutang, ekstraksi catatan bersih. | `tangga ai`, `parsing nominal`, `terbilang`, `hutang piutang` |
-| [`ai-rotary-shield-skill`](skills/ai-rotary-shield-skill/SKILL.md) | Reverse proxy multi-akun rotary: deteksi dini HTTP 429 dan kuota habis, rotary failover instan tanpa jeda kerja agen. | `limit 429`, `kuota habis`, `resource exhausted`, `putar akun ai` |
+| [`ai-rotary-shield-skill`](skills/ai-rotary-shield-skill/SKILL.md) | Reverse proxy multi-akun rotary: deteksi dini HTTP 429 dan kuota habis, pass-through streaming SSE nir-buffer, rotary failover instan tanpa jeda agen. | `limit 429`, `kuota habis`, `resource exhausted`, `putar akun ai` |
 | [`browser-speech-to-text-skill`](skills/browser-speech-to-text-skill/SKILL.md) | STT native browser tanpa server: Web Speech API, bridging izin mic PWA Android, penghindaran keyboard visualViewport. | `suara ke teks browser`, `web speech stt`, `dikte web`, `mic pwa` |
 | [`voice-hud-wayland-skill`](skills/voice-hud-wayland-skill/SKILL.md) | HUD suara hands-free teknisi solder di Linux Wayland: streaming lokal faster-whisper dan overlay glass KWin. | `dikte suara`, `hands-free`, `voice hud`, `wayland`, `solder` |
-| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Engine analitik web lokal mandiri berbasis SQLite (zero-cookie, tanpa Google Analytics) + sekring WAF rate limiting IP. | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
-| [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Konfigurasi benteng SQLite kebal mati lampu: mode WAL, PRAGMA synchronous=NORMAL, auto-checkpoint, dan hot backup atomik. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
+| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Engine analitik web lokal berbasis SQLite WAL + sekring WAF sliding-window berbatas memori dengan unban TTL otomatis (nol memory leak). | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
+| [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Konfigurasi benteng SQLite kebal mati lampu: mode WAL, synchronous=NORMAL, tuning busy_timeout anti-lock, hot backup atomik, dan recovery 1-baris .recover. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Streaming CCTV edge hemat daya (STB/i3) tanpa transcode CPU: pass-through RTSP ke WebRTC/HLS via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 
 <br/>
