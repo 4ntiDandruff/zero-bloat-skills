@@ -137,7 +137,7 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
 | [`zero-bloat-web-stack-skill`](skills/zero-bloat-web-stack-skill/SKILL.md) | Ultra-lean SSR web stack: FastAPI + SQLite WAL + HTMX + Alpine.js + Tailwind CSS (<40MB RAM, cold-start <100ms). | `fastapi`, `endpoint`, `router`, `backend python`, `web lean` |
-| [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Apple-inspired liquid dark UI design system: slate glassmorphism, glowing status pills, zero-flicker Alpine tabs. | `apple liquid ui`, `dark glass`, `status pill`, `desain agy router` |
+| [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Apple-inspired Cupertino liquid crystal UI design system: iridescent ambient mesh (`#F5F5F7`), translucent frosted glass, tactile spring buttons, status pills. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Virtualized PDF.js HTML5 canvas viewer: IntersectionObserver lazy rendering, elimination of ghost-scroll feedback loops. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Technical reader UX: gradient scroll cue, dynamic reading progress bar, hover-to-copy code blocks, shimmer placeholders. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Milestone roadmap, collapsible phase nodes, zero-bloat touch-swipe lightbox with keyboard accessibility. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -240,7 +240,7 @@ zero-bloat-skills/
 │   ├── zero-bloat-web-stack-skill/       # FastAPI + Alpine + HTMX + Tailwind (<40MB RAM)
 │   ├── privacy-analytics-waf-skill/      # Zero-cookie visitor analytics + WAF rate limiter
 │   ├── print-shop-canvas-skill/          # High-DPI Pillow canvas generator for physical print
-│   ├── liquid-apple-ui-skill/            # Apple-style liquid dark UI, pill badges, Alpine tabs
+│   ├── liquid-apple-ui-skill/            # Apple-style liquid crystal UI, iridescent canvas, Alpine tabs
 │   ├── longform-reader-ux-skill/         # Table scroll cue, reading bar, copy-code, shimmer
 │   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap, collapsible phases, A11y lightbox
 │   ├── browser-speech-to-text-skill/     # Zero-server Web Speech STT, PWA mic, spoken numbers
