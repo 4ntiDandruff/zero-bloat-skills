@@ -1,13 +1,13 @@
 ---
 name: liquid-apple-ui-skill
-description: "Apple-inspired Cupertino liquid crystal UI design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), Apple tactile spring buttons, dynamic status pills, zero-flicker Alpine.js transitions, and zero-bloat standalone Tailwind implementation without node_modules."
+description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
 ---
 
-# Liquid Apple UI Skill
+# Liquid Apple UI Skill (v2.0)
 
 Design system and frontend engineering patterns for crafting authentic Apple Cupertino-caliber light liquid crystal interfaces without heavyweight framework dependencies (React, Next.js, or runtime `node_modules`).
 
-Directly reverse-engineered and extracted from the production-tested **AGY Router** (`~/agy-router/templates/index.html`) mission-control console and **Megapass** workbench applications.
+Directly reverse-engineered and extracted from the production-tested **AGY Router** mission-control console and **CekWeb Megapass** workbench applications.
 
 ---
 
@@ -356,7 +356,7 @@ A clean search bar with high contrast placeholder and physical slash (`/`) hotke
   </svg>
   <input type="text"
          placeholder="Filter records, domains, or logs..."
-         class="w-full bg-white/95 border border-black/[0.08] focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 rounded-xl pl-10 pr-9 py-2 text-xs font-mono-apple text-[#1D1D1F] placeholder:text-[#86868B] transition-all outline-none">
+         class="w-full bg-white/95 border border-black/[0.08] focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 rounded-xl pl-10 pr-9 py-2 text-xs font-mono-apple text-[#1D1D1F] placeholder:text-[#86868B] transition-[border-color,box-shadow] duration-140 ease-out outline-none min-h-[38px]">
   <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono font-medium text-[#86868B] bg-black/[0.04] px-1.5 py-0.5 rounded border border-black/[0.06] pointer-events-none">/</kbd>
 </div>
 ```
@@ -370,13 +370,13 @@ Never use harsh dark blue rings or square borders. Apple focus rings are subtle 
 <div class="space-y-1.5">
   <label class="text-xs font-semibold text-[#1D1D1F]">Target Hostname</label>
   <input type="text"
-         class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-all">
+         class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-[border-color,box-shadow] duration-140 ease-out min-h-[40px]">
 </div>
 
 <!-- Select Dropdown -->
 <div class="space-y-1.5">
   <label class="text-xs font-semibold text-[#1D1D1F]">Record Type</label>
-  <select class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-all cursor-pointer">
+  <select class="w-full bg-white/95 border border-black/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-[#1D1D1F] focus:outline-none focus:border-[#0071E3] focus:ring-4 focus:ring-[#0071E3]/10 transition-[border-color,box-shadow] duration-140 ease-out cursor-pointer min-h-[40px]">
     <option value="A">A Record (IPv4)</option>
     <option value="CNAME">CNAME Alias</option>
   </select>
@@ -385,18 +385,18 @@ Never use harsh dark blue rings or square borders. Apple focus rings are subtle 
 
 ### C. Apple Segmented Control (Pill Switch Tab)
 
-Cupertino-style radio/tab switcher inside a sunken track:
+Cupertino-style radio/tab switcher inside a sunken track with concentric radii ($R_{outer} = R_{inner} + P$):
 
 ```html
-<div class="inline-flex p-1 rounded-xl bg-black/[0.03] border border-black/[0.05] space-x-1">
+<div class="inline-flex p-1.5 rounded-[22px] bg-black/[0.03] border border-black/[0.05] gap-1">
   <!-- Active Tab -->
   <button type="button"
-          class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-[#1D1D1F] shadow-2xs border border-black/[0.04] transition-all cursor-pointer">
+          class="px-4 py-2 rounded-[16px] text-xs font-bold bg-white text-[#1D1D1F] shadow-xs border border-black/[0.04] transition-[color,background-color,border-color,box-shadow,transform] duration-140 ease-out btn-tactile min-h-[40px]">
     Active View
   </button>
   <!-- Inactive Tab -->
   <button type="button"
-          class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-[#86868B] hover:text-[#1D1D1F] transition-all cursor-pointer">
+          class="px-4 py-2 rounded-[16px] text-xs font-medium text-[#86868B] hover:text-[#1D1D1F] hover:bg-black/[0.02] border border-transparent transition-[color,background-color,border-color,box-shadow,transform] duration-140 ease-out btn-tactile min-h-[40px]">
     Archived
   </button>
 </div>
@@ -426,28 +426,262 @@ Cupertino-style radio/tab switcher inside a sunken track:
 
 ---
 
-## 8. Concentric Nested Radii & Typography Rules
+## 8. Concentric Nested Radii & Optical Geometry Formula
 
-To avoid awkward optical clashes, corner radii must be scaled concentrically based on nesting depth:
+To avoid awkward optical clashes, corner radii MUST be mathematically aligned based on nesting depth using Apple's concentric radius formula:
 
-1. **Outer Modal / Main Page Wrapper**: `rounded-3xl` (24px)
-2. **Elevated Panels & Crystal Cards**: `rounded-2xl` (20px)
-3. **Inner Grouped Containers / Rows**: `rounded-xl` (12px)
-4. **Action Buttons / Form Inputs**: `rounded-xl` (10px) or `rounded-lg` (8px)
-5. **Pills & Badges**: `rounded-full` (9999px)
+$$R_{outer} = R_{inner} + Padding$$
+
+If an outer track container has `padding: 6px` (`p-1.5`) and an inner button has `border-radius: 16px` (`rounded-[16px]`), the outer container MUST have:
+$$16\text{px} + 6\text{px} = 22\text{px} \rightarrow \text{rounded-[22px]}$$
+
+### Concentric Pairing Cheatsheet:
+- **Track `p-1.5` (6px gap)**: Outer `rounded-[22px]` wraps Inner `rounded-[16px]`.
+- **Track `p-1` (4px gap)**: Outer `rounded-[20px]` wraps Inner `rounded-[16px]`, or Outer `rounded-[16px]` wraps Inner `rounded-[12px]`.
+- **Card Wrapper**: Outer `rounded-3xl` (24px) wraps child Bento boxes `rounded-2xl` (16px to 20px).
+- **Pills & Badges**: Fully circular `rounded-full` (9999px) for capsule chips and beacons.
 
 ### Typography Stack
-- **Prose & Headings**: `-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'SF Pro Text', system-ui, sans-serif` with `-0.015em` letter-spacing on titles.
+- **Prose & Headings**: `-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Nunito', 'SF Pro Text', system-ui, sans-serif` with `-0.015em` letter-spacing on titles.
 - **Data & Numbers**: `'JetBrains Mono', -apple-system-monospaced, monospace` with `font-variant-numeric: tabular-nums` (`.font-mono-apple`).
 
 ---
 
-## 9. Zero-Bloat Standalone Stack & Pre-Flight Verification
+## 9. Radial Circular Dial Gauge & Rolling Number Engine
+
+For audit platforms, benchmarks, sensor HUDs, or telemetry monitors, use this high-precision SVG radial dial gauge with rolling number interpolation:
+
+### A. SVG Dial Gauge Component (Centered Layout)
+
+```html
+<div class="relative flex flex-col items-center justify-center p-6 crystal-card rounded-3xl"
+     x-data="{ animatedScore: 0, targetScore: 92 }"
+     x-init="
+       let start = null;
+       const duration = 1200;
+       function step(timestamp) {
+         if (!start) start = timestamp;
+         const progress = Math.min((timestamp - start) / duration, 1);
+         const easeOut = 1 - Math.pow(1 - progress, 3);
+         animatedScore = Math.round(easeOut * targetScore);
+         if (progress < 1) {
+           window.requestAnimationFrame(step);
+         }
+       }
+       window.requestAnimationFrame(step);
+     ">
+  
+  <div class="relative w-36 h-36 flex items-center justify-center">
+    <!-- SVG Circular Arc Track & Meter -->
+    <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+      <!-- Background Track Circle -->
+      <circle cx="50" cy="50" r="45" stroke="rgba(0,0,0,0.06)" stroke-width="8" fill="transparent"/>
+      <!-- Dynamic Progress Arc (Circumference = 2 * PI * 45 = 282.74) -->
+      <circle cx="50" cy="50" r="45"
+              stroke="url(#dial-gradient)"
+              stroke-width="8"
+              stroke-linecap="round"
+              fill="transparent"
+              stroke-dasharray="282.74"
+              :stroke-dashoffset="282.74 - (282.74 * (animatedScore / 100))"
+              class="transition-[stroke-dashoffset] duration-500 ease-out"/>
+      <defs>
+        <linearGradient id="dial-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10B981"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <!-- Centered Score Display & Rolling Number -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+      <span class="text-4xl font-black font-nunito tracking-tight text-slate-900 tabular-nums"
+            x-text="animatedScore">0</span>
+      <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-400 -mt-1">/ 100</span>
+    </div>
+  </div>
+
+  <!-- Anchored Grade Badge -->
+  <div class="mt-3">
+    <span class="px-3 py-1 rounded-xl text-xs font-black bg-emerald-100/90 text-emerald-800 border border-emerald-200 shadow-2xs">
+      Grade A+
+    </span>
+  </div>
+</div>
+```
+
+---
+
+## 10. Multi-Segmented Waterfall Timeline & Metric Bento Cards
+
+For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, data transfer):
+
+### A. Animated Multi-Color Waterfall Bar
+
+```html
+<div class="space-y-3 p-5 rounded-3xl crystal-card">
+  <div class="flex items-center justify-between">
+    <span class="text-xs font-extrabold uppercase tracking-wider text-slate-700">Waterfall Alur Waktu Respon</span>
+    <span class="text-xs font-bold text-slate-500 tabular-nums">Total: 342 ms</span>
+  </div>
+
+  <!-- Segmented Multi-Color Bar -->
+  <div class="h-3 w-full rounded-full bg-black/[0.05] p-0.5 flex gap-0.5 overflow-hidden shadow-inner">
+    <!-- TTFB / Server Processing (Blue) -->
+    <div class="h-full rounded-l-full bg-blue-500 transition-[flex,width] duration-700 ease-out"
+         style="flex: 40;" title="TTFB Server: 136ms"></div>
+    <!-- DNS Lookup (Purple) -->
+    <div class="h-full bg-indigo-500 transition-[flex,width] duration-700 ease-out"
+         style="flex: 15;" title="DNS Lookup: 51ms"></div>
+    <!-- TCP Connect (Amber) -->
+    <div class="h-full bg-amber-500 transition-[flex,width] duration-700 ease-out"
+         style="flex: 20;" title="TCP Handshake: 68ms"></div>
+    <!-- Content Download (Emerald) -->
+    <div class="h-full rounded-r-full bg-emerald-500 transition-[flex,width] duration-700 ease-out"
+         style="flex: 25;" title="Data Transfer: 87ms"></div>
+  </div>
+
+  <!-- 4-Column Micro-Detail Cards with Micro-Hover Lift -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+    <div class="p-2.5 rounded-2xl bg-black/[0.02] border border-black/[0.06] hover:border-black/[0.12] transition-[border-color,box-shadow,transform] duration-140 ease-out hover:-translate-y-0.5">
+      <div class="text-[10px] font-extrabold uppercase text-blue-600">TTFB Server</div>
+      <div class="text-xs font-black text-slate-900 tabular-nums">136 ms</div>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-black/[0.02] border border-black/[0.06] hover:border-black/[0.12] transition-[border-color,box-shadow,transform] duration-140 ease-out hover:-translate-y-0.5">
+      <div class="text-[10px] font-extrabold uppercase text-indigo-600">DNS Lookup</div>
+      <div class="text-xs font-black text-slate-900 tabular-nums">51 ms</div>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-black/[0.02] border border-black/[0.06] hover:border-black/[0.12] transition-[border-color,box-shadow,transform] duration-140 ease-out hover:-translate-y-0.5">
+      <div class="text-[10px] font-extrabold uppercase text-amber-600">TCP Connect</div>
+      <div class="text-xs font-black text-slate-900 tabular-nums">68 ms</div>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-black/[0.02] border border-black/[0.06] hover:border-black/[0.12] transition-[border-color,box-shadow,transform] duration-140 ease-out hover:-translate-y-0.5">
+      <div class="text-[10px] font-extrabold uppercase text-emerald-600">Transfer Data</div>
+      <div class="text-xs font-black text-slate-900 tabular-nums">87 ms</div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## 11. Radar Pulse Scanning HUD & Status Step Ticker
+
+For long-running asynchronous tasks (auditing, server testing, deployment), use this Apple-styled radar scanning HUD instead of a generic spinning circle:
+
+```html
+<div class="p-8 rounded-3xl crystal-card-elevated flex flex-col items-center justify-center text-center space-y-4">
+  <!-- Concentric Radar Sweeper -->
+  <div class="relative w-24 h-24 flex items-center justify-center">
+    <!-- Pinging Outer Rings -->
+    <div class="absolute inset-0 rounded-full border-2 border-brand-500/20 animate-ping"></div>
+    <div class="absolute inset-2 rounded-full border border-brand-500/30"></div>
+    <div class="absolute inset-5 rounded-full border border-brand-500/40"></div>
+    
+    <!-- Rotating Sweep Beam -->
+    <div class="absolute inset-0 rounded-full border-2 border-t-brand-600 border-r-transparent border-b-transparent border-l-transparent animate-spin duration-1000"></div>
+
+    <!-- Center Sensor Node -->
+    <div class="w-3.5 h-3.5 rounded-full bg-brand-600 shadow-md shadow-brand-500/50"></div>
+  </div>
+
+  <div class="space-y-1">
+    <h4 class="text-sm font-black text-slate-900 font-nunito">Memindai Target Jaringan...</h4>
+    <p class="text-xs text-slate-500 font-medium" x-text="currentStepLog">Mengukur latensi socket & TTFB byte pertama...</p>
+  </div>
+</div>
+```
+
+---
+
+## 12. Scoped Transitions Anti-Jank & Zero-Shift State Swaps
+
+> [!CAUTION]
+> **DILARANG MENGGUNAKAN `transition-all` BLANKET DI MANAPUN DALAM TEMPLATE!**
+> Blanket `transition-all` memaksa engine layout browser menghitung ulang geometri halaman saat pengguna menggerakkan kursor, memicu lag dan stutter pada CPU i3/STB/ponsel entry-level.
+
+### A. Scoped Transition Property Matrix
+
+Selalu definisikan properti yang ditransisikan secara eksplisit:
+
+| Komponen | Styling Transisi Scoped Baku | Timing & Durasi |
+|---|---|---|
+| **Buttons & Chips** | `transition-[color,background-color,border-color,box-shadow,transform]` | `duration-140 ease-out` |
+| **Bento & Crystal Cards** | `transition-[border-color,box-shadow,transform]` | `duration-160 ease-out` |
+| **Progress / Waterfall** | `transition-[flex,width]` | `duration-700 ease-out` |
+| **Radial Dial Gauge** | `transition-[stroke-dashoffset,stroke]` | `duration-500 ease-out` |
+| **Input Focus Rings** | `transition-[border-color,box-shadow]` | `duration-140 ease-out` |
+| **Opacity & Popovers** | `transition-opacity` | `duration-150 ease-out` |
+
+### B. Zero-Shift Cross-Fade Icon Wrapper
+
+Saat tombol beralih status (misal dari "Salin" ke "Tersalin!"), jangan biarkan tombol melompat atau berubah lebar (Cumulative Layout Shift / CLS = 0). Bungkus ikon dalam kontainer simetris `w-4 h-4 relative`:
+
+```html
+<button @click="copyCode" class="btn-apple-pill px-4 py-2 text-xs font-bold flex items-center gap-2 btn-tactile min-h-[40px]">
+  <!-- Fixed Symmetrical Icon Container -->
+  <span class="relative w-4 h-4 flex items-center justify-center shrink-0">
+    <svg x-show="!copied" class="absolute inset-0 transition-opacity" width="16" height="16" ...>
+      <!-- Normal Icon -->
+    </svg>
+    <svg x-show="copied" x-cloak class="absolute inset-0 transition-opacity text-emerald-600" x-transition.opacity.duration.150ms width="16" height="16" ...>
+      <!-- Checkmark Icon -->
+    </svg>
+  </span>
+  <span x-text="copied ? 'Tersalin!' : 'Salin Data'"></span>
+</button>
+```
+
+### C. Standard Standar Hit Area Fisik ($\ge 40$ px)
+Pastikan setiap elemen yang dapat diklik (preset chips, tabs, selector nodes, submit buttons) memiliki class minimal `min-h-[40px]` hingga `min-h-[44px]` agar mudah ditekan jempol di perangkat mobile.
+
+---
+
+## 13. Headless OpenGraph Graphic Card Generator (Python Pillow 1200x630)
+
+Untuk menghasilkan kartu grafis OpenGraph pratinjau sosial atau struk bukti servis fisik tanpa menjalankan browser emulator (Chromium/Puppeteer) yang memakan RAM ratusan megabyte:
+
+```python
+import io
+from PIL import Image, ImageDraw, ImageFont
+
+def buat_kartu_apple_crystal(data: dict) -> io.BytesIO:
+    """Render kartu grafis audit 1200x630 px dalam <30ms via Pillow."""
+    width, height = 1200, 630
+    img = Image.new("RGB", (width, height), color=(15, 23, 42))  # Slate 900
+    draw = ImageDraw.Draw(img)
+
+    # Font fallback aman (Linux system font)
+    try:
+        font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+        font_score = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 64)
+        font_body = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
+    except Exception:
+        font_title = font_score = font_body = ImageFont.load_default()
+
+    # Header Card
+    draw.text((60, 50), "MEGAPASS INTRA SOLUSINDO", fill=(56, 189, 248), font=font_body)
+    draw.text((60, 85), data.get("title", "Laporan Servis & Audit"), fill=(255, 255, 255), font=font_title)
+
+    # Score Box Crystal
+    draw.rectangle([(60, 160), (320, 480)], fill=(30, 41, 59), outline=(16, 185, 129), width=2)
+    draw.text((105, 260), str(data.get("score", 95)), fill=(16, 185, 129), font=font_score)
+
+    # Simpan ke stream buffer in-memory
+    out = io.BytesIO()
+    img.save(out, format="PNG", optimize=True)
+    out.seek(0)
+    return out
+```
+
+---
+
+## 14. Zero-Bloat Standalone Stack & Pre-Flight Verification
 
 ### Checklist Arsitektur:
 - [ ] Standalone Tailwind CSS dimuat via `<script src="https://cdn.tailwindcss.com"></script>`.
 - [ ] Alpine.js dimuat via deferred script tag (`<script src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js" defer></script>`).
-- [ ] Zero `node_modules` di runtime.
+- [ ] Zero `node_modules` di runtime server.
 - [ ] Cold-start instan, pure client wire size < 60 KB.
 
 ### Pre-Flight Inspection (Wajib Verifikasi Sebelum Selesai):
@@ -455,7 +689,11 @@ To avoid awkward optical clashes, corner radii must be scaled concentrically bas
    Pastikan tidak ada `<div class="bg-[#F5F5F7] ...">` atau `<main class="bg-...">` yang menutupi `apple-ambient-canvas` pada `<body>`.
 2. **Verifikasi CSS Reset Body**:
    Pastikan tidak ada stylesheet eksternal (`app.css`) dengan rule `body { background: ...; }` yang merusak radial gradient dan `background-attachment: fixed`.
-3. **Verifikasi Residu Dark Mode**:
-   Jalankan pemeriksaan grep: `grep -rn "dark:" templates/` wajib menghasilkan 0 baris.
-4. **Verifikasi DOM Balance**:
-   Selisih tag pembuka vs penutup `<div>`, `<section>`, `<nav>` harus sama dengan 0.
+3. **Verifikasi Eliminasi `transition-all`**:
+   Jalankan: `grep -rn "transition-all" templates/` wajib menghasilkan **0 hasil**.
+4. **Verifikasi Residu Dark Mode**:
+   Jalankan: `grep -rn "dark:" templates/` wajib menghasilkan **0 hasil**.
+5. **Verifikasi Target Sentuh Mobile**:
+   Setiap tombol interaktif wajib memenuhi `min-h-[40px]` atau `min-h-[44px]`.
+6. **Verifikasi DOM Balance**:
+   Selisih tag pembuka vs penutup `<div>`, `<section>`, `<nav>`, `<button>` harus sama dengan 0.
