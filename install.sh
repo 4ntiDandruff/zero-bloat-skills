@@ -37,6 +37,7 @@ echo "[*] Source path: $SKILLS_DIR"
 # Target direktori skills untuk masing-masing agent coding AI
 TARGET_DIRS=(
     "$HOME/.gemini/config/skills"
+    "$HOME/.agents/skills"
     "$HOME/.claude/skills"
     "$HOME/.config/everything-claude-code/skills"
     "$HOME/.omp/skills"

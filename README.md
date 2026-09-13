@@ -132,12 +132,13 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 | [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Interactive Telegram bot with inline keyboard buttons, Wake-on-LAN (WOL) remote triggers, resource alerting. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Non-root ADB package debloater, critical system package whitelist, batch OEM package cleanup (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### Web Architecture & Cupertino UI (6 Modules)
+### Web Architecture & Cupertino UI (7 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
 | [`zero-bloat-web-stack-skill`](skills/zero-bloat-web-stack-skill/SKILL.md) | Ultra-lean SSR web stack: FastAPI + SQLite WAL + HTMX + Alpine.js + Tailwind CSS (<40MB RAM, cold-start <100ms). | `fastapi`, `endpoint`, `router`, `backend python`, `web lean` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Apple-inspired Cupertino liquid crystal UI design system: 5-point iridescent ambient mesh (`#F5F5F7`), translucent frosted glass, spring tactile haptics, radar status pills, dynamic island toasts, Alpine tabs. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
+| [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Handheld thumb-zone physics, 100dvh viewport geometry, floating glass dock with elevated FAB, virtual keypad bottom sheet, 44px touch targets. | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Virtualized PDF.js HTML5 canvas viewer: IntersectionObserver lazy rendering, elimination of ghost-scroll feedback loops. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Technical reader UX: gradient scroll cue, dynamic reading progress bar, hover-to-copy code blocks, shimmer placeholders. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Milestone roadmap, collapsible phase nodes, zero-bloat touch-swipe lightbox with keyboard accessibility. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -241,6 +242,7 @@ zero-bloat-skills/
 │   ├── privacy-analytics-waf-skill/      # Zero-cookie visitor analytics + WAF rate limiter
 │   ├── print-shop-canvas-skill/          # High-DPI Pillow canvas generator for physical print
 │   ├── liquid-apple-ui-skill/            # Apple-style liquid crystal UI, iridescent canvas, Alpine tabs
+│   ├── mobile-thumb-ergonomics-skill/    # Handheld thumb ergonomics, floating glass dock, 100dvh
 │   ├── longform-reader-ux-skill/         # Table scroll cue, reading bar, copy-code, shimmer
 │   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap, collapsible phases, A11y lightbox
 │   ├── browser-speech-to-text-skill/     # Zero-server Web Speech STT, PWA mic, spoken numbers

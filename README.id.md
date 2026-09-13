@@ -130,12 +130,13 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Bot Telegram remote ops interaktif dengan inline keyboard, Wake-on-LAN (WOL), sanitasi HTML aman anti-crash, dan resiliensi infinity polling. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Pembersih bloatware ADB Android non-root untuk meja servis: whitelist sistem krusial dan katalog blacklist vendor (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### Arsitektur Web & UI Cupertino (6 Modul)
+### Arsitektur Web & UI Cupertino (7 Modul)
 
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
 | [`zero-bloat-web-stack-skill`](skills/zero-bloat-web-stack-skill/SKILL.md) | Arsitektur web SSR ultra-ramah RAM: FastAPI + SQLite WAL + HTMX + Alpine.js + Tailwind CSS (<40MB RAM, cold-start <100ms). | `fastapi`, `endpoint`, `router`, `backend python`, `web lean` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Desain UI Apple Cupertino liquid crystal: iridescent ambient mesh 5-titik (`#F5F5F7`), translucent frosted glass, fisika pegas tactile haptic, radar status pill, dynamic island toast, dan Alpine zero-flicker. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
+| [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Ergonomi genggam jempol tangan satu, geometri 100dvh, floating glass dock dengan elevated FAB, virtual keypad bottom sheet, target sentuh 44px. | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Viewer PDF.js Canvas virtual: rendering lazy via IntersectionObserver, pencegahan looping scroll hantu, isolasi pencarian teks. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Tata letak pembaca teknis: gradien cue scroll tabel, reading bar progresif, hover tombol salin kode, skeleton shimmer. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Roadmap karier vertikal, fase collapsible, galeri foto lightbox zero-bloat dengan navigasi keyboard dan touch-swipe. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -239,6 +240,7 @@ zero-bloat-skills/
 │   ├── privacy-analytics-waf-skill/      # Analitik web mandiri zero-cookie + sekring WAF
 │   ├── print-shop-canvas-skill/          # Generator canvas Pillow presisi tinggi 300 DPI
 │   ├── liquid-apple-ui-skill/            # Desain liquid Apple crystal UI, iridescent canvas, Alpine tabs
+│   ├── mobile-thumb-ergonomics-skill/    # Ergonomi jempol genggam ponsel, floating glass dock, 100dvh
 │   ├── longform-reader-ux-skill/         # Cue scroll tabel, reading bar, salin kode, shimmer
 │   ├── portfolio-timeline-lightbox-skill/# Roadmap pencapaian, collapsible phase, lightbox A11y
 │   ├── browser-speech-to-text-skill/     # Web Speech STT nol server, mic PWA, nominal terbilang
