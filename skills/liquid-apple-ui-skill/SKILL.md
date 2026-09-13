@@ -308,6 +308,22 @@ Smooth fuel gauge animations for quota counters and token capacity:
 }
 ```
 
+### E. Micro-Hover Tactile Data Rows (`.rack-row`)
+
+In dense dashboards (e.g. AGY Router cluster node list, CekWeb server racks, or test history), table rows must provide subtle haptic feedback when hovered without causing layout shifts:
+
+```css
+.rack-row {
+  transition-property: transform, border-color, background-color, box-shadow;
+  transition-duration: 160ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rack-row:hover {
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 14px -3px rgba(0, 113, 227, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+```
+
 ---
 
 ## 5. Soft Cupertino Neomorphism & Inset Grooves
@@ -783,9 +799,59 @@ $$16\text{px} + 6\text{px} = 22\text{px} \rightarrow \text{rounded-[22px]}$$
 - **Card Wrapper**: Outer `rounded-3xl` (24px) wraps child Bento boxes `rounded-2xl` (16px to 20px).
 - **Pills & Badges**: Fully circular `rounded-full` (9999px) for capsule chips and beacons.
 
-### Typography Stack
-- **Prose & Headings**: `-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Nunito', 'SF Pro Text', system-ui, sans-serif` with `-0.015em` letter-spacing on titles.
-- **Data & Numbers**: `'JetBrains Mono', -apple-system-monospaced, monospace` with `font-variant-numeric: tabular-nums` (`.font-mono-apple`).
+### Typography Stack & Optical Density Scale
+
+For maximum readability and native macOS/iOS compactness, load Google Fonts `Plus Jakarta Sans` + `JetBrains Mono` and configure Tailwind's font-size scale:
+
+```html
+<!-- Font Imports in <head> -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind Density Scale in <script> -->
+<script>
+  tailwind.config = {
+    theme: {
+      fontSize: {
+        'xs':   ['12px', '16px'],
+        'sm':   ['13px', '18px'],
+        'base': ['14px', '20px'],
+        'lg':   ['16px', '22px'],
+        'xl':   ['18px', '24px'],
+        '2xl':  ['20px', '26px'],
+        '3xl':  ['24px', '30px'],
+      },
+      extend: {
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+```
+
+CSS typography smoothing & balance rules:
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+p, .desc-text {
+  text-wrap: pretty;
+}
+.font-mono-apple {
+  font-family: 'JetBrains Mono', -apple-system-monospaced, monospace;
+  font-variant-numeric: tabular-nums;
+}
+```
 
 ---
 
@@ -901,6 +967,57 @@ For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, d
       <div class="text-[10px] font-extrabold uppercase text-emerald-600">Transfer Data</div>
       <div class="text-xs font-black text-slate-900 tabular-nums">87 ms</div>
     </div>
+  </div>
+</div>
+```
+
+### B. The 3-Tier Bento Metric Card (The Cupertino Card Triad)
+
+Extracted directly from CekWeb (Core Web Vitals) and AGY Router (Cluster Telemetry). A high-clarity 3-tier card:
+1. **Tier 1 (Header)**: Micro uppercase label (`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500`) + semantic status beacon dot.
+2. **Tier 2 (Hero Value)**: Tabular bold number (`text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple`).
+3. **Tier 3 (Context Footnote)**: Subtle benchmark hint (`text-[11px] text-slate-400 font-medium`).
+
+```html
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+  <!-- Card 1: Excellent State -->
+  <div class="crystal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">First Contentful Paint</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-xs shadow-emerald-500/40"></span>
+    </div>
+    <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">0.8 s</div>
+    <div class="text-[11px] text-slate-400 font-medium">Batas optimal Google: &lt; 1.8 s</div>
+  </div>
+
+  <!-- Card 2: Warning State -->
+  <div class="crystal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Total Blocking Time</span>
+      <span class="w-2 h-2 rounded-full bg-amber-500 shadow-xs shadow-amber-500/40"></span>
+    </div>
+    <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">180 ms</div>
+    <div class="text-[11px] text-slate-400 font-medium">Batas optimal Google: &lt; 200 ms</div>
+  </div>
+
+  <!-- Card 3: Neutral Benchmark -->
+  <div class="crystal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Kapasitas Token Pool</span>
+      <span class="w-2 h-2 rounded-full bg-blue-500 shadow-xs shadow-blue-500/40"></span>
+    </div>
+    <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">98.4%</div>
+    <div class="text-[11px] text-slate-400 font-medium">6 dari 6 akun aktif sehat</div>
+  </div>
+
+  <!-- Card 4: Micro Latency -->
+  <div class="crystal-card rounded-2xl sm:rounded-3xl p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">RTT Latensi Ruko</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-xs shadow-emerald-500/40"></span>
+    </div>
+    <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">12 ms</div>
+    <div class="text-[11px] text-slate-400 font-medium">Jaringan LAN Tailscale mesh</div>
   </div>
 </div>
 ```
@@ -1039,3 +1156,314 @@ def buat_kartu_apple_crystal(data: dict) -> io.BytesIO:
    Setiap tombol interaktif wajib memenuhi `min-h-[40px]` atau `min-h-[44px]`.
 6. **Verifikasi DOM Balance**:
    Selisih tag pembuka vs penutup `<div>`, `<section>`, `<nav>`, `<button>` harus sama dengan 0.
+
+---
+
+## 18. Master Turnkey Production Template (Ready-to-Deploy Shell)
+
+For instant zero-guesswork bootstrapping, use this complete single-file HTML shell that weaves together all 17 chapters (Canvas Mesh + Frosted Cards + Neomorphic Wells + Bento Grid + Dynamic Island):
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cupertino Liquid Crystal - Master Console</title>
+  
+  <!-- Font Imports -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Standalone Tailwind CDN & Density Scale -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontSize: {
+          'xs':   ['12px', '16px'],
+          'sm':   ['13px', '18px'],
+          'base': ['14px', '20px'],
+          'lg':   ['16px', '22px'],
+          'xl':   ['18px', '24px'],
+          '2xl':  ['20px', '26px'],
+          '3xl':  ['24px', '30px'],
+        },
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Alpine.js CDN -->
+  <script src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+  
+  <style>
+    [x-cloak] { display: none !important; }
+
+    :root {
+      --apple-blue: #0071E3;
+      --apple-blue-hover: #0077ED;
+      --text-primary: #1D1D1F;
+      --text-secondary: #86868B;
+    }
+
+    body {
+      background-color: #F5F5F7;
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
+    p, .desc-text { text-wrap: pretty; }
+    .font-mono-apple { font-family: 'JetBrains Mono', -apple-system-monospaced, monospace; font-variant-numeric: tabular-nums; }
+
+    /* Canvas Iridescent Mesh */
+    .apple-ambient-canvas {
+      background-color: #F5F5F7;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(94, 92, 230, 0.14) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(0, 113, 227, 0.15) 0px, transparent 45%),
+        radial-gradient(at 50% 30%, rgba(255, 159, 10, 0.10) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(48, 209, 88, 0.12) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(255, 55, 95, 0.11) 0px, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* Glass Surfaces */
+    .crystal-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(32px) saturate(190%);
+      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 6px 20px -4px rgba(0, 113, 227, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+      transition-property: transform, box-shadow, border-color;
+      transition-duration: 180ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .crystal-card:not(aside):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.025), 0 14px 30px -8px rgba(0, 113, 227, 0.09), inset 0 1px 0 rgba(255, 255, 255, 1);
+    }
+    .hero-crystal {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.92) 50%, rgba(254, 244, 249, 0.94) 100%);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1.5px solid rgba(255, 255, 255, 1);
+      border-radius: 24px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 14px 36px -8px rgba(0, 113, 227, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1);
+    }
+
+    /* Neomorphic Insets & Sockets */
+    .neo-groove {
+      background: rgba(0, 0, 0, 0.035);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    .neo-tab-active {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), inset 0 1px 0 #FFFFFF !important;
+    }
+    .neo-crystal-box {
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+    }
+    .apple-input {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition-property: border-color, box-shadow, background-color;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .apple-input:focus {
+      background: #FFFFFF;
+      border-color: #0071E3;
+      box-shadow: 0 0 0 3.5px rgba(0, 113, 227, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 1);
+    }
+
+    /* Tactile Buttons */
+    .btn-apple-brand {
+      background: linear-gradient(180deg, #0077ED 0%, #0066CC 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.30), 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+      transition-property: transform, box-shadow, filter;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn-apple-brand:hover {
+      filter: brightness(1.03);
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+    .btn-apple-brand:active {
+      transform: scale(0.975) translateY(0.5px);
+      box-shadow: 0 1px 4px rgba(0, 113, 227, 0.20), inset 0 2px 4px rgba(0, 0, 0, 0.20);
+    }
+    .btn-tactile {
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      transition-property: transform, opacity, background-color, border-color, box-shadow;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-tactile:hover { transform: translateY(-0.5px); }
+    .btn-tactile:active { transform: scale(0.96); }
+
+    /* Native Fluid Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.14); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.28); }
+  </style>
+</head>
+<body class="min-h-screen apple-ambient-canvas p-4 sm:p-8 space-y-6 relative"
+      x-data="{ activeTab: 'audit', toast: { visible: false, message: '' } }">
+
+  <!-- Dynamic Island Notification -->
+  <div x-show="toast.visible" x-cloak
+       x-transition:enter="transition ease-out duration-300 transform"
+       x-transition:enter-start="opacity-0 -translate-y-6 scale-90"
+       x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+       x-transition:leave="transition ease-in duration-200 transform"
+       x-transition:leave-start="opacity-100 scale-100"
+       x-transition:leave-end="opacity-0 -translate-y-6 scale-90"
+       class="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center space-x-3 px-6 py-3 rounded-full bg-[#1A1A1E] text-white shadow-2xl border border-white/20 backdrop-blur-2xl text-xs font-semibold tracking-wide pointer-events-none">
+    <div class="w-4 h-4 rounded-full bg-[#30D158] flex items-center justify-center flex-shrink-0">
+      <svg class="w-2.5 h-2.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <span class="text-white text-xs font-medium" x-text="toast.message"></span>
+  </div>
+
+  <!-- Main Container Wrapper (Zero Background to preserve Canvas Mesh) -->
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Top Header Bar -->
+    <header class="crystal-card p-4 sm:p-5 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+        <h1 class="text-base sm:text-lg font-black tracking-tight text-slate-900">MEGAPASS CLUSTER</h1>
+        <span class="font-mono-apple text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#0071E3]/[0.08] text-[#0071E3] border border-[#0071E3]/20">
+          V2.0 LIQUID
+        </span>
+      </div>
+      <div class="neo-groove p-1 rounded-2xl inline-flex items-center gap-1">
+        <button type="button" @click="activeTab = 'audit'"
+                :class="activeTab === 'audit' ? 'neo-tab-active shadow-xs' : 'text-slate-500 hover:text-slate-900 border border-transparent'"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-[color,background-color,border-color,box-shadow,transform] duration-140 btn-tactile min-h-[36px]">
+          Audit
+        </button>
+        <button type="button" @click="activeTab = 'telemetry'"
+                :class="activeTab === 'telemetry' ? 'neo-tab-active shadow-xs' : 'text-slate-500 hover:text-slate-900 border border-transparent'"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-[color,background-color,border-color,box-shadow,transform] duration-140 btn-tactile min-h-[36px]">
+          Telemetri
+        </button>
+      </div>
+    </header>
+
+    <!-- 4-Column Bento Metric Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Kapasitas Slot</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">100%</div>
+        <div class="text-[11px] text-slate-400 font-medium">Rotasi akun otomatis aktif</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Throughput AI</span>
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">182 t/s</div>
+        <div class="text-[11px] text-slate-400 font-medium">Zero-buffer streaming pass</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Latensi RTT</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums font-mono-apple">14 ms</div>
+        <div class="text-[11px] text-slate-400 font-medium">Subnet Tailscale ruko</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Status Gateway</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black text-emerald-600 font-mono-apple">ONLINE</div>
+        <div class="text-[11px] text-slate-400 font-medium">Uptime 99.98% 30 hari</div>
+      </div>
+    </div>
+
+    <!-- Centerpiece Hero Console Island -->
+    <main class="hero-crystal p-6 sm:p-8 space-y-6">
+      <div class="space-y-1">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Konsol Servis Mandiri</h2>
+        <p class="text-xs sm:text-sm text-slate-500">Ketik hostname atau parameter untuk memicu radar diagnosa.</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <input type="text"
+               placeholder="Contoh: cekweb.megapass.web.id"
+               class="apple-input w-full rounded-2xl px-4 py-3 text-xs font-mono-apple text-slate-900 placeholder:text-slate-400 outline-none min-h-[44px]">
+        <button type="button"
+                @click="toast.message = 'Memulai proses diagnosa...'; toast.visible = true; setTimeout(() => toast.visible = false, 2500)"
+                class="btn-apple-brand w-full sm:w-auto px-6 py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 whitespace-nowrap min-h-[44px]">
+          <span>Mulai Analisis</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
+```
+
+---
+
+## 19. Clarity & Visual Aesthetics Audit SOP (Anti-Slop Golden Rules)
+
+To verify that an interface achieves the exact optical clarity and beauty of **AGY Router** and **CekWeb Megapass**, perform this 6-point verification before declaring completion:
+
+1. **Contrast Ratio Integrity (WCAG AAA)**:
+   - Primary text MUST be `#0F172A` (Slate 900) or `#1D1D1F` on frosted white cards.
+   - Secondary labels MUST be `#64748B` (Slate 500) or `#86868B`.
+   - Active tab text MUST be high-contrast dark on `#FFFFFF` pill.
+   - NEVER use low-contrast light-gray text (`text-slate-300`, `text-gray-400`) on white or frosted cards.
+2. **Tabular Number Alignment**:
+   - Every numerical score, latency value, clock, or progress counter MUST have `.font-mono-apple` / `tabular-nums`. Numbers must never wobble or jitter as they change.
+3. **Overhead Light Angle Uniformity**:
+   - The light source is strictly top-down (12 o'clock).
+   - Inset shadows always point down (`inset 0 2px 4px`).
+   - Specular highlights always sit on the top lip (`inset 0 1px 0`).
+   - Chamfer reflections on bottom edges (`0 1px 0 rgba(255,255,255,0.95)`).
+4. **Zero Layout Shifts (CLS = 0)**:
+   - Status switches and icons must be housed in fixed-size containers (`relative w-4 h-4`) with cross-fading opacities (`transition-opacity duration-150`), preventing buttons from jumping horizontally.
+5. **Native Vector Iconography (Zero Emojis)**:
+   - Interfaces must use clean inline SVG icons (Lucide or Heroicons).
+   - Emojis in buttons, tabs, or card titles are strictly prohibited.
+6. **Optical Density Scale**:
+   - Interfaces must employ the compact density scale (`text-xs` is 12px, `text-sm` is 13px, `text-base` is 14px) with `-0.015em` letter spacing on headings and `text-wrap: balance` to prevent awkward orphan words.
