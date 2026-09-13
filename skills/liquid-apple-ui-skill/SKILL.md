@@ -1,6 +1,6 @@
 ---
 name: liquid-apple-ui-skill
-description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), soft dual-shadow neumorphism (.neo-groove, .neo-tab-active), radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
+description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), soft dual-shadow neumorphism (.neo-groove, .neo-tab-active), glassmorphism + neumorphism harmonization matrix, radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
 ---
 
 # Liquid Apple UI Skill (v2.0)
@@ -102,7 +102,82 @@ Implementation in layout:
 
 ---
 
-## 3. Cupertino Physics & Animation Engine
+## 3. Liquid Glassmorphism Surface Architecture
+
+Cupertino glassmorphism is not a simple generic blur. It is an optical simulation of high-transmission frosted crystal acrylic: high light refraction, ambient iridescent colors shining through, and sharp specular chamfer reflections along the perimeter edges.
+
+Directly extracted from the production architecture of **AGY Router** (`http://100.65.188.64:7890/`) and **CekWeb Megapass** (`https://cekweb.megapass.web.id/`).
+
+### A. The Standard Frosted Crystal Card (`.crystal-card`)
+The workhorse container for content panels, telemetry tables, and navigation sidebars:
+
+```css
+.crystal-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 6px 20px -4px rgba(0, 113, 227, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.crystal-card:not(aside):hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.025),
+    0 14px 30px -8px rgba(0, 113, 227, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+```
+
+### B. The Hero Crystal Island (`.hero-crystal` & `.crystal-card-elevated`)
+The flagship centerpiece panel used for mission status banners, widget islands, and primary audit modules:
+
+```css
+/* AGY Router Hero Widget Island */
+.hero-crystal {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.92) 50%, rgba(254, 244, 249, 0.94) 100%);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1.5px solid rgba(255, 255, 255, 1);
+  border-radius: 24px;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 14px 36px -8px rgba(0, 113, 227, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* CekWeb Elevated Centerpiece Card */
+.crystal-card-elevated {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow: 
+    0 20px 48px -12px rgba(0, 113, 227, 0.09), 
+    0 8px 24px -4px rgba(0, 0, 0, 0.03), 
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+```
+
+### C. The 4 Glass Optical Constants
+1. **Saturate Boost (`saturate(190% - 200%)`)**: Without saturation boosting, browser blur algorithms desaturate the iridescent background into a muddy, milky haze. `saturate(190%)` preserves the dynamic colors of the underlying canvas.
+2. **Specular Top Chamfer (`inset 0 1px 0 rgba(255, 255, 255, 1)`)**: Simulates the polished top edge of an acrylic block catching overhead light.
+3. **Under-Bevel Ambient Occlusion (`inset 0 -1px 0 rgba(0, 0, 0, 0.02)`)**: A hairline 1px micro-shadow on the bottom edge that gives the floating glass slab physical thickness.
+4. **Tinted Ambient Drop Shadow (`rgba(0, 113, 227, 0.05 - 0.09)`)**: Shadows are never harsh pure black; they carry a subtle 5% to 9% Apple blue dispersion tint matching natural light refraction.
+
+---
+
+## 4. Cupertino Physics & Animation Engine
 
 Apple interfaces feel physical because interactive elements utilize damped spring physics (`cubic-bezier(0.16, 1, 0.3, 1)`):
 
@@ -235,7 +310,7 @@ Smooth fuel gauge animations for quota counters and token capacity:
 
 ---
 
-## 4. Soft Cupertino Neomorphism & Inset Grooves
+## 5. Soft Cupertino Neomorphism & Inset Grooves
 
 Apple neumorphism is radically different from the failed 2020 Dribbble trend (muddy dark gray clay with excessive diagonal drop shadows that destroyed contrast and readability).
 
@@ -371,7 +446,136 @@ High-density visual card blending crystal backdrop blur with subtle top and bott
 
 ---
 
-## 5. Status Indicators & Dynamic Island Elements
+## 6. The Glassmorphism + Neumorphism Harmonization Matrix
+
+### A. The Core Optical Challenge & Cupertino Solution
+- **Pure Glassmorphism Failure**: When interfaces only use frosted glass cards with floating icons and border outlines, elements feel ethereal, intangible, and flat. Interactive form wells cannot be distinguished from static containers.
+- **Pure Neumorphism Failure (The 2020 Clay Trap)**: When interfaces only use extruded gray clay buttons and sunken wells, the screen feels claustrophobic, dark, and heavy. Contrast suffers and mobile readability collapses.
+- **The Harmonious Symphony (AGY Router + CekWeb Megapass DNA)**:
+  - **Glassmorphism acts as the Macroscopic Architecture (Macro)**: Sets the airy room atmosphere, iridescent ambient light passing through from behind, and floating crystal slabs.
+  - **Neumorphism acts as the Microscopic Tactile Haptics (Micro)**: Carves precise mechanical wells, tactile buttons, switch tracks, and sensor pedestals inside the glass slabs.
+
+```
+       [Top-Down Ambient Light Source (12 O'Clock)]
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 5: Dynamic Island / Heads-Up Toast (#1A1A1E Glass)   │
+└─────────────────────────────────────────────────────────────┘
+                           │
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 4: Hybrid Neomorphic Crystal Plaques (.neo-crystal-box)│
+└─────────────────────────────────────────────────────────────┘
+                           │
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 3: Elevated Tactile Pills (.neo-tab-active, .btn-blue)│
+└─────────────────────────────────────────────────────────────┘
+                           │
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 2: Sunken Neomorphic Grooves (.neo-groove, inputs)    │
+└─────────────────────────────────────────────────────────────┘
+                           │
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 1: Floating Glass Slabs (.crystal-card, .hero-crystal)│
+└─────────────────────────────────────────────────────────────┘
+                           │
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER 0: Ground Platinum Canvas + 5-Point Iridescent Mesh   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### B. The 5-Layer Physical Depth Stack
+
+| Layer | Physical Analogy | Optical Properties | Classes Used | Production Reference |
+|---|---|---|---|---|
+| **Layer 0: Ground** | Workbench Surface | `#F5F5F7` with fixed 5-point ambient radial mesh | `.apple-ambient-canvas` | AGY Router + CekWeb canvas |
+| **Layer 1: Floating Slab** | Milled Frosted Acrylic Sheet | Floating 6px above ground, `blur(32px) saturate(190%)`, white specular rim | `.crystal-card`, `.hero-crystal`, `.crystal-card-elevated` | AGY Router Hero & CekWeb Panels |
+| **Layer 2: Sunken Socket** | CNC-Carved Well into the Acrylic | Sunken -2px, dark top shadow `inset 0 2px 4px`, bottom white reflection `0 1px 0` | `.neo-groove`, `.apple-input`, `.apple-meter-track` | CekWeb audit node switcher & input |
+| **Layer 3: Tactile Pill** | Polished Ceramic / Aluminum Button | Elevated +2px inside the well, crisp drop shadow `0 2px 8px`, specular top highlight | `.neo-tab-active`, `.btn-apple-brand`, `.btn-apple-pill` | AGY Router quick chips & CekWeb tabs |
+| **Layer 4: Hybrid Plaque** | Beveled Glass Telemetry Plaque | Acrylic blur (24px) + milled dual bevels (`inset 0 1px 0` & `inset 0 -1px 0`) | `.neo-crystal-box` | CekWeb GTmetrix grade plaques |
+| **Layer 5: Heads-Up HUD** | Floating Sensor Capsule | Pitch-black crystal glass `#1A1A1E/90`, `backdrop-blur-2xl`, white border 20% | Dynamic Island Toast, Modal Backdrop | AGY Router real-time notification |
+
+### C. The 4 Strict Harmonization Rules (Anti-Collisions)
+
+1. **Rule 1: Never Stack Identical Blur on Identical Blur**:
+   - DILARANG menaruh `.crystal-card` langsung di dalam `.crystal-card` tanpa membedakan opasitas atau background.
+   - Jika membutuhkan kartu anak di dalam panel kaca:
+     - Gunakan `.neo-groove` (parit cekung dengan latar `rgba(0,0,0,0.035)`), ATAU
+     - Gunakan kartu semi-solid `bg-white/95 border border-black/[0.06] shadow-xs`.
+   - Ini mencegah penumpukan blur yang membuat teks blur berkabut dan CPU i3/STB nge-drop.
+2. **Rule 2: Light Angle Synchronicity (Mandat Jam 12 Overhead)**:
+   - Semua bayangan inset (`inset 0 2px 4px`) WAJIB memiliki perpindahan vertikal positif (cahaya dari atas menyorot ke bawah).
+   - Semua specular rim (`inset 0 1px 0 #FFFFFF`) WAJIB berada di sisi atas.
+   - Semua highlight bibir parit (`0 1px 0 rgba(255,255,255,0.95)`) WAJIB berada di sisi bawah.
+   - Jangan pernah mencampur bayangan diagonal miring 45° dari Neumorphism 2020.
+3. **Rule 3: Transparency Hierarchy**:
+   - Canvas: Background solid platinum `#F5F5F7` + mesh.
+   - Card: 82% - 88% white opacity (membiarkan gradien mesh tembus).
+   - Groove: 3.5% black opacity (menonjolkan cekungan di atas kartu kaca).
+   - Active Tab: 100% solid white `#FFFFFF` (memastikan kontras teks hitam `#0F172A` terbaca tajam dan lulus audit accessibility WCAG AAA).
+4. **Rule 4: Radius Nesting Alignment ($R_{outer} = R_{inner} + P$)**:
+   - Jika `.crystal-card` luar bernilai `rounded-3xl` (24px), `.neo-groove` di dalamnya memakai `rounded-[22px]`, dan tombol `.neo-tab-active` di dalamnya memakai `rounded-[16px]`.
+
+### D. Production Blueprint: Complete Component Showcase (Agy Router + CekWeb)
+
+Here is how both live architectures weave together seamlessly in pure HTML + Tailwind CDN:
+
+```html
+<!-- LAYER 1: Main Glassmorphic Panel -->
+<div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-6 max-w-4xl mx-auto">
+  
+  <!-- Header with Live Beacon -->
+  <div class="flex items-center justify-between">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center font-mono-apple text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#0071E3]/[0.08] text-[#0071E3] border border-[#0071E3]/20">
+          PROYEK FLAGSHIP
+        </span>
+        <h2 class="text-xl font-black text-slate-900 tracking-tight">Symphony Glass & Neumorphism</h2>
+      </div>
+      <p class="text-xs text-slate-500 font-medium">Harmonisasi material kaca kristal dan parit sentuh taktil.</p>
+    </div>
+
+    <!-- LAYER 4: Neomorphic Crystal Grade Plaque -->
+    <div class="neo-crystal-box px-4 py-2 rounded-2xl bg-white/60 border border-black/[0.05] flex items-center gap-3">
+      <div class="text-right">
+        <div class="text-[9px] font-black uppercase text-slate-400">Status Sinyal</div>
+        <div class="text-xs font-black text-emerald-600">STABIL 100%</div>
+      </div>
+      <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></div>
+    </div>
+  </div>
+
+  <!-- LAYER 2 & 3: Neomorphic Tab Switcher inside Glass Card -->
+  <div class="neo-groove p-1.5 rounded-[22px] inline-flex items-center gap-1 w-full sm:w-auto">
+    <button type="button" class="neo-tab-active flex-1 sm:flex-initial px-5 py-2.5 rounded-[16px] text-xs font-bold btn-tactile min-h-[40px]">
+      Konsol Utama
+    </button>
+    <button type="button" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-[16px] text-xs font-bold text-slate-500 hover:text-slate-800 transition-[color,background-color,border-color,box-shadow,transform] duration-140 ease-out btn-tactile min-h-[40px]">
+      Telemetri Jaringan
+    </button>
+  </div>
+
+  <!-- LAYER 2 & 3: Neomorphic Form Well & Extruded Button -->
+  <div class="flex flex-col sm:flex-row items-center gap-3">
+    <div class="relative w-full">
+      <input type="text"
+             placeholder="Masukkan hostname target..."
+             class="apple-input w-full rounded-2xl px-4 py-3 text-xs font-mono-apple text-slate-900 placeholder:text-slate-400 outline-none min-h-[44px]">
+    </div>
+    <button type="button" class="btn-apple-brand w-full sm:w-auto px-6 py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 whitespace-nowrap min-h-[44px]">
+      <span>Jalankan Audit</span>
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+---
+
+## 7. Status Indicators & Dynamic Island Elements
 
 ### A. The "Liquid Pool" Brand Pill Badge
 Signature capsule badge from AGY Router navigation bar:
@@ -412,7 +616,7 @@ Capsule notification dropping down from top-center with realistic optical spring
 
 ---
 
-## 6. Modal & Dialog Windows (Frosted Glass Sheet)
+## 8. Modal & Dialog Windows (Frosted Glass Sheet)
 
 AGY Router Changelog and About dialogs use multi-stage layered frosted glass with deep drop shadows:
 
@@ -478,7 +682,7 @@ AGY Router Changelog and About dialogs use multi-stage layered frosted glass wit
 
 ---
 
-## 7. Cupertino Form Controls & Segmented Switches
+## 9. Cupertino Form Controls & Segmented Switches
 
 Authentic Apple controls prioritize optical softness, crystal transparency, and clear focus state geometry:
 
@@ -542,7 +746,7 @@ Cupertino-style radio/tab switcher inside a sunken track with concentric radii (
 
 ---
 
-## 8. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
+## 10. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
 
 > [!IMPORTANT]
 > **AGY Router DNA adalah 100% Light Crystal (Daylight Cupertino).**
@@ -564,7 +768,7 @@ Cupertino-style radio/tab switcher inside a sunken track with concentric radii (
 
 ---
 
-## 9. Concentric Nested Radii & Optical Geometry Formula
+## 11. Concentric Nested Radii & Optical Geometry Formula
 
 To avoid awkward optical clashes, corner radii MUST be mathematically aligned based on nesting depth using Apple's concentric radius formula:
 
@@ -585,7 +789,7 @@ $$16\text{px} + 6\text{px} = 22\text{px} \rightarrow \text{rounded-[22px]}$$
 
 ---
 
-## 10. Radial Circular Dial Gauge & Rolling Number Engine
+## 12. Radial Circular Dial Gauge & Rolling Number Engine
 
 For audit platforms, benchmarks, sensor HUDs, or telemetry monitors, use this high-precision SVG radial dial gauge with rolling number interpolation:
 
@@ -650,7 +854,7 @@ For audit platforms, benchmarks, sensor HUDs, or telemetry monitors, use this hi
 
 ---
 
-## 11. Multi-Segmented Waterfall Timeline & Metric Bento Cards
+## 13. Multi-Segmented Waterfall Timeline & Metric Bento Cards
 
 For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, data transfer):
 
@@ -703,7 +907,7 @@ For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, d
 
 ---
 
-## 12. Radar Pulse Scanning HUD & Status Step Ticker
+## 14. Radar Pulse Scanning HUD & Status Step Ticker
 
 For long-running asynchronous tasks (auditing, server testing, deployment), use this Apple-styled radar scanning HUD instead of a generic spinning circle:
 
@@ -732,7 +936,7 @@ For long-running asynchronous tasks (auditing, server testing, deployment), use 
 
 ---
 
-## 13. Scoped Transitions Anti-Jank & Zero-Shift State Swaps
+## 15. Scoped Transitions Anti-Jank & Zero-Shift State Swaps
 
 > [!CAUTION]
 > **DILARANG MENGGUNAKAN `transition-all` BLANKET DI MANAPUN DALAM TEMPLATE!**
@@ -775,7 +979,7 @@ Pastikan setiap elemen yang dapat diklik (preset chips, tabs, selector nodes, su
 
 ---
 
-## 14. Headless OpenGraph Graphic Card Generator (Python Pillow 1200x630)
+## 16. Headless OpenGraph Graphic Card Generator (Python Pillow 1200x630)
 
 Untuk menghasilkan kartu grafis OpenGraph pratinjau sosial atau struk bukti servis fisik tanpa menjalankan browser emulator (Chromium/Puppeteer) yang memakan RAM ratusan megabyte:
 
@@ -814,7 +1018,7 @@ def buat_kartu_apple_crystal(data: dict) -> io.BytesIO:
 
 ---
 
-## 15. Zero-Bloat Standalone Stack & Pre-Flight Verification
+## 17. Zero-Bloat Standalone Stack & Pre-Flight Verification
 
 ### Checklist Arsitektur:
 - [ ] Standalone Tailwind CSS dimuat via `<script src="https://cdn.tailwindcss.com"></script>`.
