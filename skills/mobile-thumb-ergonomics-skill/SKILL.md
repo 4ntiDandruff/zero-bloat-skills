@@ -52,10 +52,12 @@ Always declare dynamic viewport units and safe area meta tags:
 ```
 
 ```css
-/* Dynamic Viewport Reset */
+/* Dynamic Viewport Reset & Anti-Wobble Shield */
 html, body {
   min-height: 100vh;
   min-height: 100dvh;
+  overflow-x: hidden;
+  max-width: 100vw;
   overscroll-behavior-y: contain;
   -webkit-tap-highlight-color: transparent;
 }
@@ -66,8 +68,9 @@ html, body {
 When using a fixed bottom navigation dock or floating bottom action bar, the scrollable document container MUST have ample bottom clearance:
 
 ```html
-<main id="main" class="w-full min-h-screen pt-14 pb-32">
-  <div class="w-full max-w-md mx-auto px-4 pt-3">
+<main id="main" class="w-full min-h-screen pb-32"
+      style="padding-top: calc(4rem + env(safe-area-inset-top));">
+  <div class="w-full max-w-md mx-auto px-4 pt-1">
     <!-- Page Content -->
   </div>
 </main>
@@ -86,6 +89,27 @@ Every bottom-docked element must incorporate iOS Home Indicator clearance:
   <!-- Floating Dock -->
 </nav>
 ```
+
+### D. Top Notch & Dynamic Island Clearance (`env(safe-area-inset-top)`)
+
+On devices with camera notches or Apple's Dynamic Island (iPhone X through 16 Pro, modern Android punch-hole displays), a standard `top: 0` header collides with hardware cutouts.
+
+```html
+<!-- Fixed Top Header with Hardware Notch Inset -->
+<header class="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 bg-white/85 backdrop-blur-md border-b border-black/[0.06]"
+        style="padding-top: env(safe-area-inset-top); height: calc(3.5rem + env(safe-area-inset-top));">
+  <!-- Brand & Orientation Content -->
+</header>
+```
+
+### E. Sideways Screen Wobble Elimination
+
+A frequent bug on mobile web is accidental horizontal page scrolling ("sideways drift") triggered when a child element exceeds viewport bounds by 1px.
+
+Protect the layout by declaring:
+- `overflow-x: hidden; max-width: 100vw;` on `html` and `body`.
+- `max-w-md mx-auto` on every direct child container.
+- Horizontal carousels must manage their own isolated overflow (`overflow-x: auto`) with zero parent overflow bleeding.
 
 ---
 
@@ -171,6 +195,7 @@ A versatile 5-slot symmetrical bottom navigation bar with a center-floating acti
 ```html
 <!-- Universal Bottom Sheet Container (Alpine.js Powered) -->
 <div x-show="sheetOpen" x-cloak
+     x-init="$watch('sheetOpen', value => document.body.classList.toggle('overflow-hidden', value))"
      class="fixed inset-0 z-50 flex items-end justify-center p-0"
      style="padding-bottom: env(safe-area-inset-bottom)">
   
@@ -184,8 +209,8 @@ A versatile 5-slot symmetrical bottom navigation bar with a center-floating acti
        x-transition:leave-end="opacity-0"
        class="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-pointer"></div>
 
-  <!-- Bottom Sheet Card (Slides Up from bottom) -->
-  <div class="relative w-full max-w-md bg-white rounded-t-3xl border-t border-black/[0.08] shadow-2xl overflow-hidden p-5 space-y-4"
+  <!-- Bottom Sheet Card (Slides Up from bottom, with isolated scroll containment) -->
+  <div class="relative w-full max-w-md bg-white rounded-t-3xl border-t border-black/[0.08] shadow-2xl overflow-hidden p-5 space-y-4 overscroll-contain"
        x-transition:enter="transition ease-out duration-250 transform"
        x-transition:enter-start="translate-y-full"
        x-transition:enter-end="translate-y-0"
@@ -394,6 +419,16 @@ At the conclusion of a mobile form or workflow, avoid cramming multiple buttons 
 </div>
 ```
 
+### B. Target Size Standards & The 8px Fat-Finger Barrier
+
+1. **Apple Human Interface Guidelines (HIG)**:
+   - Minimum interactive hit target: **44 x 44 pt** (`min-h-[44px] min-w-[44px]`).
+2. **Google Material Design & Android**:
+   - Minimum touch target: **48 x 48 dp** (`min-h-[48px] min-w-[48px]`).
+3. **W3C WCAG 2.2 Criterion 2.5.8 (Target Spacing)**:
+   - Any two interactive elements with hit targets smaller than 48px MUST maintain at least **8px of physical spacing separation** (`gap-2` / `space-x-2`).
+   - If two 44px buttons are rendered with 0px margin, adult thumb false-taps surge by up to 18% during single-handed operation.
+
 ---
 
 ## 8. Mobile Typography & Safari iOS Auto-Zoom Mitigation
@@ -573,8 +608,9 @@ Below is the complete, single-file ready-to-run template embodying all handheld 
 <body class="w-full text-slate-900 relative"
       x-data="universalMobileApp()">
 
-  <!-- TOP APP BAR: Orientation Only (No vital buttons here) -->
-  <header class="fixed top-0 inset-x-0 h-14 bg-white/80 backdrop-blur-md border-b border-black/[0.06] z-30 flex items-center justify-between px-4">
+  <!-- TOP APP BAR: Orientation Only (with Hardware Notch & Dynamic Island Inset) -->
+  <header class="fixed top-0 inset-x-0 bg-white/85 backdrop-blur-md border-b border-black/[0.06] z-30 flex items-center justify-between px-4"
+          style="padding-top: env(safe-area-inset-top); height: calc(3.5rem + env(safe-area-inset-top));">
     <div class="flex items-center space-x-2">
       <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
       <span class="font-extrabold text-sm tracking-tight">APPLICATION PORTAL</span>
@@ -583,7 +619,8 @@ Below is the complete, single-file ready-to-run template embodying all handheld 
   </header>
 
   <!-- MAIN SCROLL CONTAINER: Bound to max-w-md with pb-32 clearance -->
-  <main class="w-full min-h-screen pt-16 pb-32">
+  <main class="w-full min-h-screen pb-32"
+        style="padding-top: calc(4.25rem + env(safe-area-inset-top));">
     <div class="w-full max-w-md mx-auto px-4 space-y-4">
       
       <!-- HERO SUMMARY CARD: Tap to trigger Selector Drawer -->
@@ -795,6 +832,11 @@ Below is the complete, single-file ready-to-run template embodying all handheld 
         activeOptionTitle: 'Opsi Prioritas Utama',
         summaryMetric: '1,240 Unit',
         rawKeypad: '',
+
+        init() {
+          this.$watch('pickerSheetOpen', v => document.body.classList.toggle('overflow-hidden', v));
+          this.$watch('keypadOpen', v => document.body.classList.toggle('overflow-hidden', v));
+        },
 
         selectOption(title, metric) {
           this.activeOptionTitle = title;
