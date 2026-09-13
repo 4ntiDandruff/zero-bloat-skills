@@ -1,6 +1,6 @@
 ---
 name: liquid-apple-ui-skill
-description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
+description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), soft dual-shadow neumorphism (.neo-groove, .neo-tab-active), radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
 ---
 
 # Liquid Apple UI Skill (v2.0)
@@ -39,12 +39,14 @@ Strictly avoid generic dark hacker themes or flat muddy grays. The authentic App
 | **Ambient Canvas** | `#F5F5F7` + Iridescent Mesh Radial Gradients | `.apple-ambient-canvas` | Deepest foundation layer; dynamic color hints at 5 coordinate points |
 | **Frosted Glass Cards** | `rgba(255,255,255,0.88)` + `blur(32px) saturate(190%)` | `.crystal-card` | Main content panels, data containers, and fixed sidebar navigation |
 | **Hero Crystal Island** | 135deg gradient `rgba(255,255,255,0.96)` ➔ `rgba(244,248,255,0.92)` | `.hero-crystal` | Top-level active status banner, widget islands, elevated cards |
+| **Neomorphic Inset Groove** | Sunken ambient inset shadow + 1px white bottom highlight | `.neo-groove` | Recessed segmented track, tab wells, gauge slots |
+| **Neomorphic Active Pill** | Crisp elevated drop shadow + 1px white top highlight | `.neo-tab-active` | Selected tab state, active toggle switch, convex buttons |
+| **Neomorphic Crystal Box** | Dual specular highlight + frosted backdrop blur 24px | `.neo-crystal-box` | GTmetrix grade boxes, telemetry plaques, metric plaques |
 | **Primary Tactile Button** | `#0077ED` ➔ `#0066CC` gradient + 1px white top inset | `.btn-apple-blue` | Main call-to-action with Cupertino spring click haptics |
 | **Tactile Pill Button** | `rgba(255,255,255,0.94)` + border `rgba(0,0,0,0.08)` | `.btn-apple-pill` | Secondary controls, modal triggers, segmented buttons |
 | **Tactile Action Chip** | Micro-scaling `scale(0.95)` with cubic-bezier dampening | `.btn-tactile` | Interactive chips, copy buttons, dropdown items, switches |
 | **Sidebar Navigation** | Dynamic active gradient `#0077ED` ➔ `#0066CC` | `.nav-item` / `.nav-item.active` | Left rail navigation with subtle horizontal sliding |
-| **Form Inputs & Search** | `bg-white/95` + Apple blue glow ring `focus:ring-[#0071E3]/10` | `.apple-input` | Clean form controls with keyboard shortcut badges |
-| **Segmented Control** | Track `bg-black/[0.03]` + active card pill `bg-white shadow-2xs` | `.apple-segmented` | Tab switcher, period filter, view modes |
+| **Form Inputs & Search** | `bg-white/95` + Neomorphic recessed well + blue glow ring | `.apple-input` | Clean form controls with keyboard shortcut badges |
 | **Progress Meters** | Silk flow ease with inset track shadow | `.fuel-progress-fill` + `.apple-meter-track` | Quota visualizers, usage histograms, fuel gauges |
 | **Fluid Scrollbar** | Native slim 5px translucent track | `::-webkit-scrollbar` | Discrete, unobtrusive scrolling for cards and timelines |
 
@@ -233,7 +235,143 @@ Smooth fuel gauge animations for quota counters and token capacity:
 
 ---
 
-## 4. Status Indicators & Dynamic Island Elements
+## 4. Soft Cupertino Neomorphism & Inset Grooves
+
+Apple neumorphism is radically different from the failed 2020 Dribbble trend (muddy dark gray clay with excessive diagonal drop shadows that destroyed contrast and readability).
+
+Authentic Apple Cupertino Neomorphism operates on clean platinum (`#F5F5F7` / `rgba(0,0,0,0.035)`) and follows the physical optics of a **12 o'clock overhead light source** (top-down lighting):
+1. **Top Ambient Occlusion**: Soft micro-inset shadow at the top rim representing depth and shadow cast by the bezel edge.
+2. **Bottom Specular Reflection**: Crisp 1px pure white (`rgba(255,255,255,0.95)`) highlight at the bottom edge, simulating a CNC-milled chamfer or polished aluminum lip catching overhead room light.
+
+### A. Core Neomorphic Classes & Shadow Physics
+
+```css
+/* Neomorphic Inset Groove & Recessed Wells (Segmented Track & Inset Bases) */
+.neo-groove {
+  background: rgba(0, 0, 0, 0.035);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.04), 
+    inset 0 1px 2px rgba(0, 0, 0, 0.02), 
+    0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Neomorphic Active Pill (Convex Elevated Tab State) */
+.neo-tab-active {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.06), 
+    0 1px 2px rgba(0, 0, 0, 0.03), 
+    inset 0 1px 0 #FFFFFF !important;
+}
+
+/* Neomorphic Frosted Crystal Box (Grade Plaques & Dial Pedestals) */
+.neo-crystal-box {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.03), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9), 
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tactile Form Inputs (Neomorphic Recessed Well) */
+.apple-input {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.03), 
+    inset 0 1px 2px rgba(0, 0, 0, 0.02), 
+    0 1px 0 rgba(255, 255, 255, 0.9);
+  transition-property: border-color, box-shadow, background-color;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.apple-input:focus {
+  background: #FFFFFF;
+  border-color: #0071E3;
+  box-shadow: 
+    0 0 0 3.5px rgba(0, 113, 227, 0.16), 
+    inset 0 1px 2px rgba(0, 0, 0, 0.02), 
+    0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Primary Tactile Brand Button with Extruded Neomorphic Bevel */
+.btn-apple-brand {
+  background: linear-gradient(180deg, #0077ED 0%, #0066CC 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 4px 14px rgba(0, 113, 227, 0.30), 
+    0 1px 2px rgba(0, 0, 0, 0.08), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45), 
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition-property: transform, box-shadow, filter, background;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+}
+.btn-apple-brand:hover {
+  filter: brightness(1.03);
+  box-shadow: 
+    0 6px 20px rgba(0, 113, 227, 0.38), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+.btn-apple-brand:active {
+  transform: scale(0.975) translateY(0.5px);
+  filter: brightness(0.95);
+  box-shadow: 
+    0 1px 4px rgba(0, 113, 227, 0.20), 
+    inset 0 2px 4px rgba(0, 0, 0, 0.20);
+}
+```
+
+### B. Segmented Neomorphic Tab Switcher (HTML Pattern)
+
+Concentric radii formula applied: Outer groove (`rounded-2xl` / 16px) with `p-1.5` (6px) wraps inner tabs (`rounded-xl` / 10-12px):
+
+```html
+<div class="neo-groove p-1.5 rounded-2xl inline-flex items-center gap-1">
+  <!-- Active Tab: Elevated Convex Pill -->
+  <button type="button"
+          class="neo-tab-active px-4 py-2 rounded-xl text-xs font-bold transition-[color,background-color,border-color,box-shadow,transform] duration-140 ease-out btn-tactile min-h-[40px]">
+    Mode Audit Tunggal
+  </button>
+  <!-- Inactive Tab: Flat Unselected -->
+  <button type="button"
+          class="px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-900 transition-[color,background-color,border-color,box-shadow,transform] duration-140 ease-out btn-tactile min-h-[40px]">
+    Mode Komparasi
+  </button>
+</div>
+```
+
+### C. Neomorphic Grade Plaque / Telemetry Box
+
+High-density visual card blending crystal backdrop blur with subtle top and bottom chamfer lines:
+
+```html
+<div class="neo-crystal-box p-4 rounded-2xl bg-white/60 border border-black/[0.05] flex items-center justify-between">
+  <div>
+    <div class="text-[10px] font-black uppercase tracking-wider text-slate-400">GTmetrix Speed Grade</div>
+    <div class="text-xl font-black text-slate-900">Grade A (98%)</div>
+  </div>
+  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center font-black text-sm">
+    A
+  </div>
+</div>
+```
+
+---
+
+## 5. Status Indicators & Dynamic Island Elements
 
 ### A. The "Liquid Pool" Brand Pill Badge
 Signature capsule badge from AGY Router navigation bar:
@@ -274,7 +412,7 @@ Capsule notification dropping down from top-center with realistic optical spring
 
 ---
 
-## 5. Modal & Dialog Windows (Frosted Glass Sheet)
+## 6. Modal & Dialog Windows (Frosted Glass Sheet)
 
 AGY Router Changelog and About dialogs use multi-stage layered frosted glass with deep drop shadows:
 
@@ -340,7 +478,7 @@ AGY Router Changelog and About dialogs use multi-stage layered frosted glass wit
 
 ---
 
-## 6. Cupertino Form Controls & Segmented Switches
+## 7. Cupertino Form Controls & Segmented Switches
 
 Authentic Apple controls prioritize optical softness, crystal transparency, and clear focus state geometry:
 
@@ -404,7 +542,7 @@ Cupertino-style radio/tab switcher inside a sunken track with concentric radii (
 
 ---
 
-## 7. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
+## 8. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
 
 > [!IMPORTANT]
 > **AGY Router DNA adalah 100% Light Crystal (Daylight Cupertino).**
@@ -426,7 +564,7 @@ Cupertino-style radio/tab switcher inside a sunken track with concentric radii (
 
 ---
 
-## 8. Concentric Nested Radii & Optical Geometry Formula
+## 9. Concentric Nested Radii & Optical Geometry Formula
 
 To avoid awkward optical clashes, corner radii MUST be mathematically aligned based on nesting depth using Apple's concentric radius formula:
 
@@ -447,7 +585,7 @@ $$16\text{px} + 6\text{px} = 22\text{px} \rightarrow \text{rounded-[22px]}$$
 
 ---
 
-## 9. Radial Circular Dial Gauge & Rolling Number Engine
+## 10. Radial Circular Dial Gauge & Rolling Number Engine
 
 For audit platforms, benchmarks, sensor HUDs, or telemetry monitors, use this high-precision SVG radial dial gauge with rolling number interpolation:
 
@@ -512,7 +650,7 @@ For audit platforms, benchmarks, sensor HUDs, or telemetry monitors, use this hi
 
 ---
 
-## 10. Multi-Segmented Waterfall Timeline & Metric Bento Cards
+## 11. Multi-Segmented Waterfall Timeline & Metric Bento Cards
 
 For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, data transfer):
 
@@ -565,7 +703,7 @@ For visual breakdown of multi-phase operations (e.g. TTFB, DNS, TCP handshake, d
 
 ---
 
-## 11. Radar Pulse Scanning HUD & Status Step Ticker
+## 12. Radar Pulse Scanning HUD & Status Step Ticker
 
 For long-running asynchronous tasks (auditing, server testing, deployment), use this Apple-styled radar scanning HUD instead of a generic spinning circle:
 
@@ -594,7 +732,7 @@ For long-running asynchronous tasks (auditing, server testing, deployment), use 
 
 ---
 
-## 12. Scoped Transitions Anti-Jank & Zero-Shift State Swaps
+## 13. Scoped Transitions Anti-Jank & Zero-Shift State Swaps
 
 > [!CAUTION]
 > **DILARANG MENGGUNAKAN `transition-all` BLANKET DI MANAPUN DALAM TEMPLATE!**
@@ -637,7 +775,7 @@ Pastikan setiap elemen yang dapat diklik (preset chips, tabs, selector nodes, su
 
 ---
 
-## 13. Headless OpenGraph Graphic Card Generator (Python Pillow 1200x630)
+## 14. Headless OpenGraph Graphic Card Generator (Python Pillow 1200x630)
 
 Untuk menghasilkan kartu grafis OpenGraph pratinjau sosial atau struk bukti servis fisik tanpa menjalankan browser emulator (Chromium/Puppeteer) yang memakan RAM ratusan megabyte:
 
@@ -676,7 +814,7 @@ def buat_kartu_apple_crystal(data: dict) -> io.BytesIO:
 
 ---
 
-## 14. Zero-Bloat Standalone Stack & Pre-Flight Verification
+## 15. Zero-Bloat Standalone Stack & Pre-Flight Verification
 
 ### Checklist Arsitektur:
 - [ ] Standalone Tailwind CSS dimuat via `<script src="https://cdn.tailwindcss.com"></script>`.
