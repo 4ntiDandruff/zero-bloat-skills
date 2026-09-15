@@ -2,12 +2,13 @@
 
 # ZERO-BLOAT-SKILLS
 
-**21 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**23 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Web Showcase Interaktif](https://img.shields.io/badge/Web%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratorium](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Sertifikasi](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Arsitektur](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
+[![Symlink Aktif](https://img.shields.io/badge/Symlink%20Aktif-207%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![Lisensi](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -39,15 +40,15 @@ Dapat dipasang dan dimuat secara otomatis oleh **Google Antigravity CLI**, **Cla
 
 ---
 
-## ⚡ Instalasi Remote 1 Baris Perintah
+## Instalasi Remote 1 Baris Perintah
 
-Pasang dan hubungkan 21 modul keahlian ini ke seluruh AI coding agent yang terpasang di sistem Linux Anda hanya dengan satu baris perintah terminal:
+Pasang dan hubungkan 23 modul keahlian ini ke seluruh AI coding agent yang terpasang di sistem Linux Anda hanya dengan satu baris perintah terminal:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
 ```
 
-Atau lakukan clone manual dan jalankan skrip installer lokal:
+Or clone manual dan jalankan skrip installer lokal:
 
 ```bash
 git clone https://github.com/4ntiDandruff/zero-bloat-skills.git
@@ -62,13 +63,13 @@ Untuk memperbarui seluruh modul kapan saja:
 
 ---
 
-## 🌐 Portal Web Interaktif & Laboratorium Langsung
+## Portal Web Interaktif & Laboratorium Langsung
 
 Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://skill.megapass.web.id)**:
 
 * **Laboratorium Langsung: Tangga AI Hemat Token**: Uji coba langsung deteksi nominal percakapan sehari-hari dalam Bahasa Indonesia (IDR) dan English (USD) secara real-time dengan kecepatan sub-milidetik dan **0 panggilan API LLM, 0 token terkuras**.
 * **Web Speech STT Native Browser**: Dikte percakapan hands-free langsung dari mikrofon peramban web dengan auto-deteksi bahasa.
-* **Viewer SOP Lengkap**: Baca seluruh spesifikasi teknis dan SOP markdown dari ke-21 modul langsung di browser melalui slide-over drawer interaktif lengkap dengan tombol salin path dan kode.
+* **Viewer SOP Lengkap**: Baca seluruh spesifikasi teknis dan SOP markdown dari ke-23 modul langsung di browser melalui slide-over drawer interaktif lengkap dengan tombol salin path dan kode.
 
 <p align="center">
   <a href="https://skill.megapass.web.id">
@@ -104,7 +105,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 
 ---
 
-## 2. Matriks Lengkap 21 Modul Produksi
+## 2. Matriks Lengkap 23 Modul Produksi
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
@@ -130,10 +131,11 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Bot Telegram remote ops interaktif dengan inline keyboard, Wake-on-LAN (WOL), sanitasi HTML aman anti-crash, dan resiliensi infinity polling. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Pembersih bloatware ADB Android non-root untuk meja servis: whitelist sistem krusial dan katalog blacklist vendor (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### Arsitektur Web & UI Cupertino (7 Modul)
+### Arsitektur Web & Desain Sistem UI (8 Modul)
 
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
+| [`dark-modern-tech-ui-skill`](skills/dark-modern-tech-ui-skill/SKILL.md) | Desain UI Dark Modern Tech konversi tinggi: Deep Slate (#0B1220), kaca es gelap (blur 16px), aksen Electric Cyan, Bento grid, pricing matrix, FAQ accordion. | `dark modern tech`, `ui megapass`, `tema gelap`, `dark mode`, `slate glassmorphism`, `landing page servis` |
 | [`zero-bloat-web-stack-skill`](skills/zero-bloat-web-stack-skill/SKILL.md) | Arsitektur web SSR ultra-ramah RAM: FastAPI + SQLite WAL + HTMX + Alpine.js + Tailwind CSS (<40MB RAM, cold-start <100ms). | `fastapi`, `endpoint`, `router`, `backend python`, `web lean` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Desain UI Apple Cupertino liquid crystal: iridescent ambient mesh 5-titik (`#F5F5F7`), translucent frosted glass, fisika pegas tactile haptic, radar status pill, dynamic island toast, dan Alpine zero-flicker. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Ergonomi genggam jempol tangan satu, geometri 100dvh, floating glass dock dengan elevated FAB, virtual keypad bottom sheet, target sentuh 44px. | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
@@ -239,6 +241,7 @@ zero-bloat-skills/
 │   ├── zero-bloat-web-stack-skill/       # FastAPI + Alpine + HTMX + Tailwind (<40MB RAM)
 │   ├── privacy-analytics-waf-skill/      # Analitik web mandiri zero-cookie + sekring WAF
 │   ├── print-shop-canvas-skill/          # Generator canvas Pillow presisi tinggi 300 DPI
+│   ├── dark-modern-tech-ui-skill/        # Slate dark (#0B1220), kaca es gelap, cyan glow, Bento grid
 │   ├── liquid-apple-ui-skill/            # Desain liquid Apple crystal UI, iridescent canvas, Alpine tabs
 │   ├── mobile-thumb-ergonomics-skill/    # Ergonomi jempol genggam ponsel, floating glass dock, 100dvh
 │   ├── longform-reader-ux-skill/         # Cue scroll tabel, reading bar, salin kode, shimmer
