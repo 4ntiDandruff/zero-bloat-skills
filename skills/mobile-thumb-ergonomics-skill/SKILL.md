@@ -56,16 +56,25 @@ Always declare dynamic viewport units and safe area meta tags:
 ```
 
 ```css
-/* Dynamic Viewport Reset & Anti-Wobble Shield */
-html, body {
+/* Dynamic Viewport Reset & Anti-Wobble Shield (Scroll-Safe) */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
   min-height: 100vh;
   min-height: 100dvh;
-  overflow-x: hidden;
-  max-width: 100vw;
-  overscroll-behavior-y: contain;
+  overflow-x: clip; /* WAJIB clip: memotong kebocoran horizontal tanpa mengunci scrollbar vertikal */
   -webkit-tap-highlight-color: transparent;
 }
 ```
+
+> [!CAUTION]
+> **ANTI-PATTERN PERUSAK SCROLL: DILARANG menggunakan `overflow-x: hidden` atau `overscroll-behavior-y: contain` pada `html, body`!**
+> 1. Menurut spesifikasi CSS, jika salah satu sumbu disetel `hidden`, browser otomatis mengonversi sumbu lain (`overflow-y`) menjadi `auto`. Pada `html` dan `body`, ini memecah scroller root window menjadi scroller elemen lokal, mengunci/mematikan scrollbar vertikal native browser ponsel dan desktop!
+> 2. `overscroll-behavior-y: contain` pada `html, body` mematikan momentum gesture scroll vertikal mobile. Properti ini HANYA boleh dipasang pada wadah scrollable anak (seperti inner sheet drawer), BUKAN di root viewport!
+> 3. Gunakan `overflow-x: clip` pada `body` untuk proteksi horizontal 100% aman.
 
 ### B. The Dock Clearance Mandate (`pb-32`)
 
@@ -111,7 +120,7 @@ On devices with camera cutouts or Apple's Dynamic Island, a standard `top: 0` he
 A frequent bug on mobile web is accidental horizontal page scrolling ("sideways drift") triggered when a child element exceeds viewport bounds by 1px.
 
 Protect the layout by declaring:
-- `overflow-x: hidden; max-width: 100vw;` on `html` and `body`.
+- `overflow-x: clip;` on `body` (BUKAN `overflow-x: hidden` pada `html, body` yang mengunci scrollbar vertikal).
 - `max-w-md mx-auto` on every direct child container.
 - Horizontal carousels must manage their own isolated overflow (`overflow-x: auto`) with zero parent overflow bleeding.
 
@@ -557,12 +566,15 @@ Below is the complete, single-file ready-to-run template embodying all handheld 
 
   <style>
     [x-cloak] { display: none !important; }
-    html, body {
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
       min-height: 100vh;
       min-height: 100dvh;
-      overflow-x: hidden;
-      max-width: 100vw;
-      overscroll-behavior-y: contain;
+      overflow-x: clip;
       -webkit-tap-highlight-color: transparent;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -800,8 +812,11 @@ Below is the complete, single-file ready-to-run template embodying all handheld 
         rawKeypad: '',
 
         init() {
-          this.$watch('pickerSheetOpen', v => document.body.classList.toggle('overflow-hidden', v));
-          this.$watch('keypadOpen', v => document.body.classList.toggle('overflow-hidden', v));
+          const syncLock = () => {
+            document.body.classList.toggle('overflow-hidden', Boolean(this.pickerSheetOpen || this.keypadOpen));
+          };
+          this.$watch('pickerSheetOpen', () => syncLock());
+          this.$watch('keypadOpen', () => syncLock());
         },
 
         selectOption(title, metric) {
@@ -864,3 +879,5 @@ Before declaring any smartphone web interface or PWA production-ready, verify th
    - Dialogs, pickers, and menus slide up from the bottom edge (`flex items-end rounded-t-3xl`) with a visible grab handle, never opening as centered popups.
 10. **Device Width Bounds (`max-w-md`)**:
     - The layout canvas is restricted to `max-w-md mx-auto` (approx. 448px) so it presents an ergonomic mobile aspect ratio even when opened on foldables, tablets, or desktop viewports.
+11. **Vertical Scroll Preservation (`overflow-x: clip`)**:
+    - Declare `overflow-x: clip;` on `body` (never `overflow-x: hidden` or `overscroll-behavior-y: contain` on `html, body`) so horizontal overflow is cleanly clipped without disabling the native window vertical scrollbar.
