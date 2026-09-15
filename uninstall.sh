@@ -12,9 +12,11 @@ echo "[*] Mencabut symlink zero-bloat-skills secara aman..."
 
 TARGET_DIRS=(
     "$HOME/.gemini/config/skills"
+    "$HOME/.agents/skills"
     "$HOME/.claude/skills"
     "$HOME/.config/everything-claude-code/skills"
     "$HOME/.omp/skills"
+    "$HOME/.config/omp/skills"
     "$HOME/.config/opencode/skills"
     "$HOME/.hermes/skills"
     "$HOME/.codex/skills"
