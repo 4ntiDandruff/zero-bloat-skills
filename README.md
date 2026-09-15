@@ -2,7 +2,7 @@
 
 # ZERO-BLOAT-SKILLS
 
-**21 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**23 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Workbench-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
@@ -106,7 +106,7 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 
 ---
 
-## 2. Complete 21-Skill Production Matrix
+## 2. Complete 23-Skill Production Matrix
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
@@ -132,10 +132,11 @@ Explore the entire suite live on the web at **[skill.megapass.web.id](https://sk
 | [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Interactive Telegram bot with inline keyboard buttons, Wake-on-LAN (WOL) remote triggers, resource alerting. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Non-root ADB package debloater, critical system package whitelist, batch OEM package cleanup (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### Web Architecture & Cupertino UI (7 Modules)
+### Web Architecture & UI Systems (8 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
+| [`dark-modern-tech-ui-skill`](skills/dark-modern-tech-ui-skill/SKILL.md) | High-conversion Dark Modern Tech UI: Deep Slate (#0B1220), frosted dark glass (blur 16px), electric cyan accents, Bento grid, pricing tier matrix, zero-bloat FAQ accordion. | `dark modern tech`, `ui megapass`, `tema gelap`, `dark mode`, `slate glassmorphism`, `landing page servis` |
 | [`zero-bloat-web-stack-skill`](skills/zero-bloat-web-stack-skill/SKILL.md) | Ultra-lean SSR web stack: FastAPI + SQLite WAL + HTMX + Alpine.js + Tailwind CSS (<40MB RAM, cold-start <100ms). | `fastapi`, `endpoint`, `router`, `backend python`, `web lean` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Apple-inspired Cupertino liquid crystal UI design system: 5-point iridescent ambient mesh (`#F5F5F7`), translucent frosted glass, spring tactile haptics, radar status pills, dynamic island toasts, Alpine tabs. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Styling-agnostic mobile layout, handheld thumb-zone geometry, 100dvh viewport physics, bottom-anchored actions, bottom sheet drawers, 44px touch targets. | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
@@ -241,6 +242,7 @@ zero-bloat-skills/
 │   ├── zero-bloat-web-stack-skill/       # FastAPI + Alpine + HTMX + Tailwind (<40MB RAM)
 │   ├── privacy-analytics-waf-skill/      # Zero-cookie visitor analytics + WAF rate limiter
 │   ├── print-shop-canvas-skill/          # High-DPI Pillow canvas generator for physical print
+│   ├── dark-modern-tech-ui-skill/        # Slate dark (#0B1220), frosted glass, cyan glow, Bento grid
 │   ├── liquid-apple-ui-skill/            # Apple-style liquid crystal UI, iridescent canvas, Alpine tabs
 │   ├── mobile-thumb-ergonomics-skill/    # Styling-agnostic thumb ergonomics, bottom actions, 100dvh
 │   ├── longform-reader-ux-skill/         # Table scroll cue, reading bar, copy-code, shimmer
