@@ -28,6 +28,9 @@ Modul ini adalah standar operasional meja kerja (*workbench SOP*) untuk mengelol
 - **Partisi 1**: Area kerja teknisi. Bebas diisi ISO dan folder utilitas.
 - **Partisi 2**: Bootloader EFI Ventoy. Tidak boleh diutak-atik agar bootloader tidak korup.
 
+### Rekomendasi Skema Partisi Meja Servis (MBR vs GPT):
+- **Wajib Pilih MBR (Master Boot Record)**: Flashdisk Ventoy meja servis disarankan diformat dengan opsi partisi **MBR**. Format MBR menjamin bootloader kompatibel 100% pada PC jadul (Legacy BIOS murni) maupun laptop modern (UEFI x64). Format GPT hanya bisa boot pada UEFI dan gagal pada sistem lawas tanpa CSM.
+
 ---
 
 ## 2. Konfigurasi Baku `ventoy/ventoy.json` (CLI & Zero-Bloat Bypass)
@@ -57,6 +60,11 @@ Letakkan berkas konfigurasi di `/ventoy/ventoy.json` pada root Partisi 1:
    * Otomatis mem-bypass pemeriksaan TPM 2.0, SecureBoot, CPU whitelist, dan batas minimal RAM 4GB saat instalasi Windows 11.
 4. `"VTOY_WIN11_BYPASS_NRO": "1"`
    * Otomatis mem-bypass kewajiban koneksi internet (OOBE Network Requirement), memungkinkan teknisi membuat akun pengguna lokal (*offline user*) tanpa harus login akun Microsoft.
+
+> [!NOTE] Persyaratan Versi Bootloader Ventoy:
+> - `VTOY_WIN11_BYPASS_CHECK`: Didukung sejak Ventoy v1.0.55+.
+> - `VTOY_WIN11_BYPASS_NRO`: Didukung sejak Ventoy v1.0.86+.
+> - Pembaruan bootloader non-destruktif (tanpa menghapus ISO): `sudo ventoy -u /dev/sdX`
 
 ---
 

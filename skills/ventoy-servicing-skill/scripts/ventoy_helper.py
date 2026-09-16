@@ -34,6 +34,11 @@ def init_ventoy(drive_path: Path):
         print(f"[-] Error: Target drive path does not exist: {drive_path}", file=sys.stderr)
         sys.exit(1)
 
+    # Circuit Fuse: Prevent accidental execution on root or home directory
+    if drive_path in [Path("/"), Path.home()]:
+        print(f"[-] Error: Refusing to initialize root or home directory: {drive_path}", file=sys.stderr)
+        sys.exit(1)
+
     print("=====================================================================")
     print(f"[*] INITIALIZING VENTOY WORKBENCH USB: {drive_path}")
     print("=====================================================================")
@@ -106,20 +111,25 @@ def verify_ventoy(drive_path: Path):
     else:
         try:
             cfg = json.loads(config_file.read_text(encoding="utf-8"))
-            theme = cfg.get("theme", {})
-            if theme.get("display_mode") != "CLI":
+            theme = cfg.get("theme") or {}
+            display_mode = str(theme.get("display_mode", "")).upper()
+            if display_mode != "CLI":
                 issues.append("Display mode is not set to 'CLI' (risk of graphical lag on older monitors)")
 
-            control = cfg.get("control", [])
+            control = cfg.get("control") or []
             ctrl_keys = {}
-            for item in control:
-                ctrl_keys.update(item)
+            if isinstance(control, dict):
+                ctrl_keys = control
+            elif isinstance(control, list):
+                for item in control:
+                    if isinstance(item, dict):
+                        ctrl_keys.update(item)
 
-            if ctrl_keys.get("VTOY_WIN11_BYPASS_CHECK") != "1":
+            if str(ctrl_keys.get("VTOY_WIN11_BYPASS_CHECK", "0")) != "1":
                 issues.append("Win11 TPM/SecureBoot/RAM bypass is disabled")
-            if ctrl_keys.get("VTOY_WIN11_BYPASS_NRO") != "1":
+            if str(ctrl_keys.get("VTOY_WIN11_BYPASS_NRO", "0")) != "1":
                 issues.append("Win11 Offline Account (NRO) bypass is disabled")
-            if ctrl_keys.get("VTOY_DEFAULT_MENU_MODE") != "list":
+            if str(ctrl_keys.get("VTOY_DEFAULT_MENU_MODE", "")).lower() != "list":
                 issues.append("Default menu mode is not 'list'")
         except Exception as e:
             issues.append(f"Invalid JSON format in ventoy.json: {e}")
