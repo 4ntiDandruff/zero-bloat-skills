@@ -140,7 +140,38 @@ Struktur standar kartu antarmuka 1 detik paham:
 
 ---
 
-## 6. Contoh Studi Kasus Riil: Before vs After
+## 6. Formula Judul Utama (Hero Headline & Tagline)
+
+Saat merancang bagian paling atas (*above-the-fold / hero section*) dari landing page atau web utility, gunakan rumus 3 elemen:
+
+```
+[Headline] : [Solusi Utama Tanpa Batas / Masalah Terbesar yang Selesai]
+[Tagline]  : [Alternatif Produk Mahal/Banyak Iklan] + [Jaminan Rasa Aman & Privasi]
+[Pill]     : [3 Pembunuh Keraguan Terpenting (Bebas Biaya / Privasi / Jumlah Fitur)]
+```
+
+*   **Contoh Penerapan Nyata**:
+    *   *Headline*: **Kotak Perkakas PDF Lengkap & Serbaguna**
+    *   *Tagline*: Alternatif iLovePDF tanpa batas kuota harian, bebas iklan, dan privasi terjamin. Lempar berkas langsung ke kartu untuk mulai.
+    *   *Status Pill*: `Berkas Otomatis Dihapus • 100% Bebas Iklan • 20 Fitur Siap Pakai`
+
+---
+
+## 7. Micro-Copy: Pesan Error & Validasi Ramah Manusia
+
+Pesan error adalah momen paling rawan di mana bahasa robot sering bocor dan membuat panik pengguna awam. Terapkan prinsip: **Tenangkan + Jelaskan Masalahnya + Beri Solusi Langkah Berikutnya**.
+
+| Kasus Error | Bahasa Robot AI (DILARANG) | Bahasa Manusiawi Meja Servis (GUNAKAN) |
+|---|---|---|
+| **File Terlalu Besar** | *Error 413: Payload Too Large. Batas buffer memori terlampaui.* | *Ukuran file terlalu besar (maksimal 50MB). Coba kompres dulu atau pilih file yang lebih kecil.* |
+| **Format File Salah** | *Ekstensi MIME-type tidak didukung oleh backend.* | *Format file belum pas. Pastikan yang diunggah berupa dokumen PDF (bukan Word atau Excel).* |
+| **Password Salah** | *Enkripsi gagal didekripsi: Invalid password token.* | *Kata sandi kurang tepat. Silakan ketik ulang password PDF Anda dengan teliti.* |
+| **Koneksi Terputus** | *Network failure: Failed to fetch API endpoint.* | *Koneksi internet Anda terputus saat mengunggah. Tenang, silakan klik coba lagi.* |
+| **Gagal Proses Server** | *Internal Server Error 500: Process terminated with exit code 1.* | *Dokumen ini tidak bisa dibaca sistem karena rusak atau terkunci. Coba buka fitur "Perbaiki Dokumen Rusak".* |
+
+---
+
+## 8. Contoh Studi Kasus Riil: Before vs After
 
 | Fitur | Sebelum (Kaku / Bahasa Robot) | Sesudah (Manusiawi & Konversi Tinggi) |
 |---|---|---|
@@ -152,11 +183,13 @@ Struktur standar kartu antarmuka 1 detik paham:
 
 ---
 
-## 7. Checklist Pra-Rilis Copywriting (Pre-Flight Gate)
+## 9. Checklist Pra-Rilis Copywriting (Pre-Flight Gate)
 
 Sebelum teks dirilis ke antarmuka pengguna, pastikan seluruh pertanyaan ini dijawab **YA**:
 1. [ ] Apakah anak SMA atau ibu rumah tangga langsung paham fungsi kartu ini dalam 1 detik?
 2. [ ] Apakah semua kata asing/jargon teknis sudah dibuang tanpa sisa?
 3. [ ] Apakah ada contoh konkret kasus pemakaian di Indonesia (WhatsApp, CPNS, Shopee, tugas kuliah)?
 4. [ ] Apakah teks tombol aksi diawali dengan kata kerja aktif?
-5. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan?
+5. [ ] Apakah pesan error menenangkan dan memberi solusi (bukan kode teknis HTTP 500/MIME)?
+6. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan?
+
