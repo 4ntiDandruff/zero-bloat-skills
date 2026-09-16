@@ -148,6 +148,7 @@ To pull the latest updates and refresh all 207 agent symlinks anytime:
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Outage-proof SQLite setup: WAL mode, synchronous=NORMAL, busy_timeout contention tuning, atomic hot backups, 1-line .recover salvage. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STBs/i3): RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 | [`token-frugal-intent-ladder-skill`](skills/token-frugal-intent-ladder-skill/SKILL.md) | Token-frugal AI ladder: 0-token regex and heuristic disambiguation for natural language financial inputs, clean note extraction. | `tangga ai`, `parsing nominal terbilang`, `hutang piutang`, `clean note` |
+| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Indonesian human-centric copywriting & conversion UX: anti-AI slop elimination, Coffee Shop Test, and 7-sweep text audit. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
 | [`voice-hud-wayland-skill`](skills/voice-hud-wayland-skill/SKILL.md) | Hands-free technician voice-to-text HUD on Linux Wayland: local faster-whisper streaming and glassmorphism overlay. | `dikte suara`, `hands-free`, `voice hud`, `wayland`, `solder` |
 
 ---
@@ -271,7 +272,8 @@ zero-bloat-skills/
 │   ├── longform-reader-ux-skill/         # Table scroll cue, reading bar, copy-code, shimmer
 │   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap, collapsible phases, A11y lightbox
 │   ├── browser-speech-to-text-skill/     # Zero-server Web Speech STT, PWA mic, spoken numbers
-│   └── token-frugal-intent-ladder-skill/ # 0-token regex ladder, debt vs receivable, clean notes
+│   ├── token-frugal-intent-ladder-skill/ # 0-token regex ladder, debt vs receivable, clean notes
+│   └── human-copywriting-id-skill/       # Indonesian human-centric copywriting, Coffee Shop Test & 7 Sweeps
 │
 └── examples/
     └── starter-app/                      # Complete runnable workbench ticketing demo

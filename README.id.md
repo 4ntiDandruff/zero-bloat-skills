@@ -156,6 +156,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Engine analitik web lokal berbasis SQLite WAL + sekring WAF sliding-window berbatas memori dengan unban TTL otomatis (nol memory leak). | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Konfigurasi benteng SQLite kebal mati lampu: mode WAL, synchronous=NORMAL, tuning busy_timeout anti-lock, hot backup atomik, dan recovery 1-baris .recover. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Streaming CCTV edge hemat daya (STB/i3) tanpa transcode CPU: pass-through RTSP ke WebRTC/HLS via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
+| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Standar copywriting manusiawi & conversion UX bahasa Indonesia: eliminasi gaya bahasa robot AI, prinsip Tes Warung Kopi, dan 7 putaran audit teks. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
 
 <br/>
 
@@ -248,7 +249,8 @@ zero-bloat-skills/
 │   ├── longform-reader-ux-skill/         # Cue scroll tabel, reading bar, salin kode, shimmer
 │   ├── portfolio-timeline-lightbox-skill/# Roadmap pencapaian, collapsible phase, lightbox A11y
 │   ├── browser-speech-to-text-skill/     # Web Speech STT nol server, mic PWA, nominal terbilang
-│   └── token-frugal-intent-ladder-skill/ # Tangga regex 0-token, hutang vs piutang, clean note
+│   ├── token-frugal-intent-ladder-skill/ # Tangga regex 0-token, hutang vs piutang, clean note
+│   └── human-copywriting-id-skill/       # Copywriting manusiawi, Tes Warung Kopi & 7 Sweeps
 │
 └── examples/
     └── starter-app/                      # Demo aplikasi tiket siap jalan meja servis
