@@ -9,16 +9,29 @@ Pedoman rekayasa kata dan antarmuka teks (copywriting) berbasis bahasa Indonesia
 
 ---
 
-## 1. Filosofi Inti: "Tes Warung Kopi" (The Coffee Shop Test)
+## 1. Tiga Hukum Emas Copywriting Manusiawi
 
-Setiap kalimat di antarmuka web, kartu bento, atau tombol aksi wajib lolos uji lisan:
+Setiap teks di antarmuka web, kartu bento, atau tombol aksi wajib lolos 3 filter hukum dasar:
 
-> **Hukum Tes Warung Kopi**:
+### Hukum 1: Tes Warung Kopi (The Coffee Shop Test)
 > *"Jika kalimat ini terdengar aneh, kaku, atau sok pintar saat kamu ucapkan langsung ke teman di meja warung kopi atau pelanggan di meja servis, maka kalimat itu GAGAL dan wajib ditulis ulang."*
-
 *   **Kejelasan Mengalahkan Kepintaran (Clarity Over Cleverness)**: Jangan membuat kalimat puitis atau metafora rumit jika pembaca harus berpikir dua kali untuk memahami fungsinya.
 *   **Kata Kerja Tindakan Fisik (Action-Oriented)**: Utamakan kata kerja fisik yang nyata dilakukan manusia di dunia nyata (*kecilkan, satukan, tempel, luruskan, potong, balik warna*).
 *   **Fokus Solusi Masalah, Bukan Nama Mesin**: Pengguna tidak peduli apa nama library backend atau algoritma kompresi; pengguna hanya peduli dokumen mereka bisa terkirim dan urusan mereka beres.
+
+### Hukum 2: Aturan "Anda" vs "Kami" (The You Rule / Rasio 3:1)
+*   **Penyakit Bawaan Korporat & AI**: Terlalu sering membicarakan diri sendiri (*"Sistem kami menyediakan...", "Kami bangga menghadirkan platform..."*).
+*   **Hukum David Ogilvy**: Pengguna hanya peduli nasib diri mereka sendiri.
+*   **Aturan Baku**: Untuk setiap 1 kata *"kami / aplikasi"*, wajib ada minimal 3 kata *"Anda / kamu / berkas Anda"*.
+    *   *Salah*: *"Kami menyediakan teknologi kompresi dokumen terbaik untuk kemudahan Anda."* (Fokus pada kami).
+    *   *Benar*: *"Kecilkan file Anda dalam 3 detik agar langsung lolos upload tanpa ditolak sistem."* (Fokus pada Anda).
+
+### Hukum 3: Tes "Sekarang Anda Bisa..." (The "Now You Can" Test)
+*   **Hukum Corey Haines**: Setiap judul kartu atau headline fitur wajib masuk akal jika diawali kalimat tak terlihat *"Sekarang Anda bisa..."*.
+*   *Uji Coba*:
+    *   *(Sekarang Anda bisa)* **Ubah Foto Jadi PDF** $\to$ **Lolos (Masuk akal & menjanjikan kemampuan baru)**.
+    *   *(Sekarang Anda bisa)* **Cetak Pas Foto & KTP di A4** $\to$ **Lolos**.
+    *   *(Sekarang Anda bisa)* **Engine Kompresi Vektor** $\to$ **Gagal (Ini nama benda mati, bukan kemampuan pengguna)**.
 
 ---
 
@@ -55,10 +68,11 @@ Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secar
 *   Pastikan tidak ada pergantian nada dari santai tiba-tiba menjadi kaku formal seperti undang-undang.
 *   Gunakan kata sapaan wajar (*"Anda"* atau langsung ke objek masalah tanpa kata ganti bertele-tele).
 
-### Putaran 3: Uji "Terus Apa Untungnya Buat Saya?" (So What? Sweep)
-*   Setiap fitur teknis wajib diberi jembatan manfaat nyata:
-    *   *Teknis*: "Resolusi 300 DPI vektor murni." $\to$ *Untungnya*: "Hasil cetak fisik tajam tanpa buram atau pecah."
-    *   *Teknis*: "Kompresi Ghostscript dPDFSETTINGS." $\to$ *Untungnya*: "Ukuran file kecil agar lolos upload CPNS dan email."
+### Putaran 3: Uji "Terus Apa Untungnya Buat Saya?" & Jembatan "Yang Artinya..." (So What? Sweep)
+*   Setiap fitur teknis wajib diberi jembatan manfaat menggunakan formula **[Fitur Teknis] $\to$ *yang artinya* $\to$ [Dampak Fisik Nyata]**:
+    *   *Teknis*: "Resolusi 300 DPI vektor murni." $\to$ *Yang artinya*: "Hasil cetak fisik tajam tanpa buram atau pecah."
+    *   *Teknis*: "Kompresi Ghostscript dPDFSETTINGS." $\to$ *Yang artinya*: "Ukuran file kecil agar lolos upload CPNS dan email."
+    *   *Teknis*: "Standar kearsipan ISO 19005 (PDF/A)." $\to$ *Yang artinya*: "Berkas resmi Anda tidak akan ditolak sistem BKN atau BPN."
 
 ### Putaran 4: Uji Contoh Konkret (Specificity Sweep)
 *   Hindari kata abstrak seperti *"dokumen berbagai keperluan"*.
@@ -72,9 +86,13 @@ Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secar
     *   `DeviceGray` $\to$ `Hitam Putih Bersih`
     *   `CropBox` $\to$ `Buang Tepi Putih Kosong`
 
-### Putaran 6: Uji Ritme Bacaan Lisan (Rhythm Sweep)
+### Putaran 6: Uji Ritme Nafas & Variasi Kalimat (Rhythm & Burstiness Sweep)
+*   **Penyakit Robot**: Menulis kalimat yang panjangnya seragam monoton (12-15 kata terus-menerus).
+*   **Seni Tulisan Manusia**: Kombinasikan panjang kalimat seperti detak jantung.
+    *   *Contoh Ritme yang Enak*:
+        > "Kecilkan PDF Anda. Tanpa ribet. Cukup lempar berkas ke kartu ini, sistem otomatis memangkas ukuran dokumen hingga 80% lebih hemat tanpa membuat tulisan pecah."
+    *   Ada kalimat pendek tegas (3-5 kata). Ada kalimat penjelas mengalir (10-15 kata). Lalu ditutup tegas.
 *   Baca teks dengan bersuara. Jika lidah tersendat atau kehabisan napas di tengah kalimat, potong kalimat tersebut.
-*   Kombinasikan kalimat pendek tegas dengan kalimat penjelas yang mengalir.
 
 ### Putaran 7: Pembunuh Keraguan & Ketakutan (Friction Killer Sweep)
 *   Tuntaskan rasa was-was pengguna internet Indonesia:
@@ -189,7 +207,9 @@ Sebelum teks dirilis ke antarmuka pengguna, pastikan seluruh pertanyaan ini dija
 1. [ ] Apakah anak SMA atau ibu rumah tangga langsung paham fungsi kartu ini dalam 1 detik?
 2. [ ] Apakah semua kata asing/jargon teknis sudah dibuang tanpa sisa?
 3. [ ] Apakah ada contoh konkret kasus pemakaian di Indonesia (WhatsApp, CPNS, Shopee, tugas kuliah)?
-4. [ ] Apakah teks tombol aksi diawali dengan kata kerja aktif?
-5. [ ] Apakah pesan error menenangkan dan memberi solusi (bukan kode teknis HTTP 500/MIME)?
-6. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan?
+4. [ ] Apakah judul fitur lolos tes *"Sekarang Anda bisa..."*?
+5. [ ] Apakah subjek kalimat didominasi *"Anda/Kamu"* ketimbang *"Kami/Sistem"* (Rasio minimal 3:1)?
+6. [ ] Apakah teks tombol aksi (CTA) diawali dengan kata kerja aktif nyata?
+7. [ ] Apakah pesan error menenangkan dan memberi solusi (bukan kode teknis HTTP 500/MIME)?
+8. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan?
 
