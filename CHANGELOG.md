@@ -5,6 +5,30 @@ Semua perubahan penting pada proyek ZERO-BLOAT-SKILLS didokumentasikan di berkas
 Format berbasis [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-09-16
+
+### Penambahan Modul Human Copywriting Indonesia, Ekosistem 24 Skill & 216 Symlink Multi-Agent
+
+#### 1. Modul Baru: Human Copywriting Indonesia Skill (`skills/human-copywriting-id-skill/`)
+- **[copy]** **Empat Hukum Emas Copywriting Manusiawi**:
+  - *Hukum 1 (Tes Warung Kopi)*: Eliminasi kalimat puitis/metafora rumit, wajib lolos uji kelayakan bahasa lisan di meja servis atau warung kopi.
+  - *Hukum 2 (Aturan "Anda" vs "Kami")*: Rasio minimal 3:1 memfokuskan teks pada keuntungan pengguna ketimbang memamerkan sistem/aplikasi.
+  - *Hukum 3 (Tes "Sekarang Anda Bisa...")*: Penamaan judul fitur wajib menjanjikan kemampuan baru bagi pengguna.
+  - *Hukum 4 (Tombol Kepemilikan Pengguna / First-Person CTA)*: Mengubah sudut pandang tombol aksi menjadi kepemilikan orang pertama (*"Saya"*).
+- **[copy]** **Dua Formula Sakti Konversi Tinggi**:
+  - *Formula PAS (Problem - Agitate - Solution)*: Untuk fitur darurat dan penawar masalah kritis.
+  - *Formula BAB (Before - After - Bridge)*: Untuk kartu bento dan subjudul hero.
+- **[copy]** **Kamus Anti-AI Slop**: Tabel substitusi kosakata robot/klise korporat asing diganti kata konkret ramah awam.
+- **[copy]** **The Indonesian Seven Sweeps (7 Putaran Audit Teks)**: Metodologi penyisiran teks sistematis (Clarity, Voice & Tone, So What?, Specificity, Slop & Jargon Removal, Rhythm & Burstiness, Friction Killer).
+- **[copy]** **Matriks 4 Persona Lokal & 4 Sekring Pembalik Risiko Total (Zero-Traps)**: Menenangkan rasa cemas netizen Indonesia terhadap biaya siluman, privasi data, kewajiban registrasi, dan cap watermark.
+- **[copy]** **Humanized Error States**: Standar pesan galat ramah manusia (menenangkan + menjelaskan kendala + memberi solusi langkah berikutnya).
+
+#### 2. Infrastruktur & Multi-Agent Symlink
+- **[installer]** **Ekspansi 216 Symlink Aktif**: `./install.sh` memperluas instalasi 24 skill ke 9 platform AI coding ruko (Antigravity CLI, Claude Code, OpenCode, Hermes Agent, OMP, dan Codex CLI).
+- **[test]** **Pembaruan Test Suite**: `test.sh` dan `install.sh --verify` memvalidasi penuh 24 skill dan 216 symlink tanpa kendala.
+
+---
+
 ## [2.3.1] - 2026-09-16
 
 ### Fortifikasi Viewport Scroll, Penyelarasan Pragma SQLite & Otomasi CI/CD

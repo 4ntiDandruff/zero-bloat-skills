@@ -27,7 +27,7 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
     echo ""
     echo "Options:"
     echo "  (no args)    Install and symlink all zero-bloat skills to detected AI coding agents"
-    echo "  --list, -l   Display catalog of all 23 available zero-bloat skills"
+    echo "  --list, -l   Display catalog of all available zero-bloat skills"
     echo "  --verify, -v Verify health and integrity of active symlinks across agents"
     echo "  --test, -t   Run 5-layer health check test suite (./test.sh)"
     echo "  --update, -u Pull latest updates from Git repository and refresh symlinks"
@@ -37,14 +37,14 @@ fi
 
 # Katalog Skill
 if [[ "${1:-}" == "--list" || "${1:-}" == "-l" ]]; then
-    echo "====================================================================="
-    echo "ZERO-BLOAT-SKILLS — Available Skills Catalog (23 Modules)"
-    echo "====================================================================="
     python3 - <<'EOF'
 import os, yaml
 
 skills_dir = os.environ.get("SKILLS_DIR", "skills")
 dirs = sorted([d for d in os.listdir(skills_dir) if os.path.isdir(os.path.join(skills_dir, d))])
+print("=====================================================================")
+print(f"ZERO-BLOAT-SKILLS : Available Skills Catalog ({len(dirs)} Modules)")
+print("=====================================================================")
 for i, d in enumerate(dirs, 1):
     md_path = os.path.join(skills_dir, d, "SKILL.md")
     desc = "-"

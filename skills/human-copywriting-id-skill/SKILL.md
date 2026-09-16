@@ -46,20 +46,20 @@ Dalam dunia copywriting direct-response bernilai tinggi, terdapat dua kerangka k
 
 ### 1. Formula PAS (Problem - Agitate - Solution)
 Sangat cocok untuk deskripsi fitur pemecah masalah darurat atau halaman penawaran alat:
-*   **Problem (P) — Angkat Masalah Riil**: Sebutkan kendala spesifik yang sedang dialami pengguna tanpa berputar-putar.
+*   **Problem (P) - Angkat Masalah Riil**: Sebutkan kendala spesifik yang sedang dialami pengguna tanpa berputar-putar.
     > *"File PDF Anda ditolak portal pendaftaran karena ukurannya lebih dari 2MB?"*
-*   **Agitate (A) — Sentil Rasa Cemas / Konsekuensi**: Perjelas dampaknya jika masalah dibiarkan, sentuh realitas lapangan yang bikin stres.
+*   **Agitate (A) - Sentil Rasa Cemas / Konsekuensi**: Perjelas dampaknya jika masalah dibiarkan, sentuh realitas lapangan yang bikin stres.
     > *"Batas waktu upload tinggal hitungan menit, sementara jaringan internet lemot dan portal sering crash saat kirim file besar."*
-*   **Solution (S) — Beri Solusi Instan**: Sajikan fitur kita sebagai penyelamat tercepat tanpa syarat berbelit.
+*   **Solution (S) - Beri Solusi Instan**: Sajikan fitur kita sebagai penyelamat tercepat tanpa syarat berbelit.
     > *"Kecilkan berkas Anda di sini dalam 3 detik. Otomatis pas di bawah 500KB tanpa buram dan langsung diterima sistem."*
 
 ### 2. Formula BAB (Before - After - Bridge)
 Sangat cocok untuk kartu bento, perbandingan fitur, atau subjudul hero:
-*   **Before (B) — Kondisi Frustrasi Sekarang**: Realitas melelahkan yang biasa dijalani pengguna.
+*   **Before (B) - Kondisi Frustrasi Sekarang**: Realitas melelahkan yang biasa dijalani pengguna.
     > *"Beli kertas thermal mahal-mahal, tapi cepat habis cuma buat cetak margin putih resi yang kosong melompong."*
-*   **After (A) — Kondisi Ideal yang Menyenangkan**: Gambaran masa depan setelah masalah terselesaikan.
+*   **After (A) - Kondisi Ideal yang Menyenangkan**: Gambaran masa depan setelah masalah terselesaikan.
     > *"Resi tercetak padat, hemat kertas sampai 50%, dan barcode tetap terbaca tajam oleh scanner kurir."*
-*   **Bridge (B) — Jembatan Alat Kita**: Peran alat kita sebagai penghubung otomatis menuju kondisi ideal tersebut.
+*   **Bridge (B) - Jembatan Alat Kita**: Peran alat kita sebagai penghubung otomatis menuju kondisi ideal tersebut.
     > *"Cukup lempar dokumen ke kartu 'Potong Tepi Resi', sistem otomatis membuang area kosong dalam 1 detik."*
 
 
