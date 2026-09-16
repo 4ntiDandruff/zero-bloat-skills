@@ -14,6 +14,7 @@ dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 - Refaktor direktif universal `~/AGENTS.md` ke v28: keluarkan catatan Ventoy dari Section 6 menjadi modul mandiri dan hubungkan pemicu niat ke Rule R11.
+- Hardening fail-safe `ventoy_helper.py`: penambahan deteksi UTF-8 BOM Windows Notepad (`utf-8-sig`), pembersih komentar JSON (`//`), sekring pelindung direktori sistem kritis (`/`, `/home`, `/etc`), audit racun `.ventoyignore` di root partisi, pembuatan backup konfigurasi otomatis (`ventoy.json.bak`), dan pembersihan buffer kernel instan via `os.sync()`.
 
 ---
 

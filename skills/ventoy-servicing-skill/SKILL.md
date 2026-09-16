@@ -104,6 +104,9 @@ touch /media/user/Ventoy/Backup/.ventoyignore
 
 Ventoy akan langsung melewati folder-folder tersebut saat membangun menu boot.
 
+> [!CAUTION] Pantangan Meja Servis:
+> DILARANG meletakkan `.ventoyignore` di root partisi flashdisk (`/media/user/Ventoy/.ventoyignore`). Jika file ignore berada di root, Ventoy akan mengabaikan seluruh folder dan ISO di drive tersebut, sehingga layar menu boot menjadi kosong melompong.
+
 ---
 
 ## 5. Utilitas Otomatis (`scripts/ventoy_helper.py`)
