@@ -5,6 +5,28 @@ Semua perubahan penting pada proyek ZERO-BLOAT-SKILLS didokumentasikan di berkas
 Format berbasis [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] - 2026-09-16
+
+### Fortifikasi Viewport Scroll, Penyelarasan Pragma SQLite & Otomasi CI/CD
+
+#### 1. Perbaikan Fisika Viewport & Eliminasi Scroll Lock (`mobile-thumb-ergonomics-skill`)
+- **[css]** **Migrasi Aman ke `overflow-x: clip`**: Mengganti `overflow-x: hidden` pada `html, body` dengan `overflow-x: clip;` pada `body` guna memotong kebocoran horizontal tanpa memicu konversi otomatis W3C yang mengunci scrollbar vertikal native browser.
+- **[css]** **Pembersihan Root Containment**: Mengeliminasi `overscroll-behavior-y: contain` dari root `html, body` dan melokalisasikannya hanya pada wadah laci internal (`.overscroll-contain`).
+- **[js]** **Sinkronisasi Atomik Body Lock**: Menyempurnakan watcher Alpine.js pada Bottom Sheet dan Keypad drawer agar tidak meninggalkan class `overflow-hidden` yang tersangkut di `document.body`.
+- **[sop]** **Kriteria 11 Pre-Flight Checklist**: Menambahkan item verifikasi preservasi scroll vertikal pada checklist pra-terbang.
+
+#### 2. Penyelarasan Standar Emas SQLite WAL Fortress
+- **[backend]** **SOP Pragma Seragam**: Menyelaraskan konfigurasi database di `skills/zero-bloat-web-stack-skill/SKILL.md` dan `examples/starter-app/db.py` dengan menambahkan `PRAGMA busy_timeout = 5000;` dan `PRAGMA foreign_keys = ON;`.
+- **[test]** **Pengujian Pragma Otomatis**: Memperluas assertions pada `test_smoke.py` untuk menguji kesesuaian mode `synchronous=NORMAL`, `busy_timeout=5000`, dan `foreign_keys=ON` secara langsung di database runtime.
+
+#### 3. Otomasi Testing & Skrip Distribusi Multi-Agent
+- **[test]** **Unified Test Suite (`test.sh`)**: Menghadirkan skrip uji mandiri 5-layer (sintaks Bash, validasi 23 YAML frontmatter, audit CSS viewport, smoke test starter-app, dan pemindaian OPSEC secret) dengan output TUI badges (<1 detik).
+- **[ci]** **GitHub Actions Pipeline (`.github/workflows/ci.yml`)**: Workflow CI otomatis berbasis Ubuntu runner untuk menguji integritas repositori dan starter-app pada setiap push dan Pull Request.
+- **[installer]** **Opsi Baru `install.sh`**: Menambahkan flag `--list` (katalog terminal 23 modul), `--verify` (audit kesehatan 207 symlink), dan `--test` (pemicu test suite).
+- **[uninstaller]** **Simetri 9 Target di `uninstall.sh`**: Menyelaraskan array `TARGET_DIRS` agar mencakup `.agents/skills` dan `.config/omp/skills`.
+
+---
+
 ## [2.3.0] - 2026-09-15
 
 ### Penambahan Modul Dark Modern Tech UI, Ekosistem 23 Skill & Ekspansi 207 Symlink Multi-Agent

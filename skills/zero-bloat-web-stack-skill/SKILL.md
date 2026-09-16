@@ -33,9 +33,13 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 def get_db():
-    conn = sqlite3.connect("data.db", timeout=10.0)
+    conn = sqlite3.connect("data.db", timeout=20.0)
     conn.row_factory = sqlite3.Row
+    # Fortress standard pragmas: WAL mode, synchronous NORMAL, busy_timeout
     conn.execute("PRAGMA journal_mode = WAL;")
+    conn.execute("PRAGMA synchronous = NORMAL;")
+    conn.execute("PRAGMA busy_timeout = 5000;")
+    conn.execute("PRAGMA foreign_keys = ON;")
     return conn
 
 @app.get("/", response_class=HTMLResponse)

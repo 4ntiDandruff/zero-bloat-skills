@@ -8,6 +8,7 @@
 [![Laboratorium](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Sertifikasi](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Arsitektur](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
+[![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
 [![Symlink Aktif](https://img.shields.io/badge/Symlink%20Aktif-207%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![Lisensi](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 

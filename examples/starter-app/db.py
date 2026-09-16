@@ -15,11 +15,13 @@ def get_connection(db_path: str = None) -> sqlite3.Connection:
     conn = sqlite3.connect(db_path, timeout=20.0)
     conn.row_factory = sqlite3.Row
     
-    # Pragma wajib WAL mode & synchronous NORMAL
+    # Pragma wajib WAL mode & synchronous NORMAL (Fortress standard)
     conn.execute("PRAGMA journal_mode = WAL;")
     conn.execute("PRAGMA synchronous = NORMAL;")
+    conn.execute("PRAGMA busy_timeout = 5000;")
     conn.execute("PRAGMA cache_size = -32000;")
     conn.execute("PRAGMA temp_store = MEMORY;")
+    conn.execute("PRAGMA foreign_keys = ON;")
     with conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS service_tickets (

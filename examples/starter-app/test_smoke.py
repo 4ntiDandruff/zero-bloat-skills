@@ -39,13 +39,20 @@ def run_smoke_test():
     assert "Asus ROG GL553VD" in res_post.text, "Model perangkat tidak ada di respons HTMX"
     print("[+] Test 3 PASS: POST /tickets/add berhasil swap baris HTMX baru.")
     
-    # 4. Verifikasi persistensi di file database SQLite
+    # 4. Verifikasi persistensi dan pragma di file database SQLite
     conn = get_connection(os.environ["STARTER_DB_PATH"])
     row = conn.execute("SELECT * FROM service_tickets WHERE customer_name = 'Pak Joko Santoso'").fetchone()
     assert row is not None, "Data tidak ditemukan di database!"
     assert row["device_model"] == "Asus ROG GL553VD"
+    
+    sync_mode = conn.execute("PRAGMA synchronous;").fetchone()[0]
+    busy_to = conn.execute("PRAGMA busy_timeout;").fetchone()[0]
+    fk = conn.execute("PRAGMA foreign_keys;").fetchone()[0]
+    assert sync_mode == 1, f"Synchronous mode bukan NORMAL (1): {sync_mode}"
+    assert busy_to == 5000, f"Busy timeout bukan 5000: {busy_to}"
+    assert fk == 1, f"Foreign keys bukan ON: {fk}"
     conn.close()
-    print("[+] Test 4 PASS: Data terverifikasi tersimpan atomik di SQLite WAL.")
+    print("[+] Test 4 PASS: Data terverifikasi tersimpan atomik di SQLite WAL (synchronous=NORMAL, busy_timeout=5000, fk=ON).")
     
     print("\n[+] SELURUH SMOKE TEST LOLOS DENGAN EXIT CODE 0.")
     return 0
