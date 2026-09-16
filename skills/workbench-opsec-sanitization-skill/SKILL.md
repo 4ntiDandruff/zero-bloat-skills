@@ -1,6 +1,6 @@
 ---
 name: workbench-opsec-sanitization-skill
-description: "Workbench and Linux sysadmin OPSEC sanitization SOP: automated regex detection and in-place masking for OS user paths (~/), Tailscale CGNAT IPs, LAN subnets, hardware serial numbers, and bot credentials before public git commits."
+description: "Workbench and Linux sysadmin OPSEC sanitization SOP: automated regex detection and in-place masking for OS user paths (~/), terminal prompts, Tailscale CGNAT IPs, LAN subnets, hardware serial numbers, and bot credentials before public git commits."
 ---
 
 # WORKBENCH-OPSEC-SANITIZATION-SKILL
@@ -16,12 +16,13 @@ Modul ini adalah sekring gerbang logika (*pre-flight circuit breaker*) yang mema
 [ Terminal Meja Servis / Log Nyata ]
       │
       ├─► Jalur File OS (/home/user/, C:\Users\user\)
+      ├─► Prompt Terminal (user@hostname:~$ -> $ )
       ├─► Mesh & IP Privat (100.x.y.z Tailscale, 192.168.110.x LAN)
       ├─► Data Pelanggan (Service Tag laptop, Serial Number board, MAC)
-      └─► Kredensial Daemon (Telegram Bot Token, SSH Keys, .session)
+      └─► Kredensial & Secrets (SSH Keys, GitHub PAT, OpenAI, Gemini, Bot)
       │
       ▼ (Filter Sekring OPSEC)
-[ scripts/sanitize.py / Linter CI ]
+[ scripts/sanitize.py / Pre-Commit Hook / Linter CI ]
       │
       ▼ (100% Steril & Aman Rilis)
 [ Repositori Publik GitHub / Web Showcase ]
@@ -29,18 +30,21 @@ Modul ini adalah sekring gerbang logika (*pre-flight circuit breaker*) yang mema
 
 ---
 
-## 2. Lima Sekring Sirkuit OPSEC (The 5 Circuit Fuses)
+## 2. Tabel Sekring Sirkuit OPSEC (The Circuit Fuses)
 
 | Sekring | Target Pola Sensitif | Pengaburan Baku (Replacement) | Dampak Fisik / Risiko |
 |---|---|---|---|
-| **FUSE-01: User Paths** | `/home/[a-zA-Z0-9_-]+/` | `~/` atau `$HOME/` | Mencegah pelacakan identitas akun OS teknisi. |
-| **FUSE-01b: Win Paths** | `[A-Z]:\\Users\\[a-zA-Z0-9_-]+\\` | `%USERPROFILE%\` | Menyamarkan akun pada dual-boot Windows ruko. |
-| **FUSE-02: Mesh IPs** | `100\.(6[4-9]\|[7-9][0-9]\|1[0-1][0-9]\|12[0-7])\.[0-9]{1,3}\.[0-9]{1,3}` | `localhost` atau `100.64.0.1` | Mengamankan rute subnet router WireGuard ruko. |
+| **FUSE-01: User Paths** | `(?<!:/)/home/[a-zA-Z0-9_-]+/` | `~/` atau `$HOME/` | Mencegah pelacakan akun OS teknisi (URL aman dari false-positive). |
+| **FUSE-01b: Win Paths** | `(?<!:/)[A-Z]:\\Users\\[a-zA-Z0-9_-]+\\` | `%USERPROFILE%\` | Menyamarkan akun pada dual-boot Windows ruko. |
+| **FUSE-01c: Prompts** | `\b\w+@\w+:[~/\w\.-]*([\$#])\s*` | `\1 ` (`$ ` atau `# `) | Mengeliminasi jejak `user@hostname` dari salinan sesi terminal. |
+| **FUSE-02: Mesh IPs** | `100\.(6[4-9]\|[7-9][0-9]\|1[0-1][0-9]\|12[0-7])\.[0-9]{1,3}\.[0-9]{1,3}` | `localhost` | Mengamankan rute subnet router WireGuard ruko (RFC whitelisted). |
 | **FUSE-03: Subnet LAN** | `192\.168\.110\.[0-9]{1,3}` | `192.168.1.1` | Menyembunyikan segmen IP DNS server AdGuard ruko. |
-| **FUSE-04: Hardware SN** | `(SN\|Service Tag\|Serial Number)[:= ]+[A-Z0-9]{7,24}` | `[REDACTED_SERIAL]` | Melindungi privasi laptop pelanggan servis. |
-| **FUSE-04b: MAC Addr** | `([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})` | `00:11:22:33:44:55` | Menyamarkan identitas fisik kartu jaringan LAN/WLAN. |
-| **FUSE-05: Bot & Secret**| `[0-9]{9,10}:[a-zA-Z0-9_-]{35}` | `[REDACTED_BOT_TOKEN]` | Mencegah pembajakan bot remote control ruko. |
-| **FUSE-05b: SSH Keys** | `-----BEGIN [A-Z]+ PRIVATE KEY-----` | `[-] BLOCK COMMIT` | Sekring mutlak pemutus commit kunci otentikasi. |
+| **FUSE-04: Hardware SN** | `(SN\|Service Tag\|Serial Number)[:=\s]+(?=[A-Za-z0-9]*\d)([A-Za-z0-9]{7,24})` | `\1: [REDACTED_SERIAL]` | Melindungi privasi laptop pelanggan servis meja kerja. |
+| **FUSE-04b: MAC Addr** | `([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})` | `00:11:22:33:44:55` | Menyamarkan fisik kartu jaringan (WOL broadcast `FF:...` aman). |
+| **FUSE-05: Bot & Secret**| `[0-9]{9,10}:[a-zA-Z0-9_-]{35}` | `[REDACTED_TELEGRAM_TOKEN]` | Mencegah pembajakan bot remote control ruko. |
+| **BLOCKER-01: SSH Keys**| `-----BEGIN [A-Z ]*PRIVATE KEY-----` | `[-] BLOCK COMMIT (Exit 2)` | Sekring mutlak pemutus commit kunci otentikasi server. |
+| **BLOCKER-02: Git Tokens**| `\b(?:gh[pousr]_\w{36,}\|github_pat_\w{60,})\b` | `[-] BLOCK COMMIT (Exit 2)` | Menangkal kebocoran token akses personal GitHub. |
+| **BLOCKER-03: AI Keys** | `\b(?:sk-[a-zA-Z0-9_-]{40,}\|AIzaSy\w{33,})\b` | `[-] BLOCK COMMIT (Exit 2)` | Menangkal kebocoran kuota API OpenAI/Gemini/Anthropic. |
 
 ---
 
@@ -50,7 +54,7 @@ Gunakan skrip Python bawaan modul (murni pustaka standar tanpa dependensi luar) 
 
 ### A. Mode Pindai (Dry-Run / Audit Saja)
 ```bash
-# Pindai direktori tanpa mengubah isi berkas
+# Pindai direktori tanpa mengubah isi berkas (Exit 0 jika bersih, Exit 1 jika ada kebocoran)
 python3 skills/workbench-opsec-sanitization-skill/scripts/sanitize.py --scan .
 ```
 
@@ -61,9 +65,31 @@ python3 skills/workbench-opsec-sanitization-skill/scripts/sanitize.py --fix READ
 python3 skills/workbench-opsec-sanitization-skill/scripts/sanitize.py --fix docs/
 ```
 
+> **Sekring Exit Code**:
+> - `0` = Sukses (lingkungan 100% steril atau seluruh pola berhasil dibersihkan).
+> - `1` = Mode Audit mendeteksi string sensitif yang belum disanitasi.
+> - `2` = Mode Fix mendeteksi **CRITICAL BLOCKER** (SSH Key, API Key) yang dilarang di-commit dan wajib dihapus manual oleh teknisi.
+
 ---
 
-## 4. SOP Pre-Flight Sanitasi Sebelum Commit Publik
+## 4. Automasi Hands-Free: Git Pre-Commit Hook
+
+Untuk operasi 100% otonom (zero-touch), pasang skrip ini sebagai Git pre-commit hook di repositori ruko:
+
+```bash
+# 1-Command Setup Git Hook
+cat << 'EOF' > .git/hooks/pre-commit
+#!/usr/bin/env bash
+python3 skills/workbench-opsec-sanitization-skill/scripts/sanitize.py --scan .
+EOF
+chmod +x .git/hooks/pre-commit
+```
+
+Dengan hook ini, git secara otomatis menolak commit jika teknisi tidak sengaja meninggalkan token, IP privat, atau jalur file OS.
+
+---
+
+## 5. SOP Pre-Flight Sanitasi Manual Sebelum Commit Publik
 
 Setiap kali menyelesaikan pekerjaan di terminal dan bersiap melakukan commit atau push:
 
@@ -73,20 +99,21 @@ Setiap kali menyelesaikan pekerjaan di terminal dan bersiap melakukan commit ata
    ```
 2. **Periksa Output Terminal Sebelum Salin ke README**:
    * Jangan salin teks terminal mentah yang menampilkan prompt `username@hostname:~$`.
-   * Ganti prompt menjadi tanda dolar universal: `$ command`.
+   * Skrip otomatis mengubahnya menjadi tanda prompt universal: `$ command`.
 3. **Verifikasi Jalur Symlink**:
    * Pastikan output `./install.sh --verify` di dokumentasi menggunakan prefix `~/.gemini/` bukan `/home/<user>/.gemini/`.
 4. **Verifikasi Ekstensi Terlarang di Git**:
-   * Pastikan `.gitignore` selalu mengecualikan berkas sesi MTProto:
+   * Pastikan `.gitignore` selalu mengecualikan berkas sesi MTProto dan konfigurasi rahasia:
      ```gitignore
      *.session
      *.session-journal
      .env
+     .env.*
      *.map
      ```
 
 ---
 
-## 5. Integrasi ke Test Suite (`test.sh`)
+## 6. Integrasi ke Test Suite (`test.sh`)
 
 Modul ini dihubungkan langsung ke **Check 5/5** di skrip `test.sh`. Seluruh CI build di GitHub Actions dan eksekusi rilis lokal wajib lolos validasi tanpa adanya kebocoran string sensitif.
