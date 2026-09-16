@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**25 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**26 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Workbench-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-225%20Configured-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-234%20Configured-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -78,7 +78,7 @@ Data flow is architected like layered physical relay protection. The workbench s
 
 ## 2. Universal Remote Install & Instant Setup
 
-Deploy and symlink all **24 skills** across every installed coding agent on your system with a single non-interactive command:
+Deploy and symlink all **26 skills** across every installed coding agent on your system with a single non-interactive command:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -95,22 +95,23 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 
 | Terminal Command | Action & Operation |
 |---|---|
-| `./install.sh` | Automatically detect and symlink 24 skills to all installed AI agent platforms. |
-| `./install.sh --list` or `-l` | Display terminal catalog of all 24 skills and their descriptions. |
-| `./install.sh --verify` or `-v` | Audit the health of all 216 symlinks across agent directories. |
+| `./install.sh` | Automatically detect and symlink 26 skills to all installed AI agent platforms. |
+| `./install.sh --list` or `-l` | Display terminal catalog of all 26 skills and their descriptions. |
+| `./install.sh --verify` or `-v` | Audit the health of all 234 symlinks across agent directories. |
 | `./install.sh --test` or `-t` | Execute the 5-layer health check suite (`./test.sh`) in 1 second. |
 | `./install.sh --update` or `-u` | Pull the latest upstream updates and refresh all symlinks. |
 
 ---
 
-## 3. Complete 24-Skill Production Matrix
+## 3. Complete 26-Skill Production Matrix
 
-### A. Hardware Diagnostics & Workbench Servicing (4 Modules)
+### A. Hardware Diagnostics & Workbench Servicing (5 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
 | [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Short circuit detection, high-side MOSFET punch-through protection, safe injection voltage ceilings, S5-to-S0 rail sequencing, boardview analysis. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
 | [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | SPI BIOS/EEPROM 24/25 reading & flashing, 1.8V adapter level-shifting, status register write-protect unlock, three-pass dump verification, Clean ME. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
+| [`ventoy-servicing-skill`](skills/ventoy-servicing-skill/SKILL.md) | Workbench USB multiboot servicing: global Ventoy CLI configuration, Windows 11 TPM/SecureBoot/RAM/NRO offline account bypass, Intel Gen 11-14 RST VMD driver injection (`Drivers/Obat_VMD_*`), `.ventoyignore` isolation. | `ventoy`, `multiboot`, `bypass win11`, `vmd intel`, `bootable usb` |
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Offline SAM password reset via chntpw with atomic hive backup, UEFI BCD bootloader reconstruction, ddrescue bad-sector imaging, BitLocker unlock. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Non-root ADB package debloater, critical system package whitelist, batch OEM package cleanup (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
@@ -190,9 +191,9 @@ Cost comparison between hiring conventional software houses vs implementing self
 |---|---|---|---|
 | **Monthly Cloud Server Rent** | Cloud VPS 8GB + Managed DB: $45 / mo | Repurposed Workshop i3 PC: **$0** | **Save $540 / yr (Rp 8,500,000)** |
 | **ISP Static Public IP Addon** | Dedicated Static IP Addon: $18 / mo | Cloudflare Tunnel + Tailscale Mesh: **$0** | **Save $216 / yr (Rp 3,400,000)** |
-| **24 Custom SOP Modules Development** | External Software Agency: $1,200 | 24 Open-Source Engineered Modules: **$0** | **Save $1,200 (Rp 19,000,000)** |
+| **26 Custom SOP Modules Development** | External Software Agency: $1,300 | 26 Open-Source Engineered Modules: **$0** | **Save $1,300 (Rp 20,500,000)** |
 | **Technician Triage Duration** | Manual probing without boardview: ~90 min | Boardview copilot + 1A injection: ~15 min | **Save 75 mins / unit** |
-| **TOTAL ENGINEERING VALUATION** | **Expensive Cloud Lock-in** | **Self-Hosted Independent Sovereign** | **Save ~Rp 82,000,000 / yr** |
+| **TOTAL ENGINEERING VALUATION** | **Expensive Cloud Lock-in** | **Self-Hosted Independent Sovereign** | **Save ~Rp 83,500,000 / yr** |
 
 ---
 
@@ -208,7 +209,7 @@ $ cd ~/zero-bloat-skills && ./test.sh
 [*] [Check 1/5] Memeriksa sintaks skrip Shell...
 [+] PASS: Seluruh skrip shell valid secara sintaksis.
 [*] [Check 2/5] Memeriksa validitas YAML frontmatter seluruh modul skill...
-[+] PASS: Seluruh 24 skill valid (YAML frontmatter, naming, description).
+[+] PASS: Seluruh 26 skill valid (YAML frontmatter, naming, description).
 [*] [Check 3/5] Memeriksa proteksi CSS Viewport & Scroll Safety...
 [+] PASS: Viewport CSS steril (bebas dari jebakan overflow-x: hidden pada html/body).
 [*] [Check 4/5] Menjalankan smoke test starter-app...
@@ -223,11 +224,11 @@ $ ./install.sh --verify
 =====================================================================
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
-[+] STATUS: PRIMA (225 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (234 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1
-✓  [core] release v2.4.0...  Zero-Bloat CI & Health Check  main  push  16s
+✓  [core] release v2.6.0...  Zero-Bloat CI & Health Check  main  push  16s
 ```
 
 ---

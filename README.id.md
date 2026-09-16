@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**25 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**26 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-225%20Terkonfigurasi-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-234%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -37,7 +37,7 @@
 
 ## Ringkasan Ekosistem (Executive Overview)
 
-Koleksi 24 skill ini **BUKAN** teori abstrak yang dirancang di server cloud mahal milik korporasi Silicon Valley. Seluruh modul lahir, diuji tempur, dan dibuktikan setiap hari langsung di atas meja kerja bengkel elektronika **Megapass Intra Solusindo** di Sidoarjo, Jawa Timur, di atas komputer uzur **Intel Core i3-3240 (RAM 7.6GB)**.
+Koleksi 26 skill ini **BUKAN** teori abstrak yang dirancang di server cloud mahal milik korporasi Silicon Valley. Seluruh modul lahir, diuji tempur, dan dibuktikan setiap hari langsung di atas meja kerja bengkel elektronika **Megapass Intra Solusindo** di Sidoarjo, Jawa Timur, di atas komputer uzur **Intel Core i3-3240 (RAM 7.6GB)**.
 
 Dirancang untuk menangani diagnosa motherboard mati total, flashing chip BIOS EEPROM via CH341A, pemantauan CCTV edge tanpa transkoding CPU, proteksi database SQLite terhadap mati lampu mendadak ruko, dan orkestrasi multi-agent AI tanpa kebocoran memori, tanpa loop polling yang menyiksa prosesor, dan **murni 0% ketergantungan `node_modules` di lingkungan produksi**.
 
@@ -134,12 +134,13 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
   </a>
 </p>
 
-### A. Diagnosa Hardware & Meja Servis (4 Modul)
+### A. Diagnosa Hardware & Meja Servis (5 Modul)
 
 | Modul Skill | Kemampuan Inti & Masalah yang Diselesaikan | Kata Kunci Auto-Invoke (Pemicu R11) |
 |---|---|---|
 | [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Deteksi short circuit, uji tembus MOSFET high-side, batas aman injeksi tegangan per rail, urutan power sequencing VIN ke S0, pembacaan skema boardview. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
 | [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | SOP pembacaan & penulisan chip SPI BIOS EEPROM 24/25, level-shifting 1.8V, unlock proteksi status register, verifikasi dump 3-pass, Intel Clean ME. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
+| [`ventoy-servicing-skill`](skills/ventoy-servicing-skill/SKILL.md) | SOP flashdisk bootable meja servis: konfigurasi `ventoy.json` Global CLI mode anti-lag/melar, bypass Windows 11 TPM/SecureBoot/RAM/NRO offline account, injeksi storage driver Intel RST VMD Gen 11-14 (`Drivers/Obat_VMD_*`), dan isolasi folder kerja via `.ventoyignore`. | `ventoy`, `flashdisk bootable`, `multiboot`, `install ulang`, `obat vmd`, `bypass win11` |
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Triage OS Windows dari live USB Linux, reset password offline SAM via chntpw dengan backup atomik, rekonstruksi UEFI BCD bootloader, rescue bad-sector ddrescue. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Debloat paket Android tanpa root via ADB, whitelist sistem kritis aman, pembersihan batch bloatware pabrikan (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
@@ -247,15 +248,17 @@ zero-bloat-skills/
 ├── assets/                               # Visual tangkapan layar retina resolusi tinggi
 │   ├── hero.png                          # Banner utama portal web interaktif
 │   ├── playground.png                    # Demo live playground AI ladder
-│   ├── catalog.png                       # Tampilan kisi 24 modul skill
+│   ├── catalog.png                       # Tampilan kisi 26 modul skill
 │   └── drawer.png                        # Antarmuka laci geser slide-over SOP
 │
-├── skills/                               # 24 Modul Spesialis Meja Servis & Linux
+├── skills/                               # 26 Modul Spesialis Meja Servis & Linux
 │   ├── hardware-boardview-skill/         # Triage korslet, injeksi arus 1A, urutan rail
 │   ├── eeprom-flashing-skill/            # Flash BIOS SPI 24/25 via CH341A + Clean ME
+│   ├── ventoy-servicing-skill/           # Multiboot CLI, bypass Win11 TPM/NRO, obat VMD Gen11-14
 │   ├── windows-repair-from-linux-skill/  # Reset password SAM, offline registry, ddrescue
 │   ├── android-bench-debloat-skill/      # Debloat non-root ADB, whitelist sistem kritis
 │   ├── sqlite-wal-fortress-skill/        # SQLite WAL anti mati lampu, busy_timeout=5000
+│   ├── workbench-opsec-sanitization-skill/# Sanitasi regex path OS, IP Mesh, prompt terminal
 │   ├── mesh-and-tunnel-ops-skill/        # Cloudflare Tunnel aman + Tailscale WireGuard mesh
 │   ├── watchdog-resilience-skill/        # Auto-heal PM2/systemd & flusher DNS AdGuard
 │   ├── zero-cpu-daemon-skill/            # Inotifywait daemon 0.0% CPU dengan 9 sekring

@@ -5,6 +5,18 @@ Semua perubahan penting pada proyek ZERO-BLOAT-SKILLS didokumentasikan di berkas
 Format berbasis [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-09-16
+
+### Added
+- Tambah modul ke-26 `ventoy-servicing-skill` (`skills/ventoy-servicing-skill/`) memuat SOP flashdisk bootable meja servis: konfigurasi `ventoy.json` Global CLI mode, bypass Windows 11 TPM/SecureBoot/RAM/NRO offline account, injeksi storage driver Intel RST VMD Gen 11-14 (`Drivers/Obat_VMD_*`), dan isolasi folder kerja via `.ventoyignore`.
+- Tambah utilitas pembantu nir-dependensi `scripts/ventoy_helper.py` untuk inisialisasi (`init`) dan audit integritas (`verify`) partisi flashdisk Ventoy.
+- Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 234 symlink di 9 direktori coding agent.
+
+### Changed
+- Refaktor direktif universal `~/AGENTS.md` ke v28: keluarkan catatan Ventoy dari Section 6 menjadi modul mandiri dan hubungkan pemicu niat ke Rule R11.
+
+---
+
 ## [2.5.0] - 2026-09-16
 
 ### Added
