@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**24 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**25 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-216%20Terkonfigurasi-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-225%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -143,11 +143,12 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Triage OS Windows dari live USB Linux, reset password offline SAM via chntpw dengan backup atomik, rekonstruksi UEFI BCD bootloader, rescue bad-sector ddrescue. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Debloat paket Android tanpa root via ADB, whitelist sistem kritis aman, pembersihan batch bloatware pabrikan (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### B. Linux Bare-Metal, Jaringan & Ketahanan Sistem (7 Modul)
+### B. Linux Bare-Metal, Jaringan & Ketahanan Sistem (8 Modul)
 
 | Modul Skill | Kemampuan Inti & Masalah yang Diselesaikan | Kata Kunci Auto-Invoke (Pemicu R11) |
 |---|---|---|
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Konfigurasi SQLite anti mati lampu: mode WAL, `PRAGMA synchronous=NORMAL`, tuning `busy_timeout=5000`, hot-backup online atomik, penyelamatan satu baris `.recover`. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
+| [`workbench-opsec-sanitization-skill`](skills/workbench-opsec-sanitization-skill/SKILL.md) | Sanitasi data sensitif meja servis: pembersih otomatis regex jalur profil OS (`~/`), IP Mesh Tailscale ruko (`100.x`), subnet LAN internal, MAC address, token bot, dan serial number hardware sebelum git commit publik. | `opsec`, `sensor`, `bersihin nama`, `sanitasi`, `audit keamanan`, `secret leak` |
 | [`mesh-and-tunnel-ops-skill`](skills/mesh-and-tunnel-ops-skill/SKILL.md) | Jaringan bengkel zero-port-forwarding: Cloudflare Tunnel untuk ingress HTTPS publik aman dan Tailscale mesh untuk interkoneksi privat LAN tanpa buka port modem. | `cloudflare tunnel`, `tailscale mesh`, `port forwarding`, `wireguard` |
 | [`watchdog-resilience-skill`](skills/watchdog-resilience-skill/SKILL.md) | SOP pemulihan mandiri (self-healing): auto-heal PM2/systemd restart loop, pembersih negative cache DNS AdGuard Home, dan watchdog Cloudflare Tunnel. | `watchdog`, `resilience`, `dns lockout`, `pm2 restart loop` |
 | [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Daemon Linux hemat daya dengan 0.0% CPU standby load via kernel hook `inotifywait`, diperkuat 9 sekring sirkuit fisik dan eliminasi loop polling. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
@@ -315,25 +316,25 @@ $ ./install.sh --verify
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
 [+] ~/.gemini/config/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.agents/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.claude/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.config/everything-claude-code/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.omp/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.config/omp/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.config/opencode/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.hermes/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 [+] ~/.codex/skills:
-    └─ 24 active symlinks | 0 broken
+    └─ 25 active symlinks | 0 broken
 =====================================================================
-[+] STATUS: PRIMA (216 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (225 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1

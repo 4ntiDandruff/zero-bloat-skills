@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**24 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**25 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Workbench-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-216%20Configured-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-225%20Configured-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -114,17 +114,18 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Offline SAM password reset via chntpw with atomic hive backup, UEFI BCD bootloader reconstruction, ddrescue bad-sector imaging, BitLocker unlock. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Non-root ADB package debloater, critical system package whitelist, batch OEM package cleanup (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
-### B. Linux Bare-Metal, Networking & System Resilience (7 Modules)
+### B. Linux Bare-Metal, Networking & System Resilience (8 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Outage-proof SQLite setup: WAL mode, synchronous=NORMAL, busy_timeout=5000 contention tuning, atomic hot backups, 1-line .recover salvage. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
+| [`workbench-opsec-sanitization-skill`](skills/workbench-opsec-sanitization-skill/SKILL.md) | Workbench OPSEC sanitization: regex detection and in-place masking for OS user paths (`~/`), Tailscale CGNAT IPs, LAN subnets, MAC addresses, bot credentials, and hardware serials before public git commits. | `opsec`, `sensor`, `bersihin nama`, `sanitasi`, `audit keamanan`, `secret leak` |
 | [`mesh-and-tunnel-ops-skill`](skills/mesh-and-tunnel-ops-skill/SKILL.md) | Zero-port-forwarding ingress: Cloudflare Tunnel for secure HTTPS and Tailscale WireGuard mesh for private multi-node interconnects. | `cloudflare tunnel`, `tailscale mesh`, `port forwarding`, `wireguard` |
-| [`watchdog-resilience-skill`](skills/watchdog-resilience-skill/SKILL.md) | Self-healing Linux workbench SOP: PM2/systemd restart loop recovery, AdGuard Home DNS negative-cache flusher, Cloudflare Tunnel watchdog. | `watchdog`, `resilience`, `dns lockout`, `pm2 restart loop` |
-| [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Event-driven Linux daemons with 0.0% standby CPU load via inotifywait, 9 physical circuit fuses, and kernel inotify watch limits tuning. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
-| [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Interactive Telegram bot with inline keyboard buttons, Wake-on-LAN (WOL), crash-proof safe HTML parsing, and infinity polling auto-reconnect. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
-| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Self-hosted zero-cookie web analytics on SQLite WAL + bounded sliding-window WAF rate limiter with auto TTL unban (zero memory leak). | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
-| [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STBs/i3): RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM, CPU <1%). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
+| [`watchdog-resilience-skill`](skills/watchdog-resilience-skill/SKILL.md) | Self-healing Linux watchdog SOP: PM2/systemd auto-healer, AdGuard Home negative cache flusher, Cloudflare Tunnel monitor. | `watchdog`, `resilience`, `dns lockout`, `pm2 restart loop` |
+| [`zero-cpu-daemon-skill`](skills/zero-cpu-daemon-skill/SKILL.md) | Event-driven Linux daemons with 0.0% standby CPU load via kernel hook inotifywait, 9 physical circuit fuses, debounce handling. | `daemon inotify`, `pantau folder`, `0% cpu`, `sekring ekstraksi` |
+| [`telegram-ops-control-skill`](skills/telegram-ops-control-skill/SKILL.md) | Remote server management via Telegram: interactive inline buttons, Wake-on-LAN triggers, HTML-safe parsing, infinity polling reconnect. | `bot telegram`, `tombol remote`, `wake on lan`, `bangunkan pc` |
+| [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Self-hosted zero-cookie web analytics on SQLite WAL + sliding-window WAF rate limiter with automatic TTL unban and zero memory leaks. | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
+| [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STB/i3) without CPU transcoding: RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 
 ### C. Web Architecture, Interface Design & Viewport Physics (9 Modules)
 
@@ -222,7 +223,7 @@ $ ./install.sh --verify
 =====================================================================
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
-[+] STATUS: PRIMA (216 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (225 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1

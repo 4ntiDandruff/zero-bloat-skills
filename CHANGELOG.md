@@ -5,6 +5,19 @@ Semua perubahan penting pada proyek ZERO-BLOAT-SKILLS didokumentasikan di berkas
 Format berbasis [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2026-09-16
+
+### Added
+- Tambah modul ke-25 `workbench-opsec-sanitization-skill` (`skills/workbench-opsec-sanitization-skill/`) memuat SOP sanitasi data sensitif meja servis, 5 Sekring Sirkuit OPSEC (jalur profil OS `~/`, IP Mesh Tailscale `100.x`, subnet internal ruko, MAC address, token bot, dan serial number hardware pelanggan).
+- Tambah utilitas mandiri nir-dependensi `scripts/sanitize.py` murni pustaka standar Python untuk audit cepat (`--scan`) dan perbaikan otomatis langsung (`--fix`).
+- Integrasi langsung utilitas sanitizer ke Check 5/5 di `./test.sh` sebagai sekring gerbang CI yang otomatis menggagalkan build jika ada data sensitif yang bocor.
+- Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 225 symlink di 9 direktori coding agent.
+
+### Changed
+- Sanitasi menyeluruh seluruh path direktori pengguna absolut (`/home/...` ➔ `~/...`), IP privat Tailscale, dan file image raw di seluruh dokumentasi dan modul skill.
+
+---
+
 ## [2.4.0] - 2026-09-16
 
 ### Added

@@ -133,46 +133,13 @@ else
 fi
 
 # ---------------------------------------------------------------------
-# Check 5: OPSEC & Secret Scanner
+# Check 5: OPSEC & Secret Scanner (workbench-opsec-sanitization-skill)
 # ---------------------------------------------------------------------
-echo "[*] [Check 5/5] Memeriksa sanitasi OPSEC (kredensial & secret)..."
-PYTHON_OPSEC_CHECK=$(python3 - <<'EOF'
-import os, sys, re
-
-base_dir = os.environ.get("SCRIPT_DIR")
-patterns = [
-    r'-----BEGIN [A-Z]+ PRIVATE KEY-----',
-    r'ghp_[a-zA-Z0-9]{36}',
-    r'xox[baprs]-[0-9a-zA-Z]{10,48}',
-]
-
-errors = []
-for root, _, files in os.walk(base_dir):
-    if ".git" in root or "__pycache__" in root:
-        continue
-    for f in files:
-        p = os.path.join(root, f)
-        try:
-            with open(p, "r", encoding="utf-8", errors="ignore") as file:
-                content = file.read()
-                for pat in patterns:
-                    if re.search(pat, content):
-                        errors.append(f"Secret terdeteksi di {p}")
-        except Exception:
-            pass
-
-if errors:
-    for e in errors:
-        print(f"[-] FAIL: {e}")
-    sys.exit(1)
-else:
-    print("[+] PASS: OPSEC bersih (nol token/private key bocor).")
-    sys.exit(0)
-EOF
-) || true
-
-echo "$PYTHON_OPSEC_CHECK"
-if [[ "$PYTHON_OPSEC_CHECK" =~ "[-] FAIL" ]]; then
+echo "[*] [Check 5/5] Memeriksa sanitasi OPSEC (kredensial, path OS, & secret)..."
+if python3 "$SCRIPT_DIR/skills/workbench-opsec-sanitization-skill/scripts/sanitize.py" --scan "$SCRIPT_DIR" >/dev/null 2>&1; then
+    echo "[+] PASS: OPSEC bersih (nol token, path user, atau private IP bocor)."
+else
+    echo "[-] FAIL: Terdeteksi kebocoran data OPSEC! Jalankan: python3 skills/workbench-opsec-sanitization-skill/scripts/sanitize.py --scan ."
     FAILURES=$((FAILURES + 1))
 fi
 
