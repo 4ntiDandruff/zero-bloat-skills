@@ -1,6 +1,6 @@
 ---
 name: human-copywriting-id-skill
-description: "Standar copywriting manusiawi dan conversion UX bahasa Indonesia: eliminasi gaya bahasa kaku robot AI, anti-AI slop, prinsip Tes Warung Kopi, 7 putaran audit teks, dan optimasi konversi bento card / landing page tanpa jargon asing."
+description: "Standar copywriting manusiawi dan conversion UX bahasa Indonesia: eliminasi gaya bahasa kaku robot AI, anti-AI slop, prinsip Tes Warung Kopi, formula PAS & BAB, 7 putaran audit teks, dan optimasi konversi bento card / landing page tanpa jargon asing."
 ---
 
 # Human Copywriting Indonesia Skill
@@ -9,9 +9,9 @@ Pedoman rekayasa kata dan antarmuka teks (copywriting) berbasis bahasa Indonesia
 
 ---
 
-## 1. Tiga Hukum Emas Copywriting Manusiawi
+## 1. Empat Hukum Emas Copywriting Manusiawi
 
-Setiap teks di antarmuka web, kartu bento, atau tombol aksi wajib lolos 3 filter hukum dasar:
+Setiap teks di antarmuka web, kartu bento, atau tombol aksi wajib lolos 4 filter hukum dasar:
 
 ### Hukum 1: Tes Warung Kopi (The Coffee Shop Test)
 > *"Jika kalimat ini terdengar aneh, kaku, atau sok pintar saat kamu ucapkan langsung ke teman di meja warung kopi atau pelanggan di meja servis, maka kalimat itu GAGAL dan wajib ditulis ulang."*
@@ -29,13 +29,41 @@ Setiap teks di antarmuka web, kartu bento, atau tombol aksi wajib lolos 3 filter
 ### Hukum 3: Tes "Sekarang Anda Bisa..." (The "Now You Can" Test)
 *   **Hukum Corey Haines**: Setiap judul kartu atau headline fitur wajib masuk akal jika diawali kalimat tak terlihat *"Sekarang Anda bisa..."*.
 *   *Uji Coba*:
-    *   *(Sekarang Anda bisa)* **Ubah Foto Jadi PDF** $\to$ **Lolos (Masuk akal & menjanjikan kemampuan baru)**.
-    *   *(Sekarang Anda bisa)* **Cetak Pas Foto & KTP di A4** $\to$ **Lolos**.
-    *   *(Sekarang Anda bisa)* **Engine Kompresi Vektor** $\to$ **Gagal (Ini nama benda mati, bukan kemampuan pengguna)**.
+    *   *(Sekarang Anda bisa)* **Ubah Foto Jadi PDF** → **Lolos (Masuk akal & menjanjikan kemampuan baru)**.
+    *   *(Sekarang Anda bisa)* **Cetak Pas Foto & KTP di A4** → **Lolos**.
+    *   *(Sekarang Anda bisa)* **Engine Kompresi Vektor** → **Gagal (Ini nama benda mati, bukan kemampuan pengguna)**.
+
+### Hukum 4: Tombol Kepemilikan Pengguna (First-Person CTA Rule)
+*   **Prinsip Michael Aagaard & David Ogilvy**: Ganti sudut pandang tombol aksi dari perintah orang kedua (*"Download Dokumen Anda"*) menjadi kepemilikan orang pertama (*"Unduh Dokumen Saya"*). Di alam bawah sadar, pengguna merasa memegang kendali penuh atas asetnya.
+    *   *Kaku & Dingin*: `Download File`, `Submit Form`, `Mulai Proses Dokumen`.
+    *   *Konversi Tinggi*: `Kecilkan PDF Saya Sekarang`, `Simpan Dokumen Saya`, `Satukan Berkas Saya`.
 
 ---
 
-## 2. Kamus Anti-AI Slop: Daftar Hitam vs Kata Pengganti
+## 2. Dua Formula Sakti Konversi Tinggi: PAS & BAB
+
+Dalam dunia copywriting direct-response bernilai tinggi, terdapat dua kerangka kerja paling mematikan untuk mengubah pengunjung ragu menjadi pengguna loyal:
+
+### 1. Formula PAS (Problem - Agitate - Solution)
+Sangat cocok untuk deskripsi fitur pemecah masalah darurat atau halaman penawaran alat:
+*   **Problem (P) — Angkat Masalah Riil**: Sebutkan kendala spesifik yang sedang dialami pengguna tanpa berputar-putar.
+    > *"File PDF Anda ditolak portal pendaftaran karena ukurannya lebih dari 2MB?"*
+*   **Agitate (A) — Sentil Rasa Cemas / Konsekuensi**: Perjelas dampaknya jika masalah dibiarkan, sentuh realitas lapangan yang bikin stres.
+    > *"Batas waktu upload tinggal hitungan menit, sementara jaringan internet lemot dan portal sering crash saat kirim file besar."*
+*   **Solution (S) — Beri Solusi Instan**: Sajikan fitur kita sebagai penyelamat tercepat tanpa syarat berbelit.
+    > *"Kecilkan berkas Anda di sini dalam 3 detik. Otomatis pas di bawah 500KB tanpa buram dan langsung diterima sistem."*
+
+### 2. Formula BAB (Before - After - Bridge)
+Sangat cocok untuk kartu bento, perbandingan fitur, atau subjudul hero:
+*   **Before (B) — Kondisi Frustrasi Sekarang**: Realitas melelahkan yang biasa dijalani pengguna.
+    > *"Beli kertas thermal mahal-mahal, tapi cepat habis cuma buat cetak margin putih resi yang kosong melompong."*
+*   **After (A) — Kondisi Ideal yang Menyenangkan**: Gambaran masa depan setelah masalah terselesaikan.
+    > *"Resi tercetak padat, hemat kertas sampai 50%, dan barcode tetap terbaca tajam oleh scanner kurir."*
+*   **Bridge (B) — Jembatan Alat Kita**: Peran alat kita sebagai penghubung otomatis menuju kondisi ideal tersebut.
+    > *"Cukup lempar dokumen ke kartu 'Potong Tepi Resi', sistem otomatis membuang area kosong dalam 1 detik."*
+
+
+## 3. Kamus Anti-AI Slop: Daftar Hitam vs Kata Pengganti
 
 AI generatif memiliki kecenderungan bawaan menggunakan kosakata korporat klise yang dingin dan berjarak. Wajib ganti kata-kata di kolom kiri dengan padanan di kolom kanan:
 
@@ -55,7 +83,7 @@ AI generatif memiliki kecenderungan bawaan menggunakan kosakata korporat klise y
 
 ---
 
-## 3. The Indonesian Seven Sweeps (7 Putaran Audit Teks)
+## 4. The Indonesian Seven Sweeps (7 Putaran Audit Teks)
 
 Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secara berurutan:
 
@@ -69,10 +97,10 @@ Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secar
 *   Gunakan kata sapaan wajar (*"Anda"* atau langsung ke objek masalah tanpa kata ganti bertele-tele).
 
 ### Putaran 3: Uji "Terus Apa Untungnya Buat Saya?" & Jembatan "Yang Artinya..." (So What? Sweep)
-*   Setiap fitur teknis wajib diberi jembatan manfaat menggunakan formula **[Fitur Teknis] $\to$ *yang artinya* $\to$ [Dampak Fisik Nyata]**:
-    *   *Teknis*: "Resolusi 300 DPI vektor murni." $\to$ *Yang artinya*: "Hasil cetak fisik tajam tanpa buram atau pecah."
-    *   *Teknis*: "Kompresi Ghostscript dPDFSETTINGS." $\to$ *Yang artinya*: "Ukuran file kecil agar lolos upload CPNS dan email."
-    *   *Teknis*: "Standar kearsipan ISO 19005 (PDF/A)." $\to$ *Yang artinya*: "Berkas resmi Anda tidak akan ditolak sistem BKN atau BPN."
+*   Setiap fitur teknis wajib diberi jembatan manfaat menggunakan formula **[Fitur Teknis] → *yang artinya* → [Dampak Fisik Nyata]**:
+    *   *Teknis*: "Resolusi 300 DPI vektor murni." → *Yang artinya*: "Hasil cetak fisik tajam tanpa buram atau pecah."
+    *   *Teknis*: "Kompresi Ghostscript dPDFSETTINGS." → *Yang artinya*: "Ukuran file kecil agar lolos upload CPNS dan email."
+    *   *Teknis*: "Standar kearsipan ISO 19005 (PDF/A)." → *Yang artinya*: "Berkas resmi Anda tidak akan ditolak sistem BKN atau BPN."
 
 ### Putaran 4: Uji Contoh Konkret (Specificity Sweep)
 *   Hindari kata abstrak seperti *"dokumen berbagai keperluan"*.
@@ -82,9 +110,9 @@ Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secar
 *   Hapus istilah teknisi/programmer yang tidak dipahami orang awam:
     *   `Poppler`, `QPDF imposition`, `XREF table`, `DeviceGray`, `CropBox`, `Lossless`.
 *   Ganti dengan fungsi konkret:
-    *   `Rebuild XREF` $\to$ `Bisa Dibuka Kembali`
-    *   `DeviceGray` $\to$ `Hitam Putih Bersih`
-    *   `CropBox` $\to$ `Buang Tepi Putih Kosong`
+    *   `Rebuild XREF` → `Bisa Dibuka Kembali`
+    *   `DeviceGray` → `Hitam Putih Bersih`
+    *   `CropBox` → `Buang Tepi Putih Kosong`
 
 ### Putaran 6: Uji Ritme Nafas & Variasi Kalimat (Rhythm & Burstiness Sweep)
 *   **Penyakit Robot**: Menulis kalimat yang panjangnya seragam monoton (12-15 kata terus-menerus).
@@ -95,14 +123,15 @@ Saat meninjau atau menulis ulang teks di web, lakukan 7 putaran penyisiran secar
 *   Baca teks dengan bersuara. Jika lidah tersendat atau kehabisan napas di tengah kalimat, potong kalimat tersebut.
 
 ### Putaran 7: Pembunuh Keraguan & Ketakutan (Friction Killer Sweep)
-*   Tuntaskan rasa was-was pengguna internet Indonesia:
-    *   *Takut bayar*: Tegaskan *"100% Bebas Biaya & Tanpa Kuota Harian"*.
+*   Tuntaskan rasa was-was pengguna internet Indonesia menggunakan 4 Sekring Pembalik Risiko (Lihat Bab 6):
+    *   *Takut bayar*: Tegaskan *"100% Bebas Biaya & Tanpa Biaya Tersembunyi"*.
     *   *Takut data bocor*: Tegaskan *"Berkas Otomatis Dihapus Permanen dalam 15 Menit"*.
-    *   *Takut iklan jebakan*: Tegaskan *"Bebas Iklan & Tanpa Popup"*.
+    *   *Takut ribet daftar*: Tegaskan *"Tanpa Perlu Login / Buat Akun"*.
+    *   *Takut watermark*: Tegaskan *"Hasil Bersih Tanpa Watermark"*.
 
 ---
 
-## 4. Matriks 4 Persona Pengguna Lokal Indonesia
+## 5. Matriks 4 Persona Pengguna Lokal Indonesia
 
 Saat merancang teks fitur, petakan bahasa ke dalam 4 kelompok pengguna nyata:
 
@@ -128,7 +157,26 @@ Saat merancang teks fitur, petakan bahasa ke dalam 4 kelompok pengguna nyata:
 
 ---
 
-## 5. Anatomi Bento Card & Tombol Aksi (CTA)
+## 6. Empat Sekring Pembalik Risiko Total (The 4 Zero-Traps)
+
+Pengguna internet Indonesia memiliki 4 ketakutan laten saat mencoba alat web baru. Pasang sekring penenang ini di lokasi strategis (hero status pill, footer, atau dekat tombol aksi):
+
+1. **Anti-Jebakan Biaya (Payment Trap)**
+   *   *Kekhawatiran Pengguna*: "Di awal dibilang gratis, pas klik download disuruh langganan bulanan atau bayar kartu kredit."
+   *   *Sekring Teks*: **"100% Bebas Biaya Selamanya • Tanpa Kartu Kredit / Langganan"**
+2. **Anti-Bocor Data & Privasi (Privacy Paranoia)**
+   *   *Kekhawatiran Pengguna*: "KTP, ijazah, atau slip gaji saya disimpan di server buat pinjol / data bocor."
+   *   *Sekring Teks*: **"Zero-Log & Privasi Bersih: Seluruh file otomatis hangus dari server dalam 15 menit"**
+3. **Anti-Ribet Registrasi (Friction Phobia)**
+   *   *Kekhawatiran Pengguna*: "Cuma mau kompres satu file tapi dipaksa login pakai Google atau isi formulir registrasi panjang."
+   *   *Sekring Teks*: **"Tanpa Perlu Daftar / Login: Langsung lempar berkas dan unduh hasilnya"**
+4. **Anti-Watermark (Pride & Professionalism Concern)**
+   *   *Kekhawatiran Pengguna*: "Hasil dokumennya dicap logo web gede di tengah halaman, bikin malu pas diserahkan ke bos atau instansi."
+   *   *Sekring Teks*: **"Hasil Asli Bersih 100% Tanpa Watermark"**
+
+---
+
+## 7. Anatomi Bento Card & Tombol Aksi (CTA)
 
 Struktur standar kartu antarmuka 1 detik paham:
 
@@ -142,23 +190,23 @@ Struktur standar kartu antarmuka 1 detik paham:
 │ [Tag Konkret 1]   [Tag Konkret 2]                       │
 │                                                         │
 │ ─────────────────────────────────────────────────────── │
-│ Tindakan Nyata (CTA)                                 → │
+│ Tindakan Nyata (CTA Sudut Pandang Pertama)            → │
 └─────────────────────────────────────────────────────────┘
 ```
 
 *   **Judul Kartu**: Format `[Kata Kerja] + [Objek Nyata]`.
     *   *Benar*: `Ubah Foto Jadi PDF`, `Kecilkan Ukuran PDF`, `Tempel Tanda Tangan`.
     *   *Salah*: `Image Converter Engine`, `Smart Compress Module`, `Digital Signature`.
-*   **Subjudul**: Menjawab skenario nyata pengguna.
+*   **Subjudul**: Menjawab skenario nyata pengguna (gunakan pola BAB atau solusi langsung).
     *   *Benar*: *"Gabungkan foto tugas sekolah, nota belanja, atau galeri HP jadi satu dokumen PDF yang rapi."*
     *   *Salah*: *"Melakukan kompilasi multi-format bitmap ke struktur dokumen portabel vektor."*
-*   **Tombol Aksi (CTA)**:
-    *   *Benar*: `Jadikan Dokumen PDF`, `Kecilkan Ukuran Sekarang`, `Pasang Tanda Tangan`.
-    *   *Salah*: `Klik Di Sini`, `Submit`, `Proses Data`, `Selengkapnya`.
+*   **Tombol Aksi (CTA)**: Gunakan sudut pandang kepemilikan orang pertama (Hukum 4).
+    *   *Benar*: `Jadikan Dokumen Saya`, `Kecilkan PDF Saya Sekarang`, `Pasang Tanda Tangan Saya`.
+    *   *Kaku / Robot*: `Klik Di Sini`, `Submit`, `Proses Data`, `Selengkapnya`.
 
 ---
 
-## 6. Formula Judul Utama (Hero Headline & Tagline)
+## 8. Formula Judul Utama (Hero Headline & Tagline)
 
 Saat merancang bagian paling atas (*above-the-fold / hero section*) dari landing page atau web utility, gunakan rumus 3 elemen:
 
@@ -175,7 +223,7 @@ Saat merancang bagian paling atas (*above-the-fold / hero section*) dari landing
 
 ---
 
-## 7. Micro-Copy: Pesan Error & Validasi Ramah Manusia
+## 9. Micro-Copy: Pesan Error & Validasi Ramah Manusia
 
 Pesan error adalah momen paling rawan di mana bahasa robot sering bocor dan membuat panik pengguna awam. Terapkan prinsip: **Tenangkan + Jelaskan Masalahnya + Beri Solusi Langkah Berikutnya**.
 
@@ -189,7 +237,7 @@ Pesan error adalah momen paling rawan di mana bahasa robot sering bocor dan memb
 
 ---
 
-## 8. Contoh Studi Kasus Riil: Before vs After
+## 10. Contoh Studi Kasus Riil: Before vs After
 
 | Fitur | Sebelum (Kaku / Bahasa Robot) | Sesudah (Manusiawi & Konversi Tinggi) |
 |---|---|---|
@@ -201,15 +249,18 @@ Pesan error adalah momen paling rawan di mana bahasa robot sering bocor dan memb
 
 ---
 
-## 9. Checklist Pra-Rilis Copywriting (Pre-Flight Gate)
+## 11. Checklist Pra-Rilis Copywriting (Pre-Flight Gate)
 
-Sebelum teks dirilis ke antarmuka pengguna, pastikan seluruh pertanyaan ini dijawab **YA**:
+Sebelum teks dirilis ke antarmuka pengguna, pastikan seluruh 10 pertanyaan ini dijawab **YA**:
 1. [ ] Apakah anak SMA atau ibu rumah tangga langsung paham fungsi kartu ini dalam 1 detik?
 2. [ ] Apakah semua kata asing/jargon teknis sudah dibuang tanpa sisa?
 3. [ ] Apakah ada contoh konkret kasus pemakaian di Indonesia (WhatsApp, CPNS, Shopee, tugas kuliah)?
 4. [ ] Apakah judul fitur lolos tes *"Sekarang Anda bisa..."*?
 5. [ ] Apakah subjek kalimat didominasi *"Anda/Kamu"* ketimbang *"Kami/Sistem"* (Rasio minimal 3:1)?
-6. [ ] Apakah teks tombol aksi (CTA) diawali dengan kata kerja aktif nyata?
-7. [ ] Apakah pesan error menenangkan dan memberi solusi (bukan kode teknis HTTP 500/MIME)?
-8. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan?
+6. [ ] Apakah tombol aksi (CTA) menggunakan sudut pandang kepemilikan orang pertama (*"Saya"*) dan diawali kata kerja aktif?
+7. [ ] Apakah pesan penawar masalah darurat menerapkan formula PAS atau BAB?
+8. [ ] Apakah 4 sekring keraguan netizen Indonesia (bebas biaya, privasi 15 menit, tanpa login, tanpa watermark) sudah terpasang?
+9. [ ] Apakah pesan error menenangkan dan memberi solusi (bukan kode teknis HTTP 500/MIME)?
+10. [ ] Apakah teks lolos "Tes Warung Kopi" saat dilafalkan secara lisan tanpa tersendat?
+
 
