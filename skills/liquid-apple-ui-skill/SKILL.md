@@ -106,7 +106,7 @@ Implementation in layout:
 
 Cupertino glassmorphism is not a simple generic blur. It is an optical simulation of high-transmission frosted crystal acrylic: high light refraction, ambient iridescent colors shining through, and sharp specular chamfer reflections along the perimeter edges.
 
-Directly extracted from the production architecture of **AGY Router** (`http://100.65.188.64:7890/`) and **CekWeb Megapass** (`https://cekweb.megapass.web.id/`).
+Directly extracted from the production architecture of **AGY Router** (`http://localhost:7890/`) and **CekWeb Megapass** (`https://cekweb.megapass.web.id/`).
 
 ### A. The Standard Frosted Crystal Card (`.crystal-card`)
 The workhorse container for content panels, telemetry tables, and navigation sidebars:

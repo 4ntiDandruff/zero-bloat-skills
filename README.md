@@ -292,7 +292,7 @@ zero-bloat-skills/
 Eksekusi nyata skrip verifikasi mandiri di terminal lokal ruko dan radar otomatis GitHub Actions CI:
 
 ```text
-$ cd /home/michael/zero-bloat-skills && ./test.sh
+$ cd ~/zero-bloat-skills && ./test.sh
 =====================================================================
 [*] ZERO-BLOAT-SKILLS: Unified Health Check & Verification
 =====================================================================
@@ -314,23 +314,23 @@ $ ./install.sh --verify
 =====================================================================
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
-[+] /home/michael/.gemini/config/skills:
+[+] ~/.gemini/config/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.agents/skills:
+[+] ~/.agents/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.claude/skills:
+[+] ~/.claude/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.config/everything-claude-code/skills:
+[+] ~/.config/everything-claude-code/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.omp/skills:
+[+] ~/.omp/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.config/omp/skills:
+[+] ~/.config/omp/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.config/opencode/skills:
+[+] ~/.config/opencode/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.hermes/skills:
+[+] ~/.hermes/skills:
     └─ 24 active symlinks | 0 broken
-[+] /home/michael/.codex/skills:
+[+] ~/.codex/skills:
     └─ 24 active symlinks | 0 broken
 =====================================================================
 [+] STATUS: PRIMA (216 symlinks sehat, nol broken link).

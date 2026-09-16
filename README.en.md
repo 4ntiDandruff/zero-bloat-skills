@@ -200,7 +200,7 @@ Cost comparison between hiring conventional software houses vs implementing self
 Direct terminal outputs verifying system health and multi-agent distribution:
 
 ```text
-$ cd /home/michael/zero-bloat-skills && ./test.sh
+$ cd ~/zero-bloat-skills && ./test.sh
 =====================================================================
 [*] ZERO-BLOAT-SKILLS: Unified Health Check & Verification
 =====================================================================

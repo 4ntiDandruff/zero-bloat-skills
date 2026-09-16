@@ -92,10 +92,10 @@ Never use standard file managers or `cp` on failing drives; hardware read timeou
 
 ```bash
 # Image failing drive with persistent log map for resume support
-sudo ddrescue -d -r 2 /dev/sdb /home/michael/client_disk.img /home/michael/rescue.map
+sudo ddrescue -d -r 2 /dev/sdb /mnt/rescue/client_disk.img /mnt/rescue/rescue.map
 
 # Mount rescued raw image safely to recover client documents
-sudo losetup -Pf /home/michael/client_disk.img
+sudo losetup -Pf /mnt/rescue/client_disk.img
 sudo mount -t ntfs-3g -o ro /dev/loop0p3 /mnt/rescued_data
 ```
 
