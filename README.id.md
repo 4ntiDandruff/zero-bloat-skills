@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**23 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**24 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Web Showcase Interaktif](https://img.shields.io/badge/Web%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratorium](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Sertifikasi](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Arsitektur](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Symlink Aktif](https://img.shields.io/badge/Symlink%20Aktif-207%20Terkonfigurasi-10b981?style=flat-square)](#)
+[![Symlink Aktif](https://img.shields.io/badge/Symlink%20Aktif-216%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![Lisensi](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -43,7 +43,7 @@ Dapat dipasang dan dimuat secara otomatis oleh **Google Antigravity CLI**, **Cla
 
 ## Instalasi Remote 1 Baris Perintah
 
-Pasang dan hubungkan 23 modul keahlian ini ke seluruh AI coding agent yang terpasang di sistem Linux Anda hanya dengan satu baris perintah terminal:
+Pasang dan hubungkan 24 modul keahlian ini ke seluruh AI coding agent yang terpasang di sistem Linux Anda hanya dengan satu baris perintah terminal:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -70,7 +70,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 
 * **Laboratorium Langsung: Tangga AI Hemat Token**: Uji coba langsung deteksi nominal percakapan sehari-hari dalam Bahasa Indonesia (IDR) dan English (USD) secara real-time dengan kecepatan sub-milidetik dan **0 panggilan API LLM, 0 token terkuras**.
 * **Web Speech STT Native Browser**: Dikte percakapan hands-free langsung dari mikrofon peramban web dengan auto-deteksi bahasa.
-* **Viewer SOP Lengkap**: Baca seluruh spesifikasi teknis dan SOP markdown dari ke-23 modul langsung di browser melalui slide-over drawer interaktif lengkap dengan tombol salin path dan kode.
+* **Viewer SOP Lengkap**: Baca seluruh spesifikasi teknis dan SOP markdown dari ke-24 modul langsung di browser melalui slide-over drawer interaktif lengkap dengan tombol salin path dan kode.
 
 <p align="center">
   <a href="https://skill.megapass.web.id">
@@ -106,7 +106,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 
 ---
 
-## 2. Matriks Lengkap 23 Modul Produksi
+## 2. Matriks Lengkap 24 Modul Produksi
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
@@ -145,7 +145,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Roadmap karier vertikal, fase collapsible, galeri foto lightbox zero-bloat dengan navigasi keyboard dan touch-swipe. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
 | [`print-shop-canvas-skill`](skills/print-shop-canvas-skill/SKILL.md) | Generator grafis percetakan fisik via Pillow: render presisi 300 DPI, margin bleed mesin potong, ekspor PDF CMYK. | `desain cetak`, `kartu garansi`, `kalender`, `300 dpi`, `bleed` |
 
-### Tangga AI & Media Edge (7 Modul)
+### Tangga AI & Media Edge (8 Modul)
 
 | Modul Keahlian | Kapabilitas Inti & Solusi Masalah | Pemicu Otomatis (Trigger R11) |
 |---|---|---|
@@ -156,7 +156,7 @@ Jelajahi ekosistem modul ini secara visual di **[skill.megapass.web.id](https://
 | [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Engine analitik web lokal berbasis SQLite WAL + sekring WAF sliding-window berbatas memori dengan unban TTL otomatis (nol memory leak). | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Konfigurasi benteng SQLite kebal mati lampu: mode WAL, synchronous=NORMAL, tuning busy_timeout anti-lock, hot backup atomik, dan recovery 1-baris .recover. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Streaming CCTV edge hemat daya (STB/i3) tanpa transcode CPU: pass-through RTSP ke WebRTC/HLS via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
-| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Standar copywriting manusiawi & conversion UX bahasa Indonesia: eliminasi gaya bahasa robot AI, prinsip Tes Warung Kopi, dan 7 putaran audit teks. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
+| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Standar copywriting manusiawi & conversion UX bahasa Indonesia: eliminasi gaya robot AI, prinsip Tes Warung Kopi, formula PAS/BAB, 4 sekring pembalik risiko, dan 7 putaran audit teks. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
 
 <br/>
 
@@ -205,7 +205,7 @@ Tabel perbandingan nilai rekayasa antara menggunakan jasa vendor/software house 
 |---|---|---|---|
 | Server & Database Bulanan | Sewa VPS Cloud 8GB RAM + Managed DB: Rp 650.000 / bulan | PC Bekas Ruko (i3/STB) + SQLite WAL: Rp 0 (Lokal) | Hemat Rp 7.800.000 / tahun |
 | Lisensi & Domain IP Publik | Sewa IP Publik Statis ISP: Rp 250.000 / bulan | Cloudflare Tunnel + Tailscale Subnet: Rp 0 | Hemat Rp 3.000.000 / tahun |
-| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 21 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
+| Biaya Jasa Bikin Tool Servis | Pembuatan software desktop internal: Rp 15.000.000 | Ekstraksi 24 modul skill siap pakai: Gratis | Hemat Rp 15.000.000 (One-time) |
 | Waktu Diagnosa Teknisi | Pelacakan manual tanpa AI/skema: ~90 menit/unit | Copilot boardview + injeksi arus: ~15 menit/unit | Menghemat 75 menit waktu kerja/unit |
 
 ---
@@ -223,10 +223,10 @@ zero-bloat-skills/
 ├── assets/                               # Tangkapan layar resolusi tinggi & showcase UI
 │   ├── hero.png                          # Showcase hero portal web
 │   ├── playground.png                    # Laboratorium Langsung Tangga AI Hemat Token
-│   ├── catalog.png                       # Kisi kartu 21 modul keahlian
+│   ├── catalog.png                       # Kisi kartu 24 modul keahlian
 │   └── drawer.png                        # Slide-over reader spesifikasi SOP di browser
 │
-├── skills/                               # 21 Modul Keahlian Meja Servis & Zero-Bloat
+├── skills/                               # 24 Modul Keahlian Meja Servis & Zero-Bloat
 │   ├── hardware-boardview-skill/         # Diagnosa short circuit, injeksi 1A, urutan rails
 │   ├── browser-pdf-canvas-skill/         # PDF.js Canvas, lazy virtualization, anti-ghost-scroll
 │   ├── eeprom-flashing-skill/            # Flashing SPI BIOS 24/25 via CH341A + Clean ME
@@ -297,7 +297,7 @@ Bukti nyata luaran terminal yang diharapkan:
 
 ## 8. Rencana Pengembangan (Roadmap)
 
-* **Fase 1 (Rilis Saat Ini)**: Paket 21 modul keahlian produksi, installer symlink multi-agent, portal web interaktif live di `skill.megapass.web.id`, dan starter app meja kerja.
+* **Fase 1 (Rilis Saat Ini)**: Paket 24 modul keahlian produksi, installer symlink multi-agent, portal web interaktif live di `skill.megapass.web.id`, dan starter app meja kerja.
 * **Fase 2 (Berikutnya)**: Generator otomatis konfigurasi reverse-proxy zero-bloat untuk Caddy, Nginx, dan Traefik.
 * **Fase 3 (Jangka Panjang)**: Biner CLI mandiri `zero-bloat` berbasis Rust untuk scaffolding instan proyek nol-dependensi dan probing alat ukur perangkat keras meja servis.
 

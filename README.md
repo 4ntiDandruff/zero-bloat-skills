@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**23 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**24 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Workbench-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-207%20Configured-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-216%20Configured-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -78,7 +78,7 @@ Data flow is architected like layered physical relay protection. The workbench s
 
 ## 2. Universal Remote Install & Instant Setup
 
-Deploy and symlink all **23 skills** across every installed coding agent on your system with a single non-interactive command:
+Deploy and symlink all **24 skills** across every installed coding agent on your system with a single non-interactive command:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -91,7 +91,7 @@ git clone https://github.com/4ntiDandruff/zero-bloat-skills.git
 cd zero-bloat-skills && chmod +x install.sh && ./install.sh
 ```
 
-To pull the latest updates and refresh all 207 agent symlinks anytime:
+To pull the latest updates and refresh all 216 agent symlinks anytime:
 
 ```bash
 ./install.sh --update
@@ -99,7 +99,7 @@ To pull the latest updates and refresh all 207 agent symlinks anytime:
 
 ---
 
-## 3. Complete 23-Skill Production Matrix
+## 3. Complete 24-Skill Production Matrix
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
@@ -138,7 +138,7 @@ To pull the latest updates and refresh all 207 agent symlinks anytime:
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Milestone roadmap, collapsible phase nodes, zero-bloat touch-swipe lightbox with keyboard accessibility. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
 | [`print-shop-canvas-skill`](skills/print-shop-canvas-skill/SKILL.md) | Physical print layout generator via Python Pillow: 300 DPI rendering, cutting bleed margins, print-ready PDF export. | `desain cetak`, `kartu garansi`, `kalender`, `300 dpi`, `bleed` |
 
-### D. AI Gateways, Resilient Data & Edge Media (7 Modules)
+### D. AI Gateways, Resilient Data & Edge Media (8 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
@@ -148,7 +148,7 @@ To pull the latest updates and refresh all 207 agent symlinks anytime:
 | [`sqlite-wal-fortress-skill`](skills/sqlite-wal-fortress-skill/SKILL.md) | Outage-proof SQLite setup: WAL mode, synchronous=NORMAL, busy_timeout contention tuning, atomic hot backups, 1-line .recover salvage. | `database`, `sqlite`, `wal`, `corrupt`, `backup` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STBs/i3): RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 | [`token-frugal-intent-ladder-skill`](skills/token-frugal-intent-ladder-skill/SKILL.md) | Token-frugal AI ladder: 0-token regex and heuristic disambiguation for natural language financial inputs, clean note extraction. | `tangga ai`, `parsing nominal terbilang`, `hutang piutang`, `clean note` |
-| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Indonesian human-centric copywriting & conversion UX: anti-AI slop elimination, Coffee Shop Test, and 7-sweep text audit. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
+| [`human-copywriting-id-skill`](skills/human-copywriting-id-skill/SKILL.md) | Indonesian human-centric copywriting & conversion UX: anti-AI slop elimination, Coffee Shop Test, PAS/BAB formulas, 4 zero-traps, and 7-sweep text audit. | `copywriting manusiawi`, `bahasa awam`, `anti-robot`, `kata-kata enak`, `bikin kalimat` |
 | [`voice-hud-wayland-skill`](skills/voice-hud-wayland-skill/SKILL.md) | Hands-free technician voice-to-text HUD on Linux Wayland: local faster-whisper streaming and glassmorphism overlay. | `dikte suara`, `hands-free`, `voice hud`, `wayland`, `solder` |
 
 ---
@@ -190,7 +190,7 @@ Perbandingan biaya operasional antara solusi software house komersial vs arsitek
 |---|---|---|---|
 | **Sewa Cloud Bulanan** | Cloud VPS 8GB + Managed DB: $45 / bln | PC i3 Ruko Bekas + SQLite WAL: **$0** | Hemat **$540 / tahun (Rp 8.500.000)** |
 | **Biaya IP Publik Statis** | Addon IP Statis ISP Bisnis: $18 / bln | Cloudflare Tunnel + Tailscale Mesh: **$0** | Hemat **$216 / tahun (Rp 3.400.000)** |
-| **Pembuatan Tooling Kustom** | Kontrak software house eksternal: $1,200 | 23 Modul skill terspesialisasi: **Termasuk** | Hemat **$1,200 (Rp 19.000.000)** |
+| **Pembuatan Tooling Kustom** | Kontrak software house eksternal: $1,200 | 24 Modul skill terspesialisasi: **Termasuk** | Hemat **$1,200 (Rp 19.000.000)** |
 | **Waktu Triage Teknisi** | Probing manual tanpa boardview: ~90 min | Boardview copilot + suntik arus 1A: ~15 min | Hemat **75 menit / unit servis** |
 | **TOTAL VALUASI REKAYASA** | **Paket Enterprise Skala Workshop** | **Mandiri Berdaulat (Self-Hosted)** | **Hemat ~Rp 82.000.000,-** |
 
@@ -198,33 +198,33 @@ Perbandingan biaya operasional antara solusi software house komersial vs arsitek
 
 ## 7. Smoke Test (Bukti Nyata Run Terminal)
 
-Eksekusi nyata skrip installer universal [install.sh](file:///home/michael/zero-bloat-skills/install.sh) yang mengonfigurasi 207 symlink ke 9 platform AI coding:
+Eksekusi nyata skrip installer universal [install.sh](file:///home/michael/zero-bloat-skills/install.sh) yang mengonfigurasi 216 symlink ke 9 platform AI coding:
 
 ```text
 $ cd /home/michael/zero-bloat-skills && ./install.sh
 [*] Installing/refreshing zero-bloat-skills symlinks...
 [*] Source path: /home/michael/zero-bloat-skills/skills
 [+] Detected active AI platform environment: /home/michael/.gemini/config/skills
-    └─ 23 skills symlinked to /home/michael/.gemini/config/skills
+    └─ 24 skills symlinked to /home/michael/.gemini/config/skills
 [+] Detected active AI platform environment: /home/michael/.agents/skills
-    └─ 23 skills symlinked to /home/michael/.agents/skills
+    └─ 24 skills symlinked to /home/michael/.agents/skills
 [+] Detected active AI platform environment: /home/michael/.claude/skills
-    └─ 23 skills symlinked to /home/michael/.claude/skills
+    └─ 24 skills symlinked to /home/michael/.claude/skills
 [+] Detected active AI platform environment: /home/michael/.config/everything-claude-code/skills
-    └─ 23 skills symlinked to /home/michael/.config/everything-claude-code/skills
+    └─ 24 skills symlinked to /home/michael/.config/everything-claude-code/skills
 [+] Detected active AI platform environment: /home/michael/.omp/skills
-    └─ 23 skills symlinked to /home/michael/.omp/skills
+    └─ 24 skills symlinked to /home/michael/.omp/skills
 [+] Detected active AI platform environment: /home/michael/.config/omp/skills
-    └─ 23 skills symlinked to /home/michael/.config/omp/skills
+    └─ 24 skills symlinked to /home/michael/.config/omp/skills
 [+] Detected active AI platform environment: /home/michael/.config/opencode/skills
-    └─ 23 skills symlinked to /home/michael/.config/opencode/skills
+    └─ 24 skills symlinked to /home/michael/.config/opencode/skills
 [+] Detected active AI platform environment: /home/michael/.hermes/skills
-    └─ 23 skills symlinked to /home/michael/.hermes/skills
+    └─ 24 skills symlinked to /home/michael/.hermes/skills
 [+] Detected active AI platform environment: /home/michael/.codex/skills
-    └─ 23 skills symlinked to /home/michael/.codex/skills
+    └─ 24 skills symlinked to /home/michael/.codex/skills
 
 =====================================================================
-[+] SUCCESS: 207 symlinks actively configured.
+[+] SUCCESS: 216 symlinks actively configured.
 [+] All detected coding agents are now equipped with zero-bloat-skills.
 =====================================================================
 ```
@@ -236,20 +236,20 @@ $ cd /home/michael/zero-bloat-skills && ./install.sh
 ```text
 zero-bloat-skills/
 ├── LICENSE                               # Official MIT License (Hizam Nahari / Megapass)
-├── README.md                             # Comprehensive global documentation (v2.3.0)
+├── README.md                             # Comprehensive global documentation (v2.4.0)
 ├── README.id.md                          # Edisi bahasa Indonesia
 ├── CHANGELOG.md                          # Catatan rilis dan riwayat pembaruan sistem
-├── install.sh                            # Universal multi-agent installer (auto-symlink 207 titik)
+├── install.sh                            # Universal multi-agent installer (auto-symlink 216 titik)
 ├── uninstall.sh                          # Clean symlink removal script
 ├── SECURITY.md                           # Kebijakan OPSEC dan pelaporan kerentanan
 │
 ├── assets/                               # High-resolution retina showcases & UI captures
 │   ├── hero.png                          # Web portal hero showcase
 │   ├── playground.png                    # Live Laboratory Token-Frugal AI Ladder
-│   ├── catalog.png                       # 23-skill catalog card grid
+│   ├── catalog.png                       # 24-skill catalog card grid
 │   └── drawer.png                        # Slide-over in-browser SOP reader
 │
-├── skills/                               # 23 Specialized Workbench & Systems Skills
+├── skills/                               # 24 Specialized Workbench & Systems Skills
 │   ├── hardware-boardview-skill/         # Short-circuit diagnostics, 1A injection, rails tracing
 │   ├── browser-pdf-canvas-skill/         # PDF.js Canvas, lazy virtualization, anti-ghost-scroll
 │   ├── eeprom-flashing-skill/            # SPI flashrom 24/25 series via CH341A + Clean ME
@@ -289,9 +289,9 @@ zero-bloat-skills/
 ## 9. Potensi Pengembangan Masa Depan (Roadmap Ekosistem)
 
 ```text
-[ TAHAP 1: SELESAI (v2.3.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
-- 23 Modul Keahlian Meja Servis      - Modul Thermal Camera AI     - Multi-Workshop Mesh
-- 207 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
+[ TAHAP 1: SELESAI (v2.4.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
+- 24 Modul Keahlian Meja Servis      - Modul Thermal Camera AI     - Multi-Workshop Mesh
+- 216 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
 - Portal Web skill.megapass.web.id   - Bluetooth Clamp Meter Hook  - PWA Workbench Mobile Suite
 ```
 

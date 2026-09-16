@@ -28,7 +28,7 @@ fi
 # ---------------------------------------------------------------------
 # Check 2: Skill Frontmatter & Directory Name Symmetry
 # ---------------------------------------------------------------------
-echo "[*] [Check 2/5] Memeriksa validitas YAML frontmatter 23 modul skill..."
+echo "[*] [Check 2/5] Memeriksa validitas YAML frontmatter seluruh modul skill..."
 PYTHON_FM_CHECK=$(python3 - <<'EOF'
 import os, sys, yaml
 
