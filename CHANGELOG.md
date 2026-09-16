@@ -13,8 +13,10 @@ dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 234 symlink di 9 direktori coding agent.
 
 ### Changed
-- Refaktor direktif universal `~/AGENTS.md` ke v28: keluarkan catatan Ventoy dari Section 6 menjadi modul mandiri dan hubungkan pemicu niat ke Rule R11.
-- Hardening fail-safe `ventoy_helper.py`: penambahan deteksi UTF-8 BOM Windows Notepad (`utf-8-sig`), pembersih komentar JSON (`//`), sekring pelindung direktori sistem kritis (`/`, `/home`, `/etc`), audit racun `.ventoyignore` di root partisi, pembuatan backup konfigurasi otomatis (`ventoy.json.bak`), dan pembersihan buffer kernel instan via `os.sync()`.
+- Sinkronisasi Direktif Universal `~/AGENTS.md` ke v29: eliminasi dependensi asing yang tidak dipakai (Laravel & MySQL), penyelarasan simetris 100% (SHA-256 identik) antara node `michael` (pchibah) dan node `hizam` (Ryzen), restorasi blockquote persona operasional Cak Hizam di Seksi 1 (praktisi meja servis, delegatif penuh ke AI, zero build-step, sistem 100% otonom / zero-touch), restorasi pemicu cepat desain UI di Seksi 4, penertiban 228 baris teks dengan kepatuhan zero em-dash dan TUI badges.
+- Hardening fail-safe `ventoy_helper.py`: penanganan UTF-8 BOM Windows Notepad (`utf-8-sig`), pembersih komentar JSON single-line (`//`), sekring pelindung direktori sistem kritis (`/`, `/home`, `/etc`), audit racun `.ventoyignore` di root partisi flashdisk, pembuatan cadangan konfigurasi otomatis (`ventoy.json.bak`), dan flush buffer kernel instan (`os.sync()`).
+- Rekomendasi tabel partisi flashdisk Ventoy: penambahan panduan teknis pemilihan tabel partisi MBR (kompatibilitas luas BIOS Legacy + UEFI CSM untuk laptop tua) vs GPT (khusus UEFI modern murni) di SOP servicing.
+- Sinkronisasi dokumentasi ekosistem: perbarui `README.md`, `README.id.md`, dan `README.en.md` merefleksikan 26 skill, 234 symlink aktif, benchmark performa riil, dan status rilis v2.6.0.
 
 ---
 

@@ -101,7 +101,7 @@ Arsitektur data mengalir seperti relay proteksi fisik bertingkat. Server meja se
 
 ## 2. Instalasi Cepat Satu Baris (Universal Remote Setup)
 
-Pasang dan distribusikan seluruh **24 modul skill** ke seluruh agen AI coding yang terpasang di sistem Anda dengan satu baris perintah non-interaktif:
+Pasang dan distribusikan seluruh **26 modul skill** ke seluruh agen AI coding yang terpasang di sistem Anda dengan satu baris perintah non-interaktif:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -118,19 +118,19 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 
 | Perintah Terminal | Fungsi & Tindakan Fisik |
 |---|---|
-| `./install.sh` | Deteksi otomatis dan pasang symlink 24 skill ke seluruh AI platform aktif. |
-| `./install.sh --list` atau `-l` | Tampilkan katalog ringkas 24 skill dan deskripsinya langsung di terminal. |
-| `./install.sh --verify` atau `-v` | Audit kesehatan 216 titik symlink (laporkan jika ada broken link). |
+| `./install.sh` | Deteksi otomatis dan pasang symlink 26 skill ke seluruh AI platform aktif. |
+| `./install.sh --list` atau `-l` | Tampilkan katalog ringkas 26 skill dan deskripsinya langsung di terminal. |
+| `./install.sh --verify` atau `-v` | Audit kesehatan 234 titik symlink (laporkan jika ada broken link). |
 | `./install.sh --test` atau `-t` | Jalankan suite verifikasi 5-layer (`./test.sh`) dalam 1 detik. |
 | `./install.sh --update` atau `-u` | Ambil update terbaru dari GitHub (`git pull`) lalu refresh seluruh symlink. |
 
 ---
 
-## 3. Matriks Lengkap 24 Skill Meja Servis (Production Catalog)
+## 3. Matriks Lengkap 26 Skill Meja Servis (Production Catalog)
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
-    <img src="assets/catalog.png" alt="Katalog 24 Modul Zero-Bloat Skills" width="100%" />
+    <img src="assets/catalog.png" alt="Katalog 26 Modul Zero-Bloat Skills" width="100%" />
   </a>
 </p>
 
@@ -140,7 +140,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 |---|---|---|
 | [`hardware-boardview-skill`](skills/hardware-boardview-skill/SKILL.md) | Deteksi short circuit, uji tembus MOSFET high-side, batas aman injeksi tegangan per rail, urutan power sequencing VIN ke S0, pembacaan skema boardview. | `motherboard`, `korslet`, `short`, `suntik tegangan`, `skema rails` |
 | [`eeprom-flashing-skill`](skills/eeprom-flashing-skill/SKILL.md) | SOP pembacaan & penulisan chip SPI BIOS EEPROM 24/25, level-shifting 1.8V, unlock proteksi status register, verifikasi dump 3-pass, Intel Clean ME. | `flash bios`, `eeprom`, `ch341a`, `dump corrupt`, `clean me` |
-| [`ventoy-servicing-skill`](skills/ventoy-servicing-skill/SKILL.md) | SOP flashdisk bootable meja servis: konfigurasi `ventoy.json` Global CLI mode anti-lag/melar, bypass Windows 11 TPM/SecureBoot/RAM/NRO offline account, injeksi storage driver Intel RST VMD Gen 11-14 (`Drivers/Obat_VMD_*`), dan isolasi folder kerja via `.ventoyignore`. | `ventoy`, `flashdisk bootable`, `multiboot`, `install ulang`, `obat vmd`, `bypass win11` |
+| [`ventoy-servicing-skill`](skills/ventoy-servicing-skill/SKILL.md) | SOP flashdisk bootable meja servis: utilitas mandiri `ventoy_helper.py` fail-safe (BOM Notepad, strip komentar `//`, audit racun root `.ventoyignore`, backup otomatis, sync kernel), konfigurasi Global CLI mode, panduan tabel partisi MBR vs GPT, bypass Windows 11 TPM/SecureBoot/RAM/NRO offline account, injeksi driver Intel RST VMD Gen 11-14 (`Drivers/Obat_VMD_*`). | `ventoy`, `flashdisk bootable`, `multiboot`, `install ulang`, `obat vmd`, `bypass win11` |
 | [`windows-repair-from-linux-skill`](skills/windows-repair-from-linux-skill/SKILL.md) | Triage OS Windows dari live USB Linux, reset password offline SAM via chntpw dengan backup atomik, rekonstruksi UEFI BCD bootloader, rescue bad-sector ddrescue. | `servis windows`, `reset password`, `sam`, `bcd boot`, `bad sector` |
 | [`android-bench-debloat-skill`](skills/android-bench-debloat-skill/SKILL.md) | Debloat paket Android tanpa root via ADB, whitelist sistem kritis aman, pembersihan batch bloatware pabrikan (Samsung, Xiaomi, Oppo, Vivo). | `debloat android`, `hapus bloatware`, `hp lemot`, `adb` |
 
@@ -222,9 +222,9 @@ Perbandingan penghematan riil antara menyewa layanan software house komersial vs
 |---|---|---|---|
 | **Sewa Server Cloud Bulanan** | Cloud VPS 8GB + Managed DB: $45 / bln | PC i3 Ruko Bekas + SQLite WAL: **$0** | **Hemat Rp 8.500.000,- / thn** |
 | **Biaya IP Publik Statis ISP** | Addon IP Statis Bisnis: $18 / bln | Cloudflare Tunnel + Tailscale Mesh: **$0** | **Hemat Rp 3.400.000,- / thn** |
-| **Biaya Pembuatan 24 Modul SOP** | Kontrak Agensi Software: $1,200 | 24 Modul Mandiri Open-Source: **$0** | **Hemat Rp 19.000.000,-** |
+| **Biaya Pembuatan 26 Modul SOP** | Kontrak Agensi Software: $1,300 | 26 Modul Mandiri Open-Source: **$0** | **Hemat Rp 20.500.000,-** |
 | **Efisiensi Waktu Diagnosa Teknisi** | Probing manual acak: ~90 menit/unit | Boardview + Injeksi 1A: ~15 menit/unit | **Hemat 75 menit / unit servis** |
-| **TOTAL VALUASI PENGHEMATAN** | **Solusi Korporat Mahal** | **Kedaulatan Mandiri (Self-Hosted)** | **Hemat ~Rp 82.000.000,-** |
+| **TOTAL VALUASI PENGHEMATAN** | **Solusi Korporat Mahal** | **Kedaulatan Mandiri (Self-Hosted)** | **Hemat ~Rp 83.500.000,-** |
 
 ---
 
@@ -274,7 +274,7 @@ zero-bloat-skills/
 │   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap karier, accessible touch lightbox
 │   ├── print-shop-canvas-skill/          # Grafis presisi 300 DPI, margin bleed mesin potong
 │   ├── browser-speech-to-text-skill/     # Dikte Web Speech STT, bridge izin mic PWA Android
-│   ├── ai-rotary-shield-shield/          # Multi-account proxy rotary mitigasi HTTP 429
+│   ├── ai-rotary-shield-skill/           # Multi-account proxy rotary mitigasi HTTP 429
 │   ├── token-frugal-intent-ladder-skill/ # Tangga regex 0-token, klasifikasi kas, clean note
 │   ├── human-copywriting-id-skill/       # Copywriting meja servis, Tes Warung Kopi, PAS/BAB
 │   └── voice-hud-wayland-skill/          # Hands-free STT HUD teknisi via faster-whisper
@@ -303,7 +303,7 @@ $ cd ~/zero-bloat-skills && ./test.sh
 [*] [Check 1/5] Memeriksa sintaks skrip Shell...
 [+] PASS: Seluruh skrip shell valid secara sintaksis.
 [*] [Check 2/5] Memeriksa validitas YAML frontmatter seluruh modul skill...
-[+] PASS: Seluruh 24 skill valid (YAML frontmatter, naming, description).
+[+] PASS: Seluruh 26 skill valid (YAML frontmatter, naming, description).
 [*] [Check 3/5] Memeriksa proteksi CSS Viewport & Scroll Safety...
 [+] PASS: Viewport CSS steril (bebas dari jebakan overflow-x: hidden pada html/body).
 [*] [Check 4/5] Menjalankan smoke test starter-app...
@@ -319,29 +319,29 @@ $ ./install.sh --verify
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
 [+] ~/.gemini/config/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.agents/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.claude/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.config/everything-claude-code/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.omp/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.config/omp/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.config/opencode/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.hermes/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 [+] ~/.codex/skills:
-    └─ 25 active symlinks | 0 broken
+    └─ 26 active symlinks | 0 broken
 =====================================================================
-[+] STATUS: PRIMA (225 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (234 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1
-✓  [core] release v2.4.0...  Zero-Bloat CI & Health Check  main  push  16s
+✓  [core] release v2.6.0...  Zero-Bloat CI & Health Check  main  push  16s
 ```
 
 ---
@@ -349,9 +349,9 @@ $ gh run list --limit 1
 ## 9. Potensi Pengembangan Masa Depan (Roadmap Ekosistem)
 
 ```text
-[ TAHAP 1: SELESAI (v2.4.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
-- 24 Modul Keahlian Meja Servis      - Thermal Camera AI Profiler  - Multi-Workshop Mesh
-- 216 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
+[ TAHAP 1: SELESAI (v2.6.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
+- 26 Modul Keahlian Meja Servis      - Thermal Camera AI Profiler  - Multi-Workshop Mesh
+- 234 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
 - Portal Web skill.megapass.web.id   - Bluetooth Clamp Meter Hook  - PWA Workbench Mobile Suite
 - CI/CD GitHub Actions 16 Detik      - Printer Thermal ESC/POS     - STB Homelab Armbian Suite
 ```
