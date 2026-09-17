@@ -1467,3 +1467,158 @@ To verify that an interface achieves the exact optical clarity and beauty of **A
    - Emojis in buttons, tabs, or card titles are strictly prohibited.
 6. **Optical Density Scale**:
    - Interfaces must employ the compact density scale (`text-xs` is 12px, `text-sm` is 13px, `text-base` is 14px) with `-0.015em` letter spacing on headings and `text-wrap: balance` to prevent awkward orphan words.
+
+---
+
+## 20. Apple Liquid Mobile Bottom Dock & Standalone Sideload Card
+
+Diekstrak langsung dari arsitektur produksi **AGY Router** (v2.13.0) yang telah teruji pada berbagai smartphone modern (Android 8.0+ & iOS Safari).
+
+### A. Floating Frosted Glass Bottom Dock with Dynamic Active Pill
+
+Bilah navigasi jempol bawah melayang (*floating bottom dock*) dengan estetika kaca cair Cupertino:
+- **Lapisan Kaca**: `bg-white/85 backdrop-blur-2xl border-t border-black/[0.08] shadow-[0_-4px_24px_rgba(0,0,0,0.06)]`.
+- **Animasi Indikator Pil Aktif (*Cupertino active pill*)**: `w-3.5 h-1 rounded-full bg-[#0071E3] transition-[opacity,transform] duration-200 :class="activeTab === 'dashboard' ? 'opacity-100 scale-100' : 'opacity-0 scale-50'"`.
+- **Micro-Haptic Tactile Spring**: `active:scale-[0.92] transition-[transform,color,background-color] duration-150 active:bg-black/[0.03] rounded-2xl touch-manipulation`.
+- **Drop Shadow Halus pada Ikon Aktif**: `:class="activeTab === 'dashboard' ? 'drop-shadow-[0_1px_3px_rgba(0,113,227,0.25)]' : ''"`.
+- **Proteksi Safe Area Hardware**: `style="padding-bottom: max(10px, env(safe-area-inset-bottom));"`.
+- **Sekring Hindari Keyboard**: `:class="isInputFocused ? 'translate-y-32 pointer-events-none opacity-0' : 'translate-y-0 pointer-events-auto opacity-100'"`.
+
+```html
+<!-- Apple Liquid Crystal Bottom Nav Dock (Mobile Viewport) -->
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/85 backdrop-blur-2xl border-t border-black/[0.08] px-2 pt-2 flex items-center justify-around shadow-[0_-4px_24px_rgba(0,0,0,0.06)] transition-[transform,opacity] duration-200 ease-out select-none"
+     :class="isInputFocused ? 'translate-y-32 pointer-events-none opacity-0' : 'translate-y-0 pointer-events-auto opacity-100'"
+     style="padding-bottom: max(10px, env(safe-area-inset-bottom));">
+  
+  <!-- Tab 1: Dashboard -->
+  <button type="button"
+          @click="switchTab('dashboard')" 
+          class="flex flex-col items-center justify-center flex-1 min-h-[44px] py-1 cursor-pointer transition-[transform,color,background-color] duration-150 active:scale-[0.92] active:bg-black/[0.03] rounded-2xl touch-manipulation select-none group"
+          :class="activeTab === 'dashboard' ? 'text-[#0071E3] font-bold' : 'text-[#86868B] hover:text-[#1D1D1F]'">
+    <svg class="w-5 h-5 mb-0.5 transition-transform duration-150 group-hover:scale-105" 
+         :class="activeTab === 'dashboard' ? 'drop-shadow-[0_1px_3px_rgba(0,113,227,0.25)]' : ''" 
+         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+    </svg>
+    <span class="text-[10px] leading-tight tracking-tight">Dashboard</span>
+    <span class="w-3.5 h-1 rounded-full bg-[#0071E3] mt-0.5 transition-[opacity,transform] duration-200" 
+          :class="activeTab === 'dashboard' ? 'opacity-100 scale-100' : 'opacity-0 scale-50'"></span>
+  </button>
+
+  <!-- Tab 2: Endpoint -->
+  <button type="button"
+          @click="switchTab('endpoint')" 
+          class="flex flex-col items-center justify-center flex-1 min-h-[44px] py-1 cursor-pointer transition-[transform,color,background-color] duration-150 active:scale-[0.92] active:bg-black/[0.03] rounded-2xl touch-manipulation select-none group"
+          :class="activeTab === 'endpoint' ? 'text-[#0071E3] font-bold' : 'text-[#86868B] hover:text-[#1D1D1F]'">
+    <svg class="w-5 h-5 mb-0.5 transition-transform duration-150 group-hover:scale-105" 
+         :class="activeTab === 'endpoint' ? 'drop-shadow-[0_1px_3px_rgba(0,113,227,0.25)]' : ''" 
+         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M4 11a9 9 0 0 1 9 9"></path>
+      <path d="M4 4a16 16 0 0 1 16 16"></path>
+      <circle cx="5" cy="19" r="1"></circle>
+    </svg>
+    <span class="text-[10px] leading-tight tracking-tight">Endpoint</span>
+    <span class="w-3.5 h-1 rounded-full bg-[#0071E3] mt-0.5 transition-[opacity,transform] duration-200" 
+          :class="activeTab === 'endpoint' ? 'opacity-100 scale-100' : 'opacity-0 scale-50'"></span>
+  </button>
+</nav>
+```
+
+### B. Sideload APK & WebAPK Component (Concentric Radii & QR Modal)
+
+Pola kartu instalasi mandiri PWA & biner Android (.apk) langsung dari server lokal tanpa perantara Google Play Store.
+
+1. **Formula Radius Konsentris**: Kartu induk `rounded-3xl` dengan padding `p-5 sm:p-6` membungkus sub-kartu `rounded-2xl` (`p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)]`).
+2. **Badge Versi Anti-Duplikasi**: `x-text="apkInfo.version ? (apkInfo.version.startsWith('v') ? apkInfo.version : 'v' + apkInfo.version) : 'v1.0.0'"` untuk mencegah bug `vv1.0.0`.
+3. **QR Code Modal Drawer**: Modal popup berlatar frosted glass untuk transfer unduhan langsung via scan kamera smartphone operator.
+
+```html
+<!-- Sideload APK & Standalone PWA Card -->
+<div class="crystal-card p-5 sm:p-6 space-y-4">
+  <div class="border-b border-black/[0.06] pb-4 space-y-1">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#0071E3] to-[#5E5CE6] flex items-center justify-center text-white shadow-sm flex-shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="5" y="2" width="14" height="20" rx="3"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3" stroke-linecap="round"></line>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold text-base text-[#1D1D1F] tracking-tight">Aplikasi Android Mandiri (.apk)</h3>
+          <p class="text-xs text-[#86868B]">Akses dasbor tanpa address bar browser via biner APK native Android.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px] self-start sm:self-auto">
+        <span class="px-2.5 py-0.5 rounded-md bg-emerald-50/90 text-[#1B803A] font-bold border border-emerald-200/70 shadow-2xs">Android 8.0+</span>
+        <span class="px-2.5 py-0.5 rounded-md bg-purple-50/90 text-[#BF5AF2] font-bold border border-purple-200/70 shadow-2xs" 
+              x-text="apkInfo.version ? (apkInfo.version.startsWith('v') ? apkInfo.version : 'v' + apkInfo.version) : 'v1.0.0'">v1.0.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concentric Feature Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+    <div class="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-1.5">
+      <div class="flex items-center justify-between text-[#86868B]">
+        <span class="font-medium">Biner APK Offline</span>
+        <span class="text-[10px] font-mono text-[#0071E3] font-bold px-1.5 py-0.5 rounded bg-blue-50/80 border border-blue-100">Direct Sideload</span>
+      </div>
+      <div class="text-sm font-bold font-mono text-[#1D1D1F] tabular-nums" x-text="apkInfo.size || '10.5 MB'">10.5 MB</div>
+      <p class="text-[11px] text-[#86868B] leading-normal">Instalasi biner mandiri langsung ke smartphone tanpa Google Play Store.</p>
+    </div>
+
+    <div class="p-3.5 rounded-2xl bg-white/80 backdrop-blur-md border border-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-1.5">
+      <div class="flex items-center justify-between text-[#86868B]">
+        <span class="font-medium">Akses Jaringan</span>
+        <span class="text-[10px] font-mono text-[#5E5CE6] font-bold px-1.5 py-0.5 rounded bg-purple-50/80 border border-purple-100">Mesh + LAN</span>
+      </div>
+      <div class="text-sm font-bold font-mono text-[#0071E3] uppercase tracking-wider">Tailscale & LAN</div>
+      <p class="text-[11px] text-[#86868B] leading-normal">Mendukung koneksi aman via Tailscale Mesh atau jaringan lokal ruko.</p>
+    </div>
+  </div>
+
+  <!-- Primary Sideload CTA & Modal Triggers -->
+  <div class="space-y-2 pt-1">
+    <a href="/download/apk" download
+       class="btn-apple-blue w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm cursor-pointer active:scale-[0.98] transition-transform">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      <span>Unduh APK Android</span>
+    </a>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <!-- Tactile Copy Link Button with Checkmark Feedback -->
+      <button type="button"
+              @click="copyDownloadLink()" 
+              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-all">
+        <svg class="w-3.5 h-3.5 text-[#0071E3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span>Salin Link APK</span>
+      </button>
+
+      <!-- Scan QR Button for Instant Camera Handoff -->
+      <button type="button"
+              @click="showQrApk = true" 
+              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-all">
+        <svg class="w-3.5 h-3.5 text-[#0071E3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Scan QR</span>
+      </button>
+    </div>
+  </div>
+</div>
+```
+

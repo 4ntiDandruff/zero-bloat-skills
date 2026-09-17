@@ -81,9 +81,10 @@ body {
 When using a fixed bottom navigation dock or floating bottom action bar, the scrollable document container MUST have ample bottom clearance:
 
 ```html
-<main id="main" class="w-full min-h-screen pb-32"
+<!-- Responsive Clearance Formula: Ample on mobile, compact on desktop -->
+<main id="main" class="w-full min-h-screen pb-32 sm:pb-36 lg:pb-8"
       style="padding-top: calc(4rem + env(safe-area-inset-top));">
-  <div class="w-full max-w-md mx-auto px-4 pt-1">
+  <div class="w-full max-w-md lg:max-w-5xl mx-auto px-4 pt-1">
     <!-- Page Content -->
   </div>
 </main>
@@ -92,6 +93,8 @@ When using a fixed bottom navigation dock or floating bottom action bar, the scr
 > [!CAUTION]
 > **DILARANG menggunakan `pb-16` atau `pb-20` pada halaman yang memiliki Floating Dock!**
 > Floating Dock memiliki tinggi ~64px ditambah margin bawah 12px dan tombol aksi tengah ~28px (total ~104px). Jika padding bawah kurang dari `pb-32` (128px), kartu atau tombol paling bawah akan terkunci di balik dock dan tidak bisa ditekan oleh pengguna.
+> 
+> **Pola Responsif Desktop-Mobile**: Gunakan `pb-32 sm:pb-36 lg:pb-8`. Di layar ponsel, padding 128px melindungi konten dari tabrakan dock. Di layar desktop (`lg:`), saat dock bawah disembunyikan dan navigasi berpindah ke sidebar/header, padding otomatis mengecil ke 32px (`lg:pb-8`) untuk mencegah area kosong yang canggung di monitor.
 
 ### C. iPhone Home Bar Inset (`env(safe-area-inset-bottom)`)
 
@@ -367,6 +370,53 @@ On mobile screens (360px – 412px wide), when filter chips or categories wrap i
 </div>
 ```
 
+### B. Responsive Subtab Control Rail (Formula Anti-Truncation)
+
+Tantangan umum pada dashboard desktop adalah meletakkan judul kartu di kiri dan segmented tab switcher di kanan (`flex items-center justify-between`). Pada layar ponsel (360px – 390px), judul kartu memakan 50% lebar horizontal sehingga tab switcher di kanannya terhimpit dan teks tombol panjang (seperti `Claude Code` atau `Request Details`) terpotong elipsis (`Claude Co...`).
+
+**Solusi Arsitektur**: Terapkan pemisahan tata letak responsif 2-level:
+1. Wadah induk menggunakan `flex flex-col sm:flex-row sm:items-center justify-between gap-2.5`. Di layar ponsel, judul tetap di baris 1, dan tab switcher turun ke baris 2 dengan lebar penuh (`w-full sm:w-auto`).
+2. Tab switcher dibungkus dengan `overflow-x-auto no-scrollbar max-w-full`.
+3. Setiap tombol tab wajib memiliki `whitespace-nowrap shrink-0` dan `touch-manipulation`.
+
+```html
+<!-- Responsive Card Header with Anti-Truncation Subtab Rail -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-black/[0.04] pb-3 mb-3">
+  <!-- Title / Metric Label -->
+  <h4 class="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">
+    Preset Konfigurasi Client AI
+  </h4>
+  
+  <!-- Subtab Switcher (Full width on mobile, auto width on desktop) -->
+  <div class="flex items-center rounded-xl p-1 gap-1 text-[11px] font-semibold overflow-x-auto no-scrollbar max-w-full bg-black/[0.03]">
+    <button type="button"
+            @click="activePreset = 'omp'"
+            :class="activePreset === 'omp' ? 'bg-white text-slate-900 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-900'"
+            class="px-2.5 py-1.5 rounded-lg cursor-pointer shrink-0 touch-manipulation whitespace-nowrap active:scale-95 transition-all">
+      OMP
+    </button>
+    <button type="button"
+            @click="activePreset = 'opencode'"
+            :class="activePreset === 'opencode' ? 'bg-white text-slate-900 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-900'"
+            class="px-2.5 py-1.5 rounded-lg cursor-pointer shrink-0 touch-manipulation whitespace-nowrap active:scale-95 transition-all">
+      OpenCode
+    </button>
+    <button type="button"
+            @click="activePreset = 'claude'"
+            :class="activePreset === 'claude' ? 'bg-white text-slate-900 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-900'"
+            class="px-2.5 py-1.5 rounded-lg cursor-pointer shrink-0 touch-manipulation whitespace-nowrap active:scale-95 transition-all">
+      Claude Code
+    </button>
+    <button type="button"
+            @click="activePreset = 'cursor'"
+            :class="activePreset === 'cursor' ? 'bg-white text-slate-900 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-900'"
+            class="px-2.5 py-1.5 rounded-lg cursor-pointer shrink-0 touch-manipulation whitespace-nowrap active:scale-95 transition-all">
+      Cursor / Cline
+    </button>
+  </div>
+</div>
+```
+
 ---
 
 ## 7. Thumb-Optimized Action Bars & Button Hierarchies
@@ -495,13 +545,35 @@ Declare a reactive boolean state in your root Alpine component (`isInputFocused`
          class="w-full h-12 px-4 rounded-2xl border text-base transition-all outline-none">
 
   <!-- Floating Navigation Dock: Retracts downward when keyboard is open -->
-  <nav class="fixed bottom-0 inset-x-0 z-40 transition-transform duration-200 ease-in-out select-none"
-       :class="isInputFocused ? 'translate-y-32 pointer-events-none' : 'translate-y-0 pointer-events-auto'"
-       style="padding-bottom: env(safe-area-inset-bottom)">
+  <nav class="fixed bottom-0 inset-x-0 z-40 transition-[transform,opacity] duration-200 ease-out select-none"
+       :class="isInputFocused ? 'translate-y-32 pointer-events-none opacity-0' : 'translate-y-0 pointer-events-auto opacity-100'"
+       style="padding-bottom: max(10px, env(safe-area-inset-bottom));">
     <!-- Dock Content -->
   </nav>
 </div>
 ```
+
+#### The Zero-Touch Global Focus Hook (Hands-Free Implementation)
+Alih-alih menambahkan `@focus` dan `@blur` secara manual pada puluhan tag `<input>` dan `<textarea>`, pasang sensor global sekali saja pada method `init()` di objek root Alpine.js:
+
+```javascript
+// Pasang sekali di method init() komponen root Alpine:
+init() {
+  window.addEventListener('focusin', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target?.tagName)) {
+      this.isInputFocused = true;
+    }
+  });
+  window.addEventListener('focusout', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target?.tagName)) {
+      this.isInputFocused = false;
+    }
+  });
+}
+```
+
+> [!TIP]
+> Menambahkan `opacity-0` bersamaan dengan `translate-y-32` dan `pointer-events-none` memastikan dock tidak meninggalkan bayangan tipis (*ghost shadow*) atau memicu tap target liar saat keyboard native Android/iOS terbuka.
 
 ---
 
