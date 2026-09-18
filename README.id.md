@@ -118,19 +118,19 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 
 | Perintah Terminal | Fungsi & Tindakan Fisik |
 |---|---|
-| `./install.sh` | Deteksi otomatis dan pasang symlink 26 skill ke seluruh AI platform aktif. |
-| `./install.sh --list` atau `-l` | Tampilkan katalog ringkas 26 skill dan deskripsinya langsung di terminal. |
-| `./install.sh --verify` atau `-v` | Audit kesehatan 234 titik symlink (laporkan jika ada broken link). |
+| `./install.sh` | Deteksi otomatis dan pasang symlink 27 skill ke seluruh AI platform aktif. |
+| `./install.sh --list` atau `-l` | Tampilkan katalog ringkas 27 skill dan deskripsinya langsung di terminal. |
+| `./install.sh --verify` atau `-v` | Audit kesehatan 243 titik symlink (laporkan jika ada broken link). |
 | `./install.sh --test` atau `-t` | Jalankan suite verifikasi 5-layer (`./test.sh`) dalam 1 detik. |
 | `./install.sh --update` atau `-u` | Ambil update terbaru dari GitHub (`git pull`) lalu refresh seluruh symlink. |
 
 ---
 
-## 3. Matriks Lengkap 26 Skill Meja Servis (Production Catalog)
+## 3. Matriks Lengkap 27 Skill Meja Servis (Production Catalog)
 
 <p align="center">
   <a href="https://skill.megapass.web.id#catalog">
-    <img src="assets/catalog.png" alt="Katalog 26 Modul Zero-Bloat Skills" width="100%" />
+    <img src="assets/catalog.png" alt="Katalog 27 Modul Zero-Bloat Skills" width="100%" />
   </a>
 </p>
 
@@ -305,7 +305,7 @@ $ cd ~/zero-bloat-skills && ./test.sh
 [*] [Check 1/5] Memeriksa sintaks skrip Shell...
 [+] PASS: Seluruh skrip shell valid secara sintaksis.
 [*] [Check 2/5] Memeriksa validitas YAML frontmatter seluruh modul skill...
-[+] PASS: Seluruh 26 skill valid (YAML frontmatter, naming, description).
+[+] PASS: Seluruh 27 skill valid (YAML frontmatter, naming, description).
 [*] [Check 3/5] Memeriksa proteksi CSS Viewport & Scroll Safety...
 [+] PASS: Viewport CSS steril (bebas dari jebakan overflow-x: hidden pada html/body).
 [*] [Check 4/5] Menjalankan smoke test starter-app...
@@ -321,29 +321,29 @@ $ ./install.sh --verify
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
 [+] ~/.gemini/config/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.agents/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.claude/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.config/everything-claude-code/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.omp/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.config/omp/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.config/opencode/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.hermes/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 [+] ~/.codex/skills:
-    └─ 26 active symlinks | 0 broken
+    └─ 27 active symlinks | 0 broken
 =====================================================================
-[+] STATUS: PRIMA (234 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (243 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1
-✓  [core] release v2.6.0...  Zero-Bloat CI & Health Check  main  push  16s
+✓  [skill] tambah zero-bloat-icon...  Zero-Bloat CI & Health Check  main  push  16s
 ```
 
 ---
@@ -351,9 +351,9 @@ $ gh run list --limit 1
 ## 9. Potensi Pengembangan Masa Depan (Roadmap Ekosistem)
 
 ```text
-[ TAHAP 1: SELESAI (v2.6.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
-- 26 Modul Keahlian Meja Servis      - Thermal Camera AI Profiler  - Multi-Workshop Mesh
-- 234 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
+[ TAHAP 1: SELESAI (v2.7.0) ]        [ TAHAP 2: NEXT UP ]          [ TAHAP 3: SCALE UP ]
+- 27 Modul Keahlian Meja Servis      - Thermal Camera AI Profiler  - Multi-Workshop Mesh
+- 243 Symlink Otomatis 9 AI Agent    - Auto Oscilloscope Decoder   - Offline RAG Schematics
 - Portal Web skill.megapass.web.id   - Bluetooth Clamp Meter Hook  - PWA Workbench Mobile Suite
 - CI/CD GitHub Actions 16 Detik      - Printer Thermal ESC/POS     - STB Homelab Armbian Suite
 ```

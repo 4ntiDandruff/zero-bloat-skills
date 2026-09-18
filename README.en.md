@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**26 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
+**27 Circuit-Level Operational Skills for Hardware Technicians, Bare-Metal Linux, and Multi-Agent AI Gateways**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Workbench-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/BNSP%20Certified-Electronics%20Technician-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-234%20Configured-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Active%20Symlinks-243%20Configured-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -78,7 +78,7 @@ Data flow is architected like layered physical relay protection. The workbench s
 
 ## 2. Universal Remote Install & Instant Setup
 
-Deploy and symlink all **26 skills** across every installed coding agent on your system with a single non-interactive command:
+Deploy and symlink all **27 skills** across every installed coding agent on your system with a single non-interactive command:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -95,15 +95,15 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 
 | Terminal Command | Action & Operation |
 |---|---|
-| `./install.sh` | Automatically detect and symlink 26 skills to all installed AI agent platforms. |
-| `./install.sh --list` or `-l` | Display terminal catalog of all 26 skills and their descriptions. |
-| `./install.sh --verify` or `-v` | Audit the health of all 234 symlinks across agent directories. |
+| `./install.sh` | Automatically detect and symlink 27 skills to all installed AI agent platforms. |
+| `./install.sh --list` or `-l` | Display terminal catalog of all 27 skills and their descriptions. |
+| `./install.sh --verify` or `-v` | Audit the health of all 243 symlinks across agent directories. |
 | `./install.sh --test` or `-t` | Execute the 5-layer health check suite (`./test.sh`) in 1 second. |
 | `./install.sh --update` or `-u` | Pull the latest upstream updates and refresh all symlinks. |
 
 ---
 
-## 3. Complete 26-Skill Production Matrix
+## 3. Complete 27-Skill Production Matrix
 
 ### A. Hardware Diagnostics & Workbench Servicing (5 Modules)
 
@@ -128,7 +128,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Self-hosted zero-cookie web analytics on SQLite WAL + sliding-window WAF rate limiter with automatic TTL unban and zero memory leaks. | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Edge CCTV streaming on constrained hardware (STB/i3) without CPU transcoding: RTSP to WebRTC/HLS pass-through via go2rtc (<30MB RAM). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 
-### C. Web Architecture, Interface Design & Viewport Physics (9 Modules)
+### C. Web Architecture, Interface Design & Viewport Physics (10 Modules)
 
 | Skill Module | Core Capability & Problem Solved | Auto-Invoke Triggers |
 |---|---|---|
@@ -136,6 +136,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`dark-modern-tech-ui-skill`](skills/dark-modern-tech-ui-skill/SKILL.md) | High-conversion Dark Modern Tech UI: Deep Slate base (`#0B1220`), frosted dark glass (blur 16px), electric cyan accents, Bento grid, pricing matrix. | `dark modern tech`, `ui megapass`, `tema gelap`, `dark mode`, `slate glassmorphism`, `landing page servis` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Apple-inspired Cupertino liquid crystal UI design system: 5-point iridescent ambient mesh (`#F5F5F7`), translucent frosted glass, radar status pills, Alpine tabs. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Styling-agnostic mobile layout, handheld thumb-zone geometry, 100dvh viewport physics, bottom-anchored actions, bottom sheet drawers, overflow-x: clip vertical scroll preservation. | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
+| [`zero-bloat-icon-favicon-skill`](skills/zero-bloat-icon-favicon-skill/SKILL.md) | Vector-based SVG favicon, touch icon, and app asset generator: multi-size C-native slicing (ICO 16/32/48, Apple 180, PWA 192/512), 3 anti-norak aesthetic guards, and auto-wiring HTML meta tags without Node.js. | `favicon`, `icon`, `touch icon`, `app icon`, `generate gambar icon`, `webmanifest` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Virtualized PDF.js HTML5 canvas viewer: IntersectionObserver lazy rendering, elimination of ghost-scroll feedback loops. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Technical reader UX: gradient scroll cue, dynamic reading progress bar, hover-to-copy code blocks, shimmer placeholders. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Milestone roadmap, collapsible phase nodes, zero-bloat touch-swipe lightbox with keyboard accessibility. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -191,9 +192,9 @@ Cost comparison between hiring conventional software houses vs implementing self
 |---|---|---|---|
 | **Monthly Cloud Server Rent** | Cloud VPS 8GB + Managed DB: $45 / mo | Repurposed Workshop i3 PC: **$0** | **Save $540 / yr (Rp 8,500,000)** |
 | **ISP Static Public IP Addon** | Dedicated Static IP Addon: $18 / mo | Cloudflare Tunnel + Tailscale Mesh: **$0** | **Save $216 / yr (Rp 3,400,000)** |
-| **26 Custom SOP Modules Development** | External Software Agency: $1,300 | 26 Open-Source Engineered Modules: **$0** | **Save $1,300 (Rp 20,500,000)** |
+| **27 Custom SOP Modules Development** | External Software Agency: $1,350 | 27 Open-Source Engineered Modules: **$0** | **Save $1,350 (Rp 21,300,000)** |
 | **Technician Triage Duration** | Manual probing without boardview: ~90 min | Boardview copilot + 1A injection: ~15 min | **Save 75 mins / unit** |
-| **TOTAL ENGINEERING VALUATION** | **Expensive Cloud Lock-in** | **Self-Hosted Independent Sovereign** | **Save ~Rp 83,500,000 / yr** |
+| **TOTAL ENGINEERING VALUATION** | **Expensive Cloud Lock-in** | **Self-Hosted Independent Sovereign** | **Save ~Rp 84,300,000 / yr** |
 
 ---
 
@@ -209,7 +210,7 @@ $ cd ~/zero-bloat-skills && ./test.sh
 [*] [Check 1/5] Memeriksa sintaks skrip Shell...
 [+] PASS: Seluruh skrip shell valid secara sintaksis.
 [*] [Check 2/5] Memeriksa validitas YAML frontmatter seluruh modul skill...
-[+] PASS: Seluruh 26 skill valid (YAML frontmatter, naming, description).
+[+] PASS: Seluruh 27 skill valid (YAML frontmatter, naming, description).
 [*] [Check 3/5] Memeriksa proteksi CSS Viewport & Scroll Safety...
 [+] PASS: Viewport CSS steril (bebas dari jebakan overflow-x: hidden pada html/body).
 [*] [Check 4/5] Menjalankan smoke test starter-app...
@@ -224,11 +225,11 @@ $ ./install.sh --verify
 =====================================================================
 [*] Memeriksa integritas symlink zero-bloat-skills di cluster ruko...
 =====================================================================
-[+] STATUS: PRIMA (234 symlinks sehat, nol broken link).
+[+] STATUS: PRIMA (243 symlinks sehat, nol broken link).
 =====================================================================
 
 $ gh run list --limit 1
-✓  [core] release v2.6.0...  Zero-Bloat CI & Health Check  main  push  16s
+✓  [skill] tambah zero-bloat-icon...  Zero-Bloat CI & Health Check  main  push  16s
 ```
 
 ---
