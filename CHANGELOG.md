@@ -14,6 +14,7 @@ dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 - Sinkronisasi Direktif Universal `~/AGENTS.md` (R11 Auto-Load intent Favicon / Icon) dan header ekosistem merefleksikan 27 modul spesialis meja servis.
+- Refaktor generator visual ke Standar Emas Pastree (`pastree.megapass.web.id`): migrasi kanvas ke grid geometris 64x64 dengan rasio squircle emas 25% (`rx=16`), eliminasi filter glow semu (`radialGradient`), penanaman 7 preset siluet padat (tree/organic, bolt/lightning, circuit/chip solid 4px, terminal/prompt, kas/chevron, shield/fortress, dan monogram), serta penambahan `favicon.svg` langsung ke paket output aset web.
 - Hardening fail-safe `generate_favicon.py`: sanitasi input path traversal, toleransi format masukan dual-source (vektor SVG & raster PNG/JPG/WebP), rasio padding anti-distorsi via `ImageOps.pad` (LANCZOS) agar logo non-persegi tidak gepeng, dan dukungan prefix URL fleksibel (`--prefix` / `-p`) untuk integrasi route aset statis web.
 - Sinkronisasi dokumentasi ekosistem: perbarui `README.md`, `README.id.md`, dan `README.en.md` merefleksikan 27 skill, 243 symlink aktif, benchmark performa riil, dan status rilis v2.7.0.
 - Sinkronisasi portal showcase `skill.megapass.web.id`: integrasi entri katalog `zero-bloat-icon-favicon-skill` ke `SKILL_CATALOG` dengan badge bilingual, serta pembaruan metrik installer 27 modul (243 symlink).
