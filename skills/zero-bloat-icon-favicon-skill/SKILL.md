@@ -102,10 +102,11 @@ Skrip inti terletak di:
 `~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py`
 
 ### 1. Menghasilkan dari Preset Bawaan:
+Bendera `--preset` atau `--type` dapat digunakan secara bergantian:
 ```bash
 # Preset Pastree standar (Deep Emerald + White)
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
-  --type tree \
+  --preset tree \
   --theme pastree \
   --out ./public
 

@@ -112,7 +112,7 @@ def build_svg_preset(
     elif preset_type in ["monogram", "initial"]:
         # Swiss Bold Monogram: Clean centered text with calibrated baseline
         safe_text = html.escape((text.strip()[:2] if text and text.strip() else "M").upper())
-        symbol = f"""  <text x="32" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', 'Segoe UI', sans-serif" font-size="34" font-weight="900" fill="{fg}">{safe_text}</text>"""
+        symbol = f"""  <text x="32" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', 'Segoe UI', 'DejaVu Sans', 'Liberation Sans', sans-serif" font-size="34" font-weight="900" fill="{fg}">{safe_text}</text>"""
 
     else:
         # Fallback to Pastree Tree
@@ -141,7 +141,7 @@ def render_asset_to_png(source_path: Path, output_png: Path, size: int) -> bool:
     if ext in [".png", ".jpg", ".jpeg", ".webp"]:
         try:
             with Image.open(source_path) as img:
-                img_rgba = img.convert("RGBA")
+                img_rgba = img.convert("RGBA").copy()
                 padded = ImageOps.pad(img_rgba, (size, size), method=Image.Resampling.LANCZOS, color=(0, 0, 0, 0))
                 padded.save(output_png, format="PNG")
                 return True
@@ -230,29 +230,35 @@ def generate_asset_bundle(
         )
     generated_files.insert(1 if "favicon.svg" in generated_files else 0, "favicon.ico")
 
-    # Clean URL prefix
-    pfx = prefix if prefix.endswith("/") else f"{prefix}/"
+    # Clean URL prefix (preserves empty string for relative asset paths)
+    if prefix:
+        pfx = prefix if prefix.endswith("/") else f"{prefix}/"
+    else:
+        pfx = ""
 
-    # Generate site.webmanifest
+    # Generate site.webmanifest (PWA Lighthouse Compliant)
     safe_theme = sanitize_hex_color(theme_color, "#0E7C61")
     manifest = {
         "name": app_name,
         "short_name": app_name,
+        "start_url": pfx if pfx else "/",
+        "display": "standalone",
+        "background_color": safe_theme,
+        "theme_color": safe_theme,
         "icons": [
             {
                 "src": f"{pfx}android-chrome-192x192.png",
                 "sizes": "192x192",
-                "type": "image/png"
+                "type": "image/png",
+                "purpose": "any"
             },
             {
                 "src": f"{pfx}android-chrome-512x512.png",
                 "sizes": "512x512",
-                "type": "image/png"
+                "type": "image/png",
+                "purpose": "any maskable"
             }
-        ],
-        "theme_color": safe_theme,
-        "background_color": safe_theme,
-        "display": "standalone"
+        ]
     }
     manifest_dest = out_dir / "site.webmanifest"
     with open(manifest_dest, "w", encoding="utf-8") as f:
@@ -281,7 +287,8 @@ def main():
     parser = argparse.ArgumentParser(description="Zero-Bloat Icon & Favicon Slicing Generator (Pastree Standard)")
     parser.add_argument("--input", "-i", type=str, help="Path ke file SVG atau PNG kustom")
     parser.add_argument(
-        "--type", "-t",
+        "--type", "--preset", "-t",
+        dest="type",
         choices=["tree", "bolt", "circuit", "terminal", "kas", "shield", "monogram"],
         default="tree",
         help="Preset visual geometris solid Pastree-grade (default: tree)"
