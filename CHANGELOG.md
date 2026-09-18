@@ -5,6 +5,18 @@ Semua perubahan penting pada proyek ZERO-BLOAT-SKILLS didokumentasikan di berkas
 Format berbasis [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-09-18
+
+### Added
+- Tambah modul ke-27 `zero-bloat-icon-favicon-skill` (`skills/zero-bloat-icon-favicon-skill/`) memuat SOP rekayasa dan generator favicon/app icon berbasis vektor SVG geometris murni: 3 sekring estetika anti-norak (The Squint Test 16px, kontur Apple squircle continuous curvature, restrained palette), multi-size slicing C-native (ICO 16/32/48, Apple touch icon 180x180, PWA 192/512), dan auto-wiring HTML meta tags.
+- Tambah utilitas pembantu nir-dependensi Node.js `scripts/generate_favicon.py` berbasis pustaka standar Python, Pillow, dan `rsvg-convert` untuk kompilasi paket aset web instan.
+- Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 243 symlink di 9 direktori coding agent.
+
+### Changed
+- Sinkronisasi Direktif Universal `~/AGENTS.md` (R11 Auto-Load intent Favicon / Icon) dan header ekosistem merefleksikan 27 modul spesialis meja servis.
+
+---
+
 ## [2.6.0] - 2026-09-16
 
 ### Added

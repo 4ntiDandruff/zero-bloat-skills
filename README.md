@@ -2,14 +2,14 @@
 
 # ZERO-BLOAT-SKILLS
 
-**26 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
+**27 Modul Keahlian Operasional Tingkat Sirkuit Meja Servis, Linux Bare-Metal, dan Multi-Agent AI Gateway**
 
 [![Live Web Showcase](https://img.shields.io/badge/Live%20Portal-skill.megapass.web.id-0071E3?style=flat-square&logo=googlechrome&logoColor=white)](https://skill.megapass.web.id)
 [![Laboratory](https://img.shields.io/badge/Meja%20Servis-Megapass%20Intra%20Solusindo-0284c7?style=flat-square)](https://megapass.web.id)
 [![Certification](https://img.shields.io/badge/Sertifikasi%20BNSP-Teknisi%20Elektronika-10b981?style=flat-square)](https://github.com/4ntiDandruff)
 [![Architecture](https://img.shields.io/badge/Arsitektur-Zero--Bloat%20%7C%20%3C50MB%20RAM-f59e0b?style=flat-square)](https://github.com/4ntiDandruff/zero-bloat-skills)
 [![CI Health Check](https://github.com/4ntiDandruff/zero-bloat-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/4ntiDandruff/zero-bloat-skills/actions)
-[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-234%20Terkonfigurasi-10b981?style=flat-square)](#)
+[![Active Symlinks](https://img.shields.io/badge/Symlink%20Aktif-243%20Terkonfigurasi-10b981?style=flat-square)](#)
 [![License](https://img.shields.io/badge/Lisensi-MIT-6366f1?style=flat-square)](LICENSE)
 
 <br/>
@@ -101,7 +101,7 @@ Arsitektur data mengalir seperti relay proteksi fisik bertingkat. Server meja se
 
 ## 2. Instalasi Cepat Satu Baris (Universal Remote Setup)
 
-Pasang dan distribusikan seluruh **26 modul skill** ke seluruh agen AI coding yang terpasang di sistem Anda dengan satu baris perintah non-interaktif:
+Pasang dan distribusikan seluruh **27 modul skill** ke seluruh agen AI coding yang terpasang di sistem Anda dengan satu baris perintah non-interaktif:
 
 ```bash
 curl -fsSL https://skill.megapass.web.id/install.sh | bash
@@ -157,7 +157,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`privacy-analytics-waf-skill`](skills/privacy-analytics-waf-skill/SKILL.md) | Analitik pengunjung web mandiri zero-cookie pada SQLite WAL + sliding-window WAF rate limiter anti-brute force dengan unban TTL otomatis tanpa memory leak. | `analitik pengunjung lokal`, `waf sekring`, `brute force ip` |
 | [`zero-transcode-media-skill`](skills/zero-transcode-media-skill/SKILL.md) | Streaming CCTV edge pada hardware terbatas (STB/i3) tanpa transkoding CPU: pass-through RTSP ke WebRTC/HLS via go2rtc (RAM <30MB, CPU <1%). | `streaming cctv`, `stb edge`, `go2rtc`, `rtsp webrtc zero-transcode` |
 
-### C. Web Architecture, Desain Antarmuka & Ergonomi Layar (9 Modul)
+### C. Web Architecture, Desain Antarmuka & Ergonomi Layar (10 Modul)
 
 | Modul Skill | Kemampuan Inti & Masalah yang Diselesaikan | Kata Kunci Auto-Invoke (Pemicu R11) |
 |---|---|---|
@@ -165,6 +165,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`dark-modern-tech-ui-skill`](skills/dark-modern-tech-ui-skill/SKILL.md) | Desain sistem Deep Slate (`#0B1220`), frosted dark glassmorphism (blur 16px), aksen electric cyan, Bento grid modular, pricing matrix, dan zero-bloat FAQ. | `dark modern tech`, `ui megapass`, `tema gelap`, `dark mode`, `slate glassmorphism`, `landing page servis` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Cupertino liquid crystal UI v2.0: kanvas iridescent ambient mesh (`#F5F5F7`), translucent glass cards (blur 32px), status pill, Alpine tabs, tanpa node_modules. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Fisika viewport ponsel (`100dvh`), zona jangkauan jempol, bottom sheet drawer, keypad drawer, target sentuh 44px, dan eliminasi vertical scroll lock (`overflow-x: clip`). | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
+| [`zero-bloat-icon-favicon-skill`](skills/zero-bloat-icon-favicon-skill/SKILL.md) | Generator icon, favicon, dan app touch icon berbasis vektor SVG geometris murni: 3 preset anti-norak, multi-size C-native slicing (ICO 16/32/48, Apple 180, PWA 192/512), dan auto-wiring HTML. | `favicon`, `icon`, `touch icon`, `app icon`, `generate gambar icon`, `webmanifest` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Viewer PDF.js HTML5 Canvas tervirtualisasi: lazy rendering via IntersectionObserver, eliminasi feedback loop scroll hantu, dan pencarian teks terisolasi. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Tata letak artikel teknis panjang: table wrapper responsif dua lapis dengan gradient scroll cue, bar baca progresif, hover-to-copy code block, dan shimmer. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Garis waktu sertifikasi & karier bergradien vertikal, fase milestone lipat di HP, dan zero-bloat touch lightbox swipeable dengan navigasi keyboard accessible. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -222,9 +223,9 @@ Perbandingan penghematan riil antara menyewa layanan software house komersial vs
 |---|---|---|---|
 | **Sewa Server Cloud Bulanan** | Cloud VPS 8GB + Managed DB: $45 / bln | PC i3 Ruko Bekas + SQLite WAL: **$0** | **Hemat Rp 8.500.000,- / thn** |
 | **Biaya IP Publik Statis ISP** | Addon IP Statis Bisnis: $18 / bln | Cloudflare Tunnel + Tailscale Mesh: **$0** | **Hemat Rp 3.400.000,- / thn** |
-| **Biaya Pembuatan 26 Modul SOP** | Kontrak Agensi Software: $1,300 | 26 Modul Mandiri Open-Source: **$0** | **Hemat Rp 20.500.000,-** |
+| **Biaya Pembuatan 27 Modul SOP** | Kontrak Agensi Software: $1,350 | 27 Modul Mandiri Open-Source: **$0** | **Hemat Rp 21.300.000,-** |
 | **Efisiensi Waktu Diagnosa Teknisi** | Probing manual acak: ~90 menit/unit | Boardview + Injeksi 1A: ~15 menit/unit | **Hemat 75 menit / unit servis** |
-| **TOTAL VALUASI PENGHEMATAN** | **Solusi Korporat Mahal** | **Kedaulatan Mandiri (Self-Hosted)** | **Hemat ~Rp 83.500.000,-** |
+| **TOTAL VALUASI PENGHEMATAN** | **Solusi Korporat Mahal** | **Kedaulatan Mandiri (Self-Hosted)** | **Hemat ~Rp 84.300.000,-** |
 
 ---
 
@@ -251,7 +252,7 @@ zero-bloat-skills/
 │   ├── catalog.png                       # Tampilan kisi 26 modul skill
 │   └── drawer.png                        # Antarmuka laci geser slide-over SOP
 │
-├── skills/                               # 26 Modul Spesialis Meja Servis & Linux
+├── skills/                               # 27 Modul Spesialis Meja Servis & Linux
 │   ├── hardware-boardview-skill/         # Triage korslet, injeksi arus 1A, urutan rail
 │   ├── eeprom-flashing-skill/            # Flash BIOS SPI 24/25 via CH341A + Clean ME
 │   ├── ventoy-servicing-skill/           # Multiboot CLI, bypass Win11 TPM/NRO, obat VMD Gen11-14
@@ -269,6 +270,7 @@ zero-bloat-skills/
 │   ├── dark-modern-tech-ui-skill/        # Deep Slate (#0B1220), frosted glass, cyan glow
 │   ├── liquid-apple-ui-skill/            # Cupertino liquid crystal UI, status pill, tabs
 │   ├── mobile-thumb-ergonomics-skill/    # 100dvh, bottom dock, 44px target, overflow-x: clip
+│   ├── zero-bloat-icon-favicon-skill/    # Favicon, app touch icon, SVG squircle C-native
 │   ├── browser-pdf-canvas-skill/         # Canvas PDF.js virtual, anti feedback scroll hantu
 │   ├── longform-reader-ux-skill/         # Indikator gradien tabel, bar baca, copy-code
 │   ├── portfolio-timeline-lightbox-skill/# Milestone roadmap karier, accessible touch lightbox
