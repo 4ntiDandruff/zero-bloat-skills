@@ -82,19 +82,27 @@ python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generat
   --fg "#22D3EE" \
   --out ./public
 
-# Simbol sirkuit hardware
+# Simbol sirkuit hardware dengan prefix path static
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
   --type circuit \
   --bg "#0B1220" \
   --fg "#22D3EE" \
+  --prefix "/static/icons/" \
   --out ./public
 ```
 
-### 2. Menghasilkan dari File SVG Kustom yang Sudah Ada:
+### 2. Menghasilkan dari File Logo Kustom (Dual-Source: SVG atau Raster PNG):
 ```bash
+# Dari file SVG vektor master
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
   --input ./assets/my_custom_logo.svg \
   --name "Megapass Portal" \
+  --out ./public
+
+# Dari file gambar raster PNG/JPG (otomatis di-pad ke rasio persegi tanpa distorsi)
+python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
+  --input ./assets/logo_rectangular.png \
+  --prefix "./" \
   --out ./public
 ```
 
