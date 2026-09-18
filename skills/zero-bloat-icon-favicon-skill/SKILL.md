@@ -182,6 +182,14 @@ Selalu tempelkan cuplikan tag berikut di dalam blok `<head>` template HTML:
 <meta name="theme-color" content="#0E7C61">
 ```
 
+### Pola Penggunaan Ganda sebagai Logo Aplikasi (Pola Pastree):
+Sesuai arsitektur `pastree.megapass.web.id`, file `favicon.svg` dapat langsung digunakan sebagai logo identitas aplikasi di navbar, kartu otentikasi, maupun halaman 404 tanpa membutuhkan file logo terpisah:
+
+```html
+<!-- Contoh Navbar / Auth Card (Otomatis menyatu dengan squircle 25%) -->
+<img src="/static/favicon.svg" alt="Logo Aplikasi" class="w-10 h-10 rounded-xl shadow-md">
+```
+
 ---
 
 ## 6. Protokol Verifikasi & Smoke Test
@@ -189,5 +197,5 @@ Selalu tempelkan cuplikan tag berikut di dalam blok `<head>` template HTML:
 Sebelum menyatakan selesai:
 1. Pastikan `favicon.svg` berukuran ringkas (<800 bytes) dan bersih dari elemen filter glow.
 2. Pastikan file PNG dan ICO tercipta dengan byte valid (`file *`).
-3. Pastikan `favicon.ico` memuat 3 resolusi (16, 32, 48) via utilitas `file favicon.ico`.
+3. Pastikan `favicon.ico` memuat 4 resolusi (16, 32, 48, 64) via utilitas `file favicon.ico`.
 4. Pastikan `site.webmanifest` lolos validasi sintaks JSON.
