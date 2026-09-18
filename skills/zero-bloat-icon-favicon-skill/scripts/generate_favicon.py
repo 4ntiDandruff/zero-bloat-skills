@@ -114,6 +114,24 @@ def build_svg_preset(
         safe_text = html.escape((text.strip()[:2] if text and text.strip() else "M").upper())
         symbol = f"""  <text x="32" y="44" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', 'Segoe UI', 'DejaVu Sans', 'Liberation Sans', sans-serif" font-size="34" font-weight="900" fill="{fg}">{safe_text}</text>"""
 
+    elif preset_type in ["camera", "cctv"]:
+        # CCTV & Media Streaming: Camera body with lens cutout and top bump
+        symbol = f"""  <path d="M25 22l2-4h10l2 4z" fill="{fg}"/>
+  <rect x="16" y="22" width="32" height="24" rx="5" fill="{fg}"/>
+  <circle cx="32" cy="34" r="7" fill="{bg}"/>
+  <circle cx="32" cy="34" r="3.5" fill="{fg}"/>"""
+
+    elif preset_type in ["wifi", "mesh", "network"]:
+        # Mesh Network & Tunnel Ops: Transmitter dot and solid concentric radar waves
+        symbol = f"""  <circle cx="32" cy="46" r="4" fill="{fg}"/>
+  <path d="M23 37a13 13 0 0 1 18 0" fill="none" stroke="{fg}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M15 28a24 24 0 0 1 34 0" fill="none" stroke="{fg}" stroke-width="5" stroke-linecap="round"/>"""
+
+    elif preset_type in ["tools", "wrench", "hardware"]:
+        # Workbench Servicing & Hardware Repair: Solid angled wrench with jaw cutout
+        symbol = f"""  <path d="M27 16a9 9 0 0 0-7 9c0 2.2.8 4.2 2.1 5.8L37.5 46.2a3 3 0 0 0 4.2 0l2.1-2.1a3 3 0 0 0 0-4.2L28.4 24.5A9 9 0 0 0 27 16z" fill="{fg}"/>
+  <circle cx="27" cy="25" r="4" fill="{bg}"/>"""
+
     else:
         # Fallback to Pastree Tree
         symbol = f"""  <path d="M32 14c-8 8-12 13-12 20a12 12 0 0 0 24 0c0-7-4-12-12-20z" fill="{fg}" opacity=".95"/>
@@ -172,6 +190,22 @@ def render_asset_to_png(source_path: Path, output_png: Path, size: int) -> bool:
     except Exception:
         pass
 
+    # 5. Vector fallback via Inkscape CLI
+    inkscape = shutil.which("inkscape")
+    if inkscape:
+        cmd = [inkscape, "-w", str(size), "-h", str(size), str(source_path), "-o", str(output_png)]
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode == 0:
+            return True
+
+    # 6. Vector fallback via ImageMagick CLI (magick or convert)
+    magick = shutil.which("magick") or shutil.which("convert")
+    if magick:
+        cmd = [magick, "-background", "none", "-resize", f"{size}x{size}", str(source_path), str(output_png)]
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode == 0:
+            return True
+
     return False
 
 
@@ -226,7 +260,7 @@ def generate_asset_bundle(
         img_master.save(
             ico_dest,
             format="ICO",
-            sizes=[(16, 16), (32, 32), (48, 48)]
+            sizes=[(16, 16), (32, 32), (48, 48), (64, 64)]
         )
     generated_files.insert(1 if "favicon.svg" in generated_files else 0, "favicon.ico")
 
@@ -289,7 +323,7 @@ def main():
     parser.add_argument(
         "--type", "--preset", "-t",
         dest="type",
-        choices=["tree", "bolt", "circuit", "terminal", "kas", "shield", "monogram"],
+        choices=["tree", "bolt", "circuit", "terminal", "kas", "shield", "monogram", "camera", "wifi", "tools"],
         default="tree",
         help="Preset visual geometris solid Pastree-grade (default: tree)"
     )

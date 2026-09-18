@@ -1,6 +1,6 @@
 ---
 name: zero-bloat-icon-favicon-skill
-description: "Generator icon, favicon, app touch icon, dan PWA web asset berbasis siluet geometris solid Pastree-grade: grid 64x64, rasio squircle emas 25%, breathing room 22%, multi-size C-native slicing (ICO 16/32/48, Apple 180, PWA 192/512), tanpa dependensi Node.js."
+description: "Generator icon, favicon, app touch icon, dan PWA web asset berbasis siluet geometris solid Pastree-grade: grid 64x64, rasio squircle emas 25%, breathing room 22%, multi-size C-native slicing (ICO 16/32/48/64, Apple 180, PWA 192/512), tanpa dependensi Node.js."
 ---
 
 # Zero-Bloat Icon & Favicon Engine Skill (Pastree Standard)
@@ -94,6 +94,15 @@ Lempengan perisai solid dengan potongan inti geometris. Cocok untuk modul otenti
 ### Preset 7: `monogram` (Swiss Heavy Initial)
 Huruf kapital tebal berbobot 900 dengan kalibrasi baseline Y=44 pada kanvas 64x64 sehingga tepat berada di titik pusat optik mata.
 
+### Preset 8: `camera` (CCTV & Edge Media Stream)
+Bodi kamera solid dengan lensa bertingkat dan tonjolan viewfinder atas. Dirancang khusus untuk modul streaming CCTV dan go2rtc.
+
+### Preset 9: `wifi` (Mesh Network & Tunnel Radar)
+Titik pemancar solid dengan gelombang radar tebal 5px. Pas untuk infrastruktur Tailscale Mesh, Cloudflare Tunnel, atau jaringan ruko.
+
+### Preset 10: `tools` (Hardware Servicing & Workbench)
+Kunci pas mekanik solid dengan sudut 45 derajat dan bukaan rahang tegas. Mewakili meja servis elektronik, hardware, dan perbaikan bare-metal.
+
 ---
 
 ## 3. Eksekusi Engine Generator
@@ -148,7 +157,7 @@ Skrip otomatis merender 8 aset web produksi tanpa meninggalkan file sampah:
 | Nama File | Ukuran / Format | Fungsi Teknis |
 |---|---|---|
 | `favicon.svg` | Vektor 64x64 | Master vektor tajam untuk browser modern |
-| `favicon.ico` | Multi-layer (16x16, 32x32, 48x48) | Tab browser desktop & bookmark legacy |
+| `favicon.ico` | Multi-layer (16x16, 32x32, 48x48, 64x64) | Tab browser desktop & bookmark legacy |
 | `favicon-16x16.png` | 16x16 PNG RGBA | Tab browser standar |
 | `favicon-32x32.png` | 32x32 PNG RGBA | Tab browser display Retina / High-DPI |
 | `apple-touch-icon.png` | 180x180 PNG RGBA | Home screen bookmark iOS / Safari |
