@@ -1,201 +1,191 @@
 ---
 name: zero-bloat-icon-favicon-skill
-description: "Generator icon, favicon, app touch icon, dan PWA web asset berbasis siluet geometris solid Pastree-grade: grid 64x64, rasio squircle emas 25%, breathing room 22%, multi-size C-native slicing (ICO 16/32/48/64, Apple 180, PWA 192/512), tanpa dependensi Node.js."
+description: "Generator icon, favicon, app touch icon, dan PWA web asset berstandar ganda: Cupertino Crystal Glass (skill.megapass.web.id) dan Minimalist Flat (pastree.megapass.web.id): grid 64x64, rasio squircle emas, Lucide-scale 24x24 geometry, highlight refraction bevel, multi-size C-native slicing (ICO 16/32/48/64, Apple 180, PWA 192/512), tanpa dependensi Node.js."
 ---
 
-# Zero-Bloat Icon & Favicon Engine Skill (Pastree Standard)
+# Zero-Bloat Icon & Favicon Engine Skill (Cupertino Glass & Pastree Standard)
 
-SOP rekayasa dan generator aset visual digital web (favicon, touch-icon, app icon, dan manifest) berbasis siluet vektor geometris padat (solid silhouettes), zero build-step, dan bebas dependensi Node.js/npm. Terinspirasi langsung dari standar minimalis elegan `pastree.megapass.web.id` yang terbukti tajam di tab browser (16x16 px) maupun layar Retina resolusi tinggi.
-
----
-
-## 1. Empat Hukum Fisika Favicon Pastree-Grade
-
-Favicon yang tampak murahan atau buram umumnya diakibatkan oleh pemaksaan detail 3D, gradasi pelangi acak, atau garis-garis mikro tipis yang saat mengecil ke 16x16 px berubah menjadi noda kabur.
-
-Modul ini mewajibkan 4 sekring estetika:
-
-1. **Siluet Geometris Padat (Solid Silhouette)**:
-   - Simbol WAJIB berupa bidang padat berbobot tebal (solid filled shapes), BUKAN garis goresan tipis (*hairline strokes*).
-   - Bentuk siluet tunggal atau ganda (maksimal 2 elemen geometris tegas).
-   - Lolos The Squint Test 16px: bentuk tetap terbaca seketika saat mata disipitkan.
-2. **Rasio Squircle Emas 25% (`rx=16` di Kanvas `64x64`)**:
-   - Kanvas berukuran `viewBox="0 0 64 64"` dengan radius sudut `<rect width="64" height="64" rx="16"/>`.
-   - Rasio 16/64 = 0.25 (25%) menghasilkan kontur kurva squircle continuous curvature khas ekosistem Apple yang menyatu dengan browser modern.
-3. **Ruang Bernapas Lega (Breathing Room 22-25% Margin)**:
-   - Simbol foreground hanya menempati 55-60% area kanvas dan terpusat (centered) secara presisi.
-   - Margin atas, bawah, kiri, dan kanan minimal 14px (22%) dari tepi kanvas 64x64. Simbol dilarang menabrak atau mepet ke pinggir squircle.
-4. **Warna Datar Bermartabat & Kontras Tinggi (Zero-Glow)**:
-   - Gunakan latar warna solid matang: Deep Emerald (`#0E7C61`), Deep Slate (`#0B1220`), Royal Indigo (`#2563EB`), atau Kas Emerald (`#0AA477`).
-   - Simbol foreground: Pure White (`#FFFFFF`) dengan `opacity=".95"` atau Electric Cyan (`#22D3EE`).
-   - DILARANG menggunakan efek glow semu (`radialGradient` kabur) yang merusak kontras dan membuat ikon terlihat buram.
+SOP rekayasa dan generator aset visual digital web (favicon, touch-icon, app icon, dan manifest) berbasis siluet vektor geometris presisi, zero build-step, dan bebas dependensi Node.js/npm. Terinspirasi langsung dari dua proyek kanonikal ruko Megapass Intra Solusindo:
+1. `skill.megapass.web.id`: Apple Cupertino Crystal Glass squircle (`rx="18"`), gradien dua arah (`#2563EB` -> `#6366F1`), highlight bevel refleksi atas, dan simbol vektor Lucide scale-2.
+2. `pastree.megapass.web.id`: Minimalist flat squircle (`rx="16"`), latar warna Deep Emerald (`#0E7C61`), dan siluet kanopi organik padat.
 
 ---
 
-## 2. Katalog Preset Siluet Geometris Solid
+## 1. Dua Standar Fisika Visual Favicon Ruko
 
-### Preset 1: `tree` (Signature Pastree Organic)
-Terinspirasi langsung dari `pastree.megapass.web.id`. Siluet canopy tetes air dan batang silinder membulat di atas lempengan Deep Emerald.
+### A. Gaya Cupertino Crystal Glass (`--style glass`)
+Merupakan standar visual utama pada portal modern (`skill.megapass.web.id`). Memiliki 4 elemen konstruksi fisik:
+1. **Lempengan Gradien Direksional**: Kanvas `64x64` dengan `rx="18"` diisi gradien diagonal dari kiri-bawah ke kanan-atas (`x1="0%" y1="100%"` ke `x2="100%" y2="0%"`).
+2. **Highlight Refraction Bevel (Efek Kaca Kristal)**: Stroke bagian dalam selebar 1.5px (`rect x="1" y="1" width="62" height="62" rx="17"`) dengan gradien putih vertikal opasitas 0.45 di bagian atas meredup ke 0 di bagian bawah. Memberikan efek bias cahaya kaca tebal tanpa membebani GPU.
+3. **Geometri Vektor Lucide Scale-2**: Menggunakan koordinat baku ikon 24x24 yang ditransformasikan via `<g transform="translate(8, 8) scale(2)">`. Menghasilkan simbol berukuran 48x48 tepat di tengah kanvas dengan margin 8px (25% breathing room).
+4. **Stroke Membulat Anti-Pixelation**: Menggunakan `stroke-width="2.2"` hingga `2.5"`, `stroke-linecap="round"`, dan `stroke-linejoin="round"` sehingga tidak bergerigi saat diperkecil ke ukuran tab 16px.
 
+### B. Gaya Minimalist Flat (`--style flat`)
+Merupakan standar visual minimalis pada utilitas cepat (`pastree.megapass.web.id`):
+1. **Lempengan Warna Solid Matang**: Kanvas `64x64` dengan rasio squircle emas 25% (`rx="16"`), tanpa gradasi maupun bayangan semu.
+2. **Siluet Geometris Padat**: Simbol tunggal berbobot tebal yang menyatu kontras dengan latar belakang. Lolos The Squint Test 16px seketika.
+3. **Ukuran File Ultra-Kecil**: Hanya berkisar 290 byte, tercepat diakses dan nol latensi render.
+
+---
+
+## 2. Katalog 10 Preset Vektor Siap Pakai
+
+Semua preset terkalibrasi presisi pada kanvas 64x64 dan mendukung kedua mode visual (`glass` dan `flat`):
+
+### Preset 1: `bolt` (Skill Hub & High-Voltage Energy)
+Baku identik dari `skill.megapass.web.id`. Siluet petir dinamis dengan ujung rounded.
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0E7C61"/>
-  <path d="M32 14c-8 8-12 13-12 20a12 12 0 0 0 24 0c0-7-4-12-12-20z" fill="#FFFFFF" opacity=".95"/>
-  <rect x="29.5" y="38" width="5" height="12" rx="2.5" fill="#FFFFFF"/>
-</svg>
+<g transform="translate(8, 8) scale(2)">
+  <path d="M13 10V3L4 14h7v7l9-11h-7z" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
 ```
 
-### Preset 2: `bolt` (High-Voltage Energy & Skill Hub)
-Siluet petir tebal solid terpusat dengan sudut potong tajam. Sangat pas untuk aplikasi performa tinggi, AI accelerator, atau alat diagnosa hardware.
-
+### Preset 2: `tree` (Pastree Minimalist Organic)
+Baku identik dari `pastree.megapass.web.id`. Kanopi droplet organik dengan batang silinder membulat.
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#2563EB"/>
-  <path d="M34 13L19 33h9l-3 18 17-23h-10l4-15z" fill="#FFFFFF"/>
-</svg>
+<path d="M32 14c-8 8-12 13-12 20a12 12 0 0 0 24 0c0-7-4-12-12-20z" fill="#FFFFFF" opacity=".95"/>
+<rect x="29.5" y="38" width="5" height="12" rx="2.5" fill="#FFFFFF"/>
 ```
 
-### Preset 3: `circuit` (Solid Processor Die & Pins)
-Die silikon prosesor tebal dengan pin sirkuit 4px padat berkepala kapsul (pill). Nol garis tipis, menjamin keterbacaan penuh di ukuran 16 piksel.
-
+### Preset 3: `circuit` (Processor Die & Hardware Workbench)
+Die silikon prosesor dengan pin rails terhubung. Dirancang untuk diagnosa motherboard dan BIOS.
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0B1220"/>
-  <rect x="22" y="22" width="20" height="20" rx="5" fill="#22D3EE"/>
-  <circle cx="32" cy="32" r="3.5" fill="#0B1220"/>
-  <rect x="25" y="14" width="4" height="6" rx="2" fill="#22D3EE"/>
-  <rect x="35" y="14" width="4" height="6" rx="2" fill="#22D3EE"/>
-  <rect x="25" y="44" width="4" height="6" rx="2" fill="#22D3EE"/>
-  <rect x="35" y="44" width="4" height="6" rx="2" fill="#22D3EE"/>
-  <rect x="14" y="25" width="6" height="4" rx="2" fill="#22D3EE"/>
-  <rect x="14" y="35" width="6" height="4" rx="2" fill="#22D3EE"/>
-  <rect x="44" y="25" width="6" height="4" rx="2" fill="#22D3EE"/>
-  <rect x="44" y="35" width="6" height="4" rx="2" fill="#22D3EE"/>
-</svg>
+<g transform="translate(8, 8) scale(2)">
+  <rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="#22D3EE" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="9" y="9" width="6" height="6" fill="#22D3EE" opacity="0.35"/>
+  <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" fill="none" stroke="#22D3EE" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
 ```
 
 ### Preset 4: `terminal` (CLI Chevron & Cursor)
-Simbol prompt terminal tajam dengan kursor horizontal tebal. Cocok untuk tools CLI, monitoring server Linux, atau AI agent console.
-
+Prompt terminal interaktif dan kursor horizontal tebal. Sempurna untuk konsol admin dan daemon.
 ```xml
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0B1220"/>
-  <path d="M20 19l10 13-10 13" fill="none" stroke="#22D3EE" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="36" y1="45" x2="47" y2="45" stroke="#22D3EE" stroke-width="5" stroke-linecap="round"/>
-</svg>
+<g transform="translate(8, 8) scale(2)">
+  <polyline points="4 17 10 11 4 5" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="12" y1="19" x2="20" y2="19" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+</g>
 ```
 
-### Preset 5: `kas` (Signature Kas Megapass Chevron)
-Pilar vertikal tebal dan lengan panah bersudut padat. Representasi arus kas transaksi dan efisiensi moneter.
+### Preset 5: `shield` (OPSEC Fortress & Security)
+Perisai perlindungan solid untuk modul otentikasi, WAF, dan sanitasi kredensial.
+```xml
+<g transform="translate(8, 8) scale(2)">
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 8v8M9 12h6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+</g>
+```
 
-### Preset 6: `shield` (Security & OPSEC Fortress)
-Lempengan perisai solid dengan potongan inti geometris. Cocok untuk modul otentikasi, perlindungan data, atau WAF security.
+### Preset 6: `tools` (Hardware Servicing & Wrench)
+Kunci pas mekanik bersudut presisi meja servis untuk perbaikan bare-metal.
 
-### Preset 7: `monogram` (Swiss Heavy Initial)
-Huruf kapital tebal berbobot 900 dengan kalibrasi baseline Y=44 pada kanvas 64x64 sehingga tepat berada di titik pusat optik mata.
+### Preset 7: `wifi` (Mesh Network & Tunnel Radar)
+Pemancar sinyal dan gelombang konsentris untuk Tailscale dan Cloudflare Tunnel.
 
-### Preset 8: `camera` (CCTV & Edge Media Stream)
-Bodi kamera solid dengan lensa bertingkat dan tonjolan viewfinder atas. Dirancang khusus untuk modul streaming CCTV dan go2rtc.
+### Preset 8: `camera` (CCTV Streaming & Media)
+Kamera pengawas dengan lensa terpusat untuk go2rtc dan WebRTC zero-transcode.
 
-### Preset 9: `wifi` (Mesh Network & Tunnel Radar)
-Titik pemancar solid dengan gelombang radar tebal 5px. Pas untuk infrastruktur Tailscale Mesh, Cloudflare Tunnel, atau jaringan ruko.
+### Preset 9: `kas` (Kas Megapass & POS Terminal)
+Terminal transaksi dan kartu chip keuangan untuk kasir dan pembukuan ruko.
 
-### Preset 10: `tools` (Hardware Servicing & Workbench)
-Kunci pas mekanik solid dengan sudut 45 derajat dan bukaan rahang tegas. Mewakili meja servis elektronik, hardware, dan perbaikan bare-metal.
+### Preset 10: `monogram` (Swiss Heavy Initial)
+Huruf inisial tebal berbobot 900 dengan kalibrasi baseline optik pada Y=44.
 
 ---
 
 ## 3. Eksekusi Engine Generator
 
-Skrip inti terletak di:
+Skrip generator terletak di:
 `~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py`
 
-### 1. Menghasilkan dari Preset Bawaan:
-Bendera `--preset` atau `--type` dapat digunakan secara bergantian:
+### 1. Mode Standar Proyek Kanonikal:
 ```bash
-# Preset Pastree standar (Deep Emerald + White)
+# Hasilkan favicon persis seperti skill.megapass.web.id (Cupertino Crystal Glass)
+python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
+  --preset bolt \
+  --theme skill \
+  --style glass \
+  --out ./public
+
+# Hasilkan favicon persis seperti pastree.megapass.web.id (Minimalist Flat Emerald)
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
   --preset tree \
   --theme pastree \
+  --style flat \
   --out ./public
+```
 
-# Preset Lightning dengan palet Royal Indigo
+### 2. Kustomisasi Gradien dan Tema:
+```bash
+# Mode Slate Dark Modern Tech dengan custom gradient stops
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
-  --type bolt \
-  --theme indigo \
-  --out ./public
-
-# Preset Hardware Processor dengan palet Deep Slate + Electric Cyan
-python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
-  --type circuit \
+  --preset circuit \
   --theme slate \
+  --style glass \
+  --bg "#0B1220" \
+  --bg2 "#1E293B" \
+  --fg "#22D3EE" \
   --prefix "/static/" \
   --out ./public
 ```
 
-### 2. Menghasilkan dari File Master Kustom:
+### 3. Mengiris dari Master File Kustom (SVG / PNG):
 ```bash
-# Dari file SVG vektor master kustom
+# Dari master SVG eksternal
 python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
-  --input ./assets/my_custom_logo.svg \
+  --input ./assets/custom_logo.svg \
   --name "Megapass Portal" \
-  --out ./public
-
-# Dari file gambar raster PNG/JPG (otomatis dipad ke bujur sangkar anti-distorsi via LANCZOS)
-python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
-  --input ./assets/logo.png \
-  --prefix "./" \
   --out ./public
 ```
 
 ---
 
-## 4. Paket Aset Standar yang Dihasilkan
+## 4. Paket 11 Aset Produksi yang Dihasilkan
 
-Skrip otomatis merender 8 aset web produksi tanpa meninggalkan file sampah:
+Engine secara otomatis menyusun bundel lengkap yang mencakup standar Google Search Console, Apple Safari, dan PWA:
 
 | Nama File | Ukuran / Format | Fungsi Teknis |
 |---|---|---|
-| `favicon.svg` | Vektor 64x64 | Master vektor tajam untuk browser modern |
-| `favicon.ico` | Multi-layer (16x16, 32x32, 48x48, 64x64) | Tab browser desktop & bookmark legacy |
+| `favicon.svg` | Vektor 64x64 (<1.2 KB) | Master vektor tajam untuk browser modern |
+| `favicon.ico` | Multi-layer (16, 32, 48, 64) | Tab desktop legacy, bookmark, dan URL bar |
 | `favicon-16x16.png` | 16x16 PNG RGBA | Tab browser standar |
 | `favicon-32x32.png` | 32x32 PNG RGBA | Tab browser display Retina / High-DPI |
-| `apple-touch-icon.png` | 180x180 PNG RGBA | Home screen bookmark iOS / Safari |
-| `android-chrome-192x192.png` | 192x192 PNG RGBA | PWA manifest Android standard |
+| `favicon-48x48.png` | 48x48 PNG RGBA | Rekomendasi resmi Google Search Crawler |
+| `favicon-96x96.png` | 96x96 PNG RGBA | Desktop shortcut dan Google TV / Smart TV |
+| `favicon-192x192.png` | 192x192 PNG RGBA | PWA manifest Android standard |
+| `apple-touch-icon.png` | 180x180 PNG RGBA | Home screen bookmark iOS Safari |
+| `android-chrome-192x192.png` | 192x192 PNG RGBA | Android launcher icon |
 | `android-chrome-512x512.png` | 512x512 PNG RGBA | PWA splash screen & Google Play store |
 | `site.webmanifest` | JSON UTF-8 | Konfigurasi instalasi aplikasi web PWA |
 
 ---
 
-## 5. Standar Injeksi HTML5 (`<head>`)
+## 5. Standar Injeksi Template HTML5 (`<head>`)
 
-Selalu tempelkan cuplikan tag berikut di dalam blok `<head>` template HTML:
-
-```html
-<!-- Favicon & Touch Assets (Pastree Standard) -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0E7C61">
-```
-
-### Pola Penggunaan Ganda sebagai Logo Aplikasi (Pola Pastree):
-Sesuai arsitektur `pastree.megapass.web.id`, file `favicon.svg` dapat langsung digunakan sebagai logo identitas aplikasi di navbar, kartu otentikasi, maupun halaman 404 tanpa membutuhkan file logo terpisah:
+Tempelkan cuplikan berikut pada `<head>` dokumen web:
 
 ```html
-<!-- Contoh Navbar / Auth Card (Otomatis menyatu dengan squircle 25%) -->
-<img src="/static/favicon.svg" alt="Logo Aplikasi" class="w-10 h-10 rounded-xl shadow-md">
+<!-- Favicon & Touch Assets (Skill & Pastree Standard) -->
+<link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<link rel="icon" type="image/png" sizes="48x48" href="/static/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<link rel="manifest" href="/static/site.webmanifest">
+<meta name="theme-color" content="#2563EB">
 ```
 
 ---
 
-## 6. Protokol Verifikasi & Smoke Test
+## 6. Protokol Verifikasi Mandiri
 
-Sebelum menyatakan selesai:
-1. Pastikan `favicon.svg` berukuran ringkas (<800 bytes) dan bersih dari elemen filter glow.
-2. Pastikan file PNG dan ICO tercipta dengan byte valid (`file *`).
-3. Pastikan `favicon.ico` memuat 4 resolusi (16, 32, 48, 64) via utilitas `file favicon.ico`.
-4. Pastikan `site.webmanifest` lolos validasi sintaks JSON.
+Jalankan self-test diagnostik terpadu:
+```bash
+python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py --test
+```
+Kriteria kelulusan:
+1. Paritas 100% bit-for-bit dengan master `skill.megapass.web.id` dan `pastree.megapass.web.id`.
+2. Seluruh 10 preset menghasilkan vektor SVG valid berukuran ringkas (<1400 byte).
+3. Bundel aset 11 file terkompilasi sempurna di direktori pengujian `/tmp/`.
+4. File `favicon.ico` memuat 4 layer multi-resolusi (16, 32, 48, 64).
+5. File `site.webmanifest` lolos validasi W3C PWA.

@@ -16,6 +16,13 @@ dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 243 symlink di 9 direktori coding agent.
 
 ### Changed
+- Overhaul total estetika generator `zero-bloat-icon-favicon-skill`: implementasi standar ganda terkalibrasi bit-for-bit 100% terhadap proyek kanonikal ruko Megapass:
+  * `skill.megapass.web.id`: Apple Cupertino Crystal Glass squircle (`rx="18"`), gradien direksional (`#2563EB` -> `#6366F1`), highlight bevel refleksi atas (`stroke="url(#highlight)" stroke-width="1.5"`), dan simbol vektor petir Lucide scale-2 rounded.
+  * `pastree.megapass.web.id`: Minimalist flat squircle (`rx="16"`), latar warna Deep Emerald (`#0E7C61`), dan siluet kanopi organik padat (`opacity=".95"`).
+- Penambahan saklar gaya visual `--style {glass,flat,auto}` pada `generate_favicon.py` dan perombakan seluruh 10 preset visual ke grid 24x24 Lucide (`transform="translate(8, 8) scale(2)"`) dengan sudut dan ujung membulat anti-pixelation.
+- Perluasan bundel kompilasi menjadi 11 aset produksi lengkap dengan penambahan `favicon-48x48.png` (rekomendasi resmi crawler Google Search) dan `favicon-96x96.png` (desktop Retina).
+- Pembaruan diagnostik mandiri `generate_favicon.py --test` untuk memvalidasi paritas bit-for-bit referensi, 10 preset SVG (<1400 byte), bundel 11 aset, dan 4-layer multi-resolusi ICO.
+- Sanitasi OPSEC path referensi menggunakan `Path.home()` dinamis tanpa mengekspos path sistem operasi absolut.
 - Sinkronisasi Direktif Universal `~/AGENTS.md` (R11 Auto-Load intent Favicon / Icon) dan header ekosistem merefleksikan 27 modul spesialis meja servis.
 - Hardening sekring rendering vektor menjadi rantai failover 6-lapis: `rsvg-convert` (C-native librsvg) -> `cairosvg` CLI -> modul Python `cairosvg` -> `inkscape` CLI -> `magick`/`convert` CLI -> safe fallback exception.
 - Hardening generator manifest PWA (`site.webmanifest`): penambahan otomatis field `start_url` dan atribut `purpose` (`any` dan `any maskable`) untuk kepatuhan penuh audit Google Lighthouse PWA.
