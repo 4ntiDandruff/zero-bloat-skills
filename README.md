@@ -37,7 +37,7 @@
 
 ## Ringkasan Ekosistem (Executive Overview)
 
-Koleksi 26 skill ini **BUKAN** teori abstrak yang dirancang di server cloud mahal milik korporasi Silicon Valley. Seluruh modul lahir, diuji tempur, dan dibuktikan setiap hari langsung di atas meja kerja bengkel elektronika **Megapass Intra Solusindo** di Sidoarjo, Jawa Timur, di atas komputer uzur **Intel Core i3-3240 (RAM 7.6GB)**.
+Koleksi 27 skill ini **BUKAN** teori abstrak yang dirancang di server cloud mahal milik korporasi Silicon Valley. Seluruh modul lahir, diuji tempur, dan dibuktikan setiap hari langsung di atas meja kerja bengkel elektronika **Megapass Intra Solusindo** di Sidoarjo, Jawa Timur, di atas komputer uzur **Intel Core i3-3240 (RAM 7.6GB)**.
 
 Dirancang untuk menangani diagnosa motherboard mati total, flashing chip BIOS EEPROM via CH341A, pemantauan CCTV edge tanpa transkoding CPU, proteksi database SQLite terhadap mati lampu mendadak ruko, dan orkestrasi multi-agent AI tanpa kebocoran memori, tanpa loop polling yang menyiksa prosesor, dan **murni 0% ketergantungan `node_modules` di lingkungan produksi**.
 
@@ -165,7 +165,7 @@ cd zero-bloat-skills && chmod +x install.sh test.sh && ./install.sh
 | [`dark-modern-tech-ui-skill`](skills/dark-modern-tech-ui-skill/SKILL.md) | Desain sistem Deep Slate (`#0B1220`), frosted dark glassmorphism (blur 16px), aksen electric cyan, Bento grid modular, pricing matrix, dan zero-bloat FAQ. | `dark modern tech`, `ui megapass`, `tema gelap`, `dark mode`, `slate glassmorphism`, `landing page servis` |
 | [`liquid-apple-ui-skill`](skills/liquid-apple-ui-skill/SKILL.md) | Cupertino liquid crystal UI v2.0: kanvas iridescent ambient mesh (`#F5F5F7`), translucent glass cards (blur 32px), status pill, Alpine tabs, tanpa node_modules. | `apple liquid ui`, `cupertino glass`, `status pill`, `desain agy router` |
 | [`mobile-thumb-ergonomics-skill`](skills/mobile-thumb-ergonomics-skill/SKILL.md) | Fisika viewport ponsel (`100dvh`), zona jangkauan jempol, bottom sheet drawer, keypad drawer, target sentuh 44px, dan eliminasi vertical scroll lock (`overflow-x: clip`). | `mobile ui`, `ramah jempol`, `bottom sheet`, `floating dock`, `layout hp` |
-| [`zero-bloat-icon-favicon-skill`](skills/zero-bloat-icon-favicon-skill/SKILL.md) | Generator icon, favicon, dan app touch icon berbasis vektor SVG geometris murni: 3 preset anti-norak, multi-size C-native slicing (ICO 16/32/48, Apple 180, PWA 192/512), dan auto-wiring HTML. | `favicon`, `icon`, `touch icon`, `app icon`, `generate gambar icon`, `webmanifest` |
+| [`zero-bloat-icon-favicon-skill`](skills/zero-bloat-icon-favicon-skill/SKILL.md) | Generator favicon, touch icon, dan web asset siluet geometris solid Pastree-grade: 10 preset ruko/servis, rasio squircle 25%, slicing C-native (ICO 16/32/48/64, Apple 180, PWA 192/512), self-test diagnostik mandiri (`--test`), dan zero dependensi Node.js. | `favicon`, `icon`, `touch icon`, `app icon`, `generate gambar icon`, `webmanifest` |
 | [`browser-pdf-canvas-skill`](skills/browser-pdf-canvas-skill/SKILL.md) | Viewer PDF.js HTML5 Canvas tervirtualisasi: lazy rendering via IntersectionObserver, eliminasi feedback loop scroll hantu, dan pencarian teks terisolasi. | `viewer pdf skema`, `canvas`, `scroll hantu`, `search part` |
 | [`longform-reader-ux-skill`](skills/longform-reader-ux-skill/SKILL.md) | Tata letak artikel teknis panjang: table wrapper responsif dua lapis dengan gradient scroll cue, bar baca progresif, hover-to-copy code block, dan shimmer. | `artikel panjang`, `tata letak blog`, `reader ux`, `table scroll` |
 | [`portfolio-timeline-lightbox-skill`](skills/portfolio-timeline-lightbox-skill/SKILL.md) | Garis waktu sertifikasi & karier bergradien vertikal, fase milestone lipat di HP, dan zero-bloat touch lightbox swipeable dengan navigasi keyboard accessible. | `roadmap karier`, `sertifikat`, `lightbox foto`, `galeri swipe` |
@@ -249,7 +249,7 @@ zero-bloat-skills/
 ├── assets/                               # Visual tangkapan layar retina resolusi tinggi
 │   ├── hero.png                          # Banner utama portal web interaktif
 │   ├── playground.png                    # Demo live playground AI ladder
-│   ├── catalog.png                       # Tampilan kisi 26 modul skill
+│   ├── catalog.png                       # Tampilan kisi 27 modul skill
 │   └── drawer.png                        # Antarmuka laci geser slide-over SOP
 │
 ├── skills/                               # 27 Modul Spesialis Meja Servis & Linux

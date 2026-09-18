@@ -8,16 +8,22 @@ dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [2.7.0] - 2026-09-18
 
 ### Added
-- Tambah modul ke-27 `zero-bloat-icon-favicon-skill` (`skills/zero-bloat-icon-favicon-skill/`) memuat SOP rekayasa dan generator favicon/app icon berbasis vektor SVG geometris murni: 3 sekring estetika anti-norak (The Squint Test 16px, kontur Apple squircle continuous curvature, restrained palette), multi-size slicing C-native (ICO 16/32/48, Apple touch icon 180x180, PWA 192/512), dan auto-wiring HTML meta tags.
-- Tambah utilitas pembantu nir-dependensi Node.js `scripts/generate_favicon.py` berbasis pustaka standar Python, Pillow, dan `rsvg-convert` untuk kompilasi paket aset web instan.
+- Tambah modul ke-27 `zero-bloat-icon-favicon-skill` (`skills/zero-bloat-icon-favicon-skill/`) memuat SOP rekayasa dan generator favicon/app icon berbasis vektor SVG geometris murni Pastree-grade: 4 Hukum Fisika Favicon (The Squint Test 16px, rasio squircle emas 25% `rx=16` kanvas 64x64, breathing room 22%, dan zero-glow).
+- Tambah utilitas pembantu nir-dependensi Node.js `scripts/generate_favicon.py` dengan 10 katalog preset siluet geometris meja servis: `tree` (Pastree), `bolt` (Skill Hub), `circuit` (die prosesor 4px), `terminal` (prompt CLI), `kas` (keuangan ruko), `shield` (keamanan OPSEC), `monogram` (Swiss Bold), `camera` (CCTV edge & go2rtc), `wifi` (Tailscale mesh & tunnel radar), dan `tools` (kunci pas servis hardware).
+- Tambah saklar self-test diagnostik mandiri `generate_favicon.py --test` untuk verifikasi otomatis 10 preset, ukuran SVG <900 byte, bundel 8 aset, struktur ICO 4-layer, dan kepatuhan skema PWA dalam tempo 0.2 detik tanpa meninggalkan sampah di media penyimpanan.
+- Tambah dukungan kompilasi ICO 4-layer native (16x16, 32x32, 48x48, 64x64) via resampling LANCZOS untuk kompatibilitas penuh dari tab browser klasik hingga taskbar HiDPI desktop modern.
+- Tambah dokumentasi Pola Penggunaan Ganda (Dual-Use Brand Logo Pattern) di `SKILL.md` sesuai arsitektur `pastree.megapass.web.id` (menggunakan `favicon.svg` langsung sebagai logo aplikasi di navbar dan kartu login).
 - Tambah 9 titik tautan symlink baru ke lingkungan runtime AI ruko, meningkatkan total distribusi aktif menjadi 243 symlink di 9 direktori coding agent.
 
 ### Changed
 - Sinkronisasi Direktif Universal `~/AGENTS.md` (R11 Auto-Load intent Favicon / Icon) dan header ekosistem merefleksikan 27 modul spesialis meja servis.
-- Refaktor generator visual ke Standar Emas Pastree (`pastree.megapass.web.id`): migrasi kanvas ke grid geometris 64x64 dengan rasio squircle emas 25% (`rx=16`), eliminasi filter glow semu (`radialGradient`), penanaman 7 preset siluet padat (tree/organic, bolt/lightning, circuit/chip solid 4px, terminal/prompt, kas/chevron, shield/fortress, dan monogram), serta penambahan `favicon.svg` langsung ke paket output aset web.
-- Hardening fail-safe `generate_favicon.py`: sanitasi input path traversal, toleransi format masukan dual-source (vektor SVG & raster PNG/JPG/WebP), rasio padding anti-distorsi via `ImageOps.pad` (LANCZOS) agar logo non-persegi tidak gepeng, dan dukungan prefix URL fleksibel (`--prefix` / `-p`) untuk integrasi route aset statis web.
+- Hardening sekring rendering vektor menjadi rantai failover 6-lapis: `rsvg-convert` (C-native librsvg) -> `cairosvg` CLI -> modul Python `cairosvg` -> `inkscape` CLI -> `magick`/`convert` CLI -> safe fallback exception.
+- Hardening generator manifest PWA (`site.webmanifest`): penambahan otomatis field `start_url` dan atribut `purpose` (`any` dan `any maskable`) untuk kepatuhan penuh audit Google Lighthouse PWA.
+- Hardening parser argumen CLI: penyediaan alias ganda `--preset` dan `--type` (`dest="type"`), serta dukungan path relatif murni tanpa garis miring ganda via `--prefix ""`.
+- Hardening I/O buffer gambar raster: penambahan kloning in-memory `.copy()` pada Pillow sebelum operasi slicing guna mengeliminasi risiko race-condition file locking pada penulisan folder yang sama.
+- Hardening tumpukan font SVG monogram: penambahan font standar Linux headless (`DejaVu Sans`, `Liberation Sans`) untuk memastikan keterpusatan dan ketebalan tipografi Swiss Bold konsisten di semua distro.
 - Sinkronisasi dokumentasi ekosistem: perbarui `README.md`, `README.id.md`, dan `README.en.md` merefleksikan 27 skill, 243 symlink aktif, benchmark performa riil, dan status rilis v2.7.0.
-- Sinkronisasi portal showcase `skill.megapass.web.id`: integrasi entri katalog `zero-bloat-icon-favicon-skill` ke `SKILL_CATALOG` dengan badge bilingual, serta pembaruan metrik installer 27 modul (243 symlink).
+- Sinkronisasi portal showcase `skill.megapass.web.id`: integrasi entri katalog `zero-bloat-icon-favicon-skill` ke `SKILL_CATALOG` dengan badge bilingual dan pembaruan spesifikasi 4-layer native ICO (16/32/48/64).
 
 ---
 
