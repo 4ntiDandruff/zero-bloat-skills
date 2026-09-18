@@ -36,6 +36,19 @@ THEMES = {
     "violet": {"bg1": "#5B21B6", "bg2": "#7C3AED", "fg": "#FFFFFF"},
 }
 
+PRESET_DEFAULT_THEMES = {
+    "bolt": "skill",
+    "tree": "pastree",
+    "circuit": "slate",
+    "terminal": "slate",
+    "kas": "kas",
+    "shield": "skill",
+    "monogram": "skill",
+    "camera": "slate",
+    "wifi": "skill",
+    "tools": "slate",
+}
+
 def sanitize_hex_color(color_str: str, default: str = "#0E7C61") -> str:
     """
     Validates hex color string (supports with or without leading '#').
@@ -58,7 +71,7 @@ def sanitize_hex_color(color_str: str, default: str = "#0E7C61") -> str:
 def build_svg_preset(
     preset_type: str = "bolt",
     text: str = "M",
-    theme: str = "skill",
+    theme: str = None,
     style: str = "auto",
     bg1_custom: str = None,
     bg2_custom: str = None,
@@ -72,7 +85,8 @@ def build_svg_preset(
     - Flat style (pastree.megapass.web.id): 25% golden ratio squircle (rx=16),
       solid geometric silhouette with clean cutouts.
     """
-    theme_cfg = THEMES.get(theme, THEMES["skill"])
+    active_theme = theme if theme else PRESET_DEFAULT_THEMES.get(preset_type, "skill")
+    theme_cfg = THEMES.get(active_theme, THEMES["skill"])
     bg1 = sanitize_hex_color(bg1_custom, theme_cfg["bg1"]) if bg1_custom else theme_cfg["bg1"]
     bg2 = sanitize_hex_color(bg2_custom, theme_cfg["bg2"]) if bg2_custom else theme_cfg["bg2"]
     fg = sanitize_hex_color(fg_custom, theme_cfg["fg"]) if fg_custom else theme_cfg["fg"]
@@ -80,7 +94,7 @@ def build_svg_preset(
     # Resolve style mode (auto selects Pastree flat for tree, glass for others)
     resolved_style = style
     if resolved_style == "auto":
-        if preset_type in ["tree", "organic", "pastree"] and theme == "pastree":
+        if preset_type in ["tree", "organic", "pastree"]:
             resolved_style = "flat"
         else:
             resolved_style = "glass"
@@ -499,8 +513,8 @@ def main():
     parser.add_argument(
         "--theme",
         choices=["skill", "indigo", "pastree", "slate", "obsidian", "kas", "crimson", "violet"],
-        default="skill",
-        help="Preset palet warna ruko (default: skill)"
+        default=None,
+        help="Preset palet warna ruko (default: auto sesuai preset)"
     )
     parser.add_argument("--text", type=str, default="M", help="Huruf inisial jika memakai preset monogram (maks 2 huruf)")
     parser.add_argument("--bg", type=str, help="Warna latar belakang utama / gradient stop 1 (Hex, menimpa tema)")
@@ -519,7 +533,8 @@ def main():
     out_dir = Path(args.out).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    theme_cfg = THEMES.get(args.theme, THEMES["skill"])
+    active_theme = args.theme if args.theme else PRESET_DEFAULT_THEMES.get(args.type, "skill")
+    theme_cfg = THEMES.get(active_theme, THEMES["skill"])
     bg1_color = args.bg if args.bg else theme_cfg["bg1"]
     bg2_color = args.bg2 if args.bg2 else (args.bg if args.bg else theme_cfg["bg2"])
     fg_color = args.fg if args.fg else theme_cfg["fg"]
@@ -533,7 +548,7 @@ def main():
         svg_content = build_svg_preset(
             preset_type=args.type,
             text=args.text,
-            theme=args.theme,
+            theme=active_theme,
             style=args.style,
             bg1_custom=bg1_color,
             bg2_custom=bg2_color,
