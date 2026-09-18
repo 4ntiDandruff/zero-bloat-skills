@@ -8,8 +8,10 @@ Fail-safe circuit mindset, zero Node.js bloat, C-native SVG rendering.
 """
 
 import argparse
+import html
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,16 +19,31 @@ from pathlib import Path
 from PIL import Image
 
 # ---------------------------------------------------------------------------
+# Input Sanitization & Validation
+# ---------------------------------------------------------------------------
+
+HEX_COLOR_PATTERN = re.compile(r"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
+
+def sanitize_hex_color(color_str: str, default: str = "#0B1220") -> str:
+    """
+    Validates hex color string. Falls back to safe default if invalid.
+    Prevents XML/SVG attribute injection.
+    """
+    if color_str and HEX_COLOR_PATTERN.match(color_str.strip()):
+        return color_str.strip()
+    return default
+
+
+# ---------------------------------------------------------------------------
 # Visual Presets & Master SVG Builders (Pure Mathematical Vectors)
 # ---------------------------------------------------------------------------
 
 def build_squircle_path(size: int = 512, r: float = 0.22) -> str:
     """
-    Continuous curvature Apple-style squircle path for 512x512 canvas.
+    Continuous curvature Apple-style squircle path for arbitrary canvas size.
     """
     c = size
     radius = c * r
-    # Superellipse approximate cubic beziers
     return f"""
     M 0,{radius}
     C 0,{radius * 0.44} {radius * 0.44},0 {radius},0
@@ -52,13 +69,16 @@ def build_svg_preset(
     Generates high-aesthetic, anti-norak vector SVG source code.
     Strictly follows Swiss typography & Dark Modern Tech guidelines.
     """
+    bg = sanitize_hex_color(bg_color, "#0B1220")
+    fg = sanitize_hex_color(fg_color, "#22D3EE")
+    sec = sanitize_hex_color(secondary_color, "#0891B2")
+
     squircle_path = build_squircle_path(512, 0.24) if has_squircle else ""
-    
-    # Base container
-    bg_element = f'<path d="{squircle_path}" fill="{bg_color}"/>' if has_squircle else f'<rect width="512" height="512" rx="112" fill="{bg_color}"/>'
+    bg_element = f'<path d="{squircle_path}" fill="{bg}"/>' if has_squircle else f'<rect width="512" height="512" rx="112" fill="{bg}"/>'
 
     if preset_type == "monogram":
-        # Swiss-style heavy typographic monogram with subtle optical offset
+        # Swiss-style heavy typographic monogram with XML entity escaping
+        safe_text = html.escape(text[:2].upper())
         symbol_content = f"""
         <text x="256" y="342" 
               font-family="-apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Inter', 'Segoe UI', sans-serif" 
@@ -66,68 +86,68 @@ def build_svg_preset(
               font-weight="900" 
               letter-spacing="-12"
               text-anchor="middle" 
-              fill="{fg_color}">{text[:2].upper()}</text>
+              fill="{fg}">{safe_text}</text>
         """
     elif preset_type == "circuit":
         # Hardware logic / circuit traces glyph
         symbol_content = f"""
-        <g stroke="{fg_color}" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <g stroke="{fg}" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none">
             <!-- Center Processing Die -->
-            <rect x="176" y="176" width="160" height="160" rx="32" fill="{bg_color}" stroke="{fg_color}" stroke-width="28"/>
-            <circle cx="256" cy="256" r="32" fill="{fg_color}"/>
+            <rect x="176" y="176" width="160" height="160" rx="32" fill="{bg}" stroke="{fg}" stroke-width="28"/>
+            <circle cx="256" cy="256" r="32" fill="{fg}"/>
             
             <!-- Circuit Traces North -->
             <path d="M 216,176 L 216,104"/>
             <path d="M 296,176 L 296,104"/>
-            <circle cx="216" cy="92" r="14" fill="{secondary_color}" stroke="none"/>
-            <circle cx="296" cy="92" r="14" fill="{secondary_color}" stroke="none"/>
+            <circle cx="216" cy="92" r="14" fill="{sec}" stroke="none"/>
+            <circle cx="296" cy="92" r="14" fill="{sec}" stroke="none"/>
             
             <!-- Circuit Traces South -->
             <path d="M 216,336 L 216,408"/>
             <path d="M 296,336 L 296,408"/>
-            <circle cx="216" cy="420" r="14" fill="{secondary_color}" stroke="none"/>
-            <circle cx="296" cy="420" r="14" fill="{secondary_color}" stroke="none"/>
+            <circle cx="216" cy="420" r="14" fill="{sec}" stroke="none"/>
+            <circle cx="296" cy="420" r="14" fill="{sec}" stroke="none"/>
             
             <!-- Circuit Traces East -->
             <path d="M 336,256 L 408,256"/>
-            <circle cx="420" cy="256" r="14" fill="{secondary_color}" stroke="none"/>
+            <circle cx="420" cy="256" r="14" fill="{sec}" stroke="none"/>
             
             <!-- Circuit Traces West -->
             <path d="M 176,256 L 104,256"/>
-            <circle cx="92" cy="256" r="14" fill="{secondary_color}" stroke="none"/>
+            <circle cx="92" cy="256" r="14" fill="{sec}" stroke="none"/>
         </g>
         """
     elif preset_type == "prompt":
         # Terminal prompt >_ glyph
         symbol_content = f"""
-        <g stroke="{fg_color}" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <g stroke="{fg}" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" fill="none">
             <path d="M 136,176 L 244,256 L 136,336"/>
-            <line x1="284" y1="336" x2="384" y2="336" stroke="{secondary_color}"/>
+            <line x1="284" y1="336" x2="384" y2="336" stroke="{sec}"/>
         </g>
         """
     elif preset_type == "bolt":
         # High-voltage minimal electric bolt
         symbol_content = f"""
         <path d="M 284,80 L 156,268 L 264,268 L 228,432 L 364,244 L 256,244 Z" 
-              fill="{fg_color}" 
-              stroke="{secondary_color}" 
+              fill="{fg}" 
+              stroke="{sec}" 
               stroke-width="12" 
               stroke-linejoin="round"/>
         """
     else:
         # Default: Minimal geometric node hexagon
         symbol_content = f"""
-        <g stroke="{fg_color}" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <polygon points="256,112 384,186 384,334 256,408 128,334 128,186" fill="{bg_color}"/>
-            <circle cx="256" cy="256" r="48" fill="{secondary_color}" stroke="{fg_color}" stroke-width="20"/>
+        <g stroke="{fg}" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <polygon points="256,112 384,186 384,334 256,408 128,334 128,186" fill="{bg}"/>
+            <circle cx="256" cy="256" r="48" fill="{sec}" stroke="{fg}" stroke-width="20"/>
         </g>
         """
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
     <defs>
         <radialGradient id="ambientGlow" cx="50%" cy="25%" r="75%">
-            <stop offset="0%" stop-color="{secondary_color}" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="{bg_color}" stop-opacity="0"/>
+            <stop offset="0%" stop-color="{sec}" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="{bg}" stop-opacity="0"/>
         </radialGradient>
     </defs>
     {bg_element}
@@ -141,32 +161,44 @@ def build_svg_preset(
 # Slicing Engine (rsvg-convert / cairosvg / Pillow)
 # ---------------------------------------------------------------------------
 
-def render_svg_to_png(svg_path: Path, output_png: Path, size: int) -> bool:
+def render_asset_to_png(source_path: Path, output_png: Path, size: int) -> bool:
     """
-    Renders SVG to PNG using the fastest and sharpest available system renderer.
-    Priority:
-    1. rsvg-convert (GNOME C-native librsvg: sub-millisecond, perfect font hinting)
-    2. cairosvg (Python Cairo bindings)
+    Renders SVG or raster image to PNG.
+    Supports both vector (.svg) and raster (.png, .jpg, .webp) source assets.
     """
-    # 1. Try rsvg-convert
+    ext = source_path.suffix.lower()
+
+    # 1. Raster source handling via Pillow (LANCZOS resampling)
+    if ext in [".png", ".jpg", ".jpeg", ".webp"]:
+        try:
+            with Image.open(source_path) as img:
+                img_rgba = img.convert("RGBA")
+                resized = img_rgba.resize((size, size), resample=Image.Resampling.LANCZOS)
+                resized.save(output_png, format="PNG")
+                return True
+        except Exception:
+            return False
+
+    # 2. Vector SVG rendering via rsvg-convert (C-native librsvg)
     rsvg = shutil.which("rsvg-convert")
     if rsvg:
-        cmd = [rsvg, "-w", str(size), "-h", str(size), str(svg_path), "-o", str(output_png)]
+        cmd = [rsvg, "-w", str(size), "-h", str(size), str(source_path), "-o", str(output_png)]
         res = subprocess.run(cmd, capture_output=True, text=True)
         if res.returncode == 0:
             return True
 
-    # 2. Try cairosvg
+    # 3. Vector fallback via cairosvg CLI
     cairosvg = shutil.which("cairosvg")
     if cairosvg:
-        cmd = [cairosvg, "-w", str(size), "-h", str(size), str(svg_path), "-o", str(output_png)]
+        cmd = [cairosvg, "-w", str(size), "-h", str(size), str(source_path), "-o", str(output_png)]
         res = subprocess.run(cmd, capture_output=True, text=True)
         if res.returncode == 0:
             return True
 
+    # 4. Vector fallback via cairosvg Python module
     try:
         import cairosvg as csvg_mod
-        csvg_mod.svg2png(url=str(svg_path), write_to=str(output_png), output_width=size, output_height=size)
+        csvg_mod.svg2png(url=str(source_path), write_to=str(output_png), output_width=size, output_height=size)
         return True
     except Exception:
         pass
@@ -175,13 +207,13 @@ def render_svg_to_png(svg_path: Path, output_png: Path, size: int) -> bool:
 
 
 def generate_asset_bundle(
-    source_svg: Path,
+    source_asset: Path,
     out_dir: Path,
     app_name: str = "Megapass App",
     theme_color: str = "#0B1220"
 ) -> dict:
     """
-    Compiles complete production web favicon package from a single SVG master:
+    Compiles complete production web favicon package from a single SVG or PNG master:
     - favicon.ico (multi-res 16, 32, 48)
     - favicon-16x16.png
     - favicon-32x32.png
@@ -193,11 +225,9 @@ def generate_asset_bundle(
     out_dir.mkdir(parents=True, exist_ok=True)
     generated_files = []
 
-    # Target PNG sizes
     sizes = {
         "favicon-16x16.png": 16,
         "favicon-32x32.png": 32,
-        "favicon-48x48.png": 48,
         "apple-touch-icon.png": 180,
         "android-chrome-192x192.png": 192,
         "android-chrome-512x512.png": 512,
@@ -206,29 +236,24 @@ def generate_asset_bundle(
     temp_pngs = {}
     for filename, dim in sizes.items():
         dest = out_dir / filename
-        success = render_svg_to_png(source_svg, dest, dim)
+        success = render_asset_to_png(source_asset, dest, dim)
         if not success:
-            raise RuntimeError(f"Gagal me-render SVG ke PNG ukuran {dim}x{dim}. Pastikan rsvg-convert atau cairosvg terinstall.")
+            raise RuntimeError(f"Gagal me-render aset ke PNG ukuran {dim}x{dim}. Pastikan rsvg-convert atau cairosvg terinstall.")
         temp_pngs[dim] = dest
         generated_files.append(filename)
 
-    # Compile Multi-Resolution favicon.ico using Pillow
+    # Compile Multi-Resolution favicon.ico using Pillow context manager
     ico_dest = out_dir / "favicon.ico"
-    # Open 48, 32, 16 images
-    img_48 = Image.open(temp_pngs[48])
-    img_48.save(
-        ico_dest,
-        format="ICO",
-        sizes=[(16, 16), (32, 32), (48, 48)]
-    )
-    # Clean up intermediate 48x48 if not strictly needed
-    if (out_dir / "favicon-48x48.png").exists():
-        (out_dir / "favicon-48x48.png").unlink()
-    if "favicon-48x48.png" in generated_files:
-        generated_files.remove("favicon-48x48.png")
+    with Image.open(temp_pngs[512]) as img_master:
+        img_master.save(
+            ico_dest,
+            format="ICO",
+            sizes=[(16, 16), (32, 32), (48, 48)]
+        )
     generated_files.insert(0, "favicon.ico")
 
     # Generate site.webmanifest
+    safe_theme = sanitize_hex_color(theme_color, "#0B1220")
     manifest = {
         "name": app_name,
         "short_name": app_name,
@@ -244,8 +269,8 @@ def generate_asset_bundle(
                 "type": "image/png"
             }
         ],
-        "theme_color": theme_color,
-        "background_color": theme_color,
+        "theme_color": safe_theme,
+        "background_color": safe_theme,
         "display": "standalone"
     }
     manifest_dest = out_dir / "site.webmanifest"
@@ -262,7 +287,7 @@ def generate_asset_bundle(
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="{theme_color}">"""
+<meta name="theme-color" content="{safe_theme}">"""
     }
 
 
@@ -272,7 +297,7 @@ def generate_asset_bundle(
 
 def main():
     parser = argparse.ArgumentParser(description="Zero-Bloat Icon & Favicon Slicing Generator")
-    parser.add_argument("--input", "-i", type=str, help="Path ke master SVG jika sudah memiliki desain sendiri")
+    parser.add_argument("--input", "-i", type=str, help="Path ke master SVG atau PNG jika sudah memiliki desain sendiri")
     parser.add_argument("--type", "-t", choices=["monogram", "circuit", "prompt", "bolt", "node"], default="monogram", help="Preset visual geometris jika membuat dari awal")
     parser.add_argument("--text", type=str, default="M", help="Huruf inisial jika memakai preset monogram (maks 2 huruf)")
     parser.add_argument("--bg", type=str, default="#0B1220", help="Warna latar (Hex, default: Deep Slate #0B1220)")
@@ -286,9 +311,9 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.input:
-        src_svg = Path(args.input).resolve()
-        if not src_svg.exists():
-            print(f"[-] ERROR: File master SVG '{src_svg}' tidak ditemukan!")
+        src_asset = Path(args.input).resolve()
+        if not src_asset.exists():
+            print(f"[-] ERROR: File master '{src_asset}' tidak ditemukan!")
             sys.exit(1)
     else:
         # Generate SVG from clean preset
@@ -300,14 +325,14 @@ def main():
             secondary_color=args.accent,
             has_squircle=True
         )
-        src_svg = out_dir / "master_icon.svg"
-        with open(src_svg, "w", encoding="utf-8") as f:
+        src_asset = out_dir / "master_icon.svg"
+        with open(src_asset, "w", encoding="utf-8") as f:
             f.write(svg_content)
-        print(f"[+] Master SVG berhasil diracik: {src_svg}")
+        print(f"[+] Master SVG berhasil diracik: {src_asset}")
 
     print(f"[*] Menjalankan C-native slicing engine ke direktori: {out_dir} ...")
     bundle = generate_asset_bundle(
-        source_svg=src_svg,
+        source_asset=src_asset,
         out_dir=out_dir,
         app_name=args.name,
         theme_color=args.bg
