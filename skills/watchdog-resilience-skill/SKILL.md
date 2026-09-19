@@ -73,7 +73,7 @@ fi
 
 ## 4. Symmetric Multi-Agent Skill Synchronization
 
-Maintain synchronized symlinks across all AI coding agent directories via an automated script (`update-agents.sh`):
+Maintain synchronized symlinks across all AI coding agent directories via an automated script (`update-agents-watchdog.sh`):
 ```bash
 ln -sfn ~/.hermes/skills/* ~/.claude/skills/
 ln -sfn ~/.hermes/skills/* ~/.gemini/config/skills/
