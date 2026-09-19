@@ -64,6 +64,44 @@ def sanitize_hex_color(color_str: str, default: str = "#0E7C61") -> str:
     return default
 
 
+# ponytail: SVG element whitelist - only visual elements allowed, no scripting
+_SVG_ALLOWED_TAGS = frozenset({
+    "path", "rect", "circle", "ellipse", "line", "polyline", "polygon",
+    "g", "text", "tspan", "use", "defs", "clipPath", "mask",
+    "linearGradient", "radialGradient", "stop", "filter",
+    "feGaussianBlur", "feOffset", "feBlend", "feMerge", "feMergeNode",
+})
+_SVG_DANGEROUS = re.compile(
+    r"<\s*script|on\w+\s*=|javascript\s*:|data\s*:\s*text/html",
+    re.IGNORECASE,
+)
+
+
+def sanitize_svg_glyph(raw: str) -> str:
+    """
+    Sanitizes raw SVG fragment for safe embedding inside favicon canvas.
+    Strips script tags, event handlers, and data URIs.
+    Returns cleaned SVG fragment or raises ValueError.
+    """
+    if _SVG_DANGEROUS.search(raw):
+        raise ValueError("SVG glyph mengandung elemen berbahaya (script/event handler). Ditolak.")
+    return raw.strip()
+
+
+def load_glyph_from_file(filepath: str) -> str:
+    """
+    Reads an SVG file and extracts inner content (strips <svg> wrapper).
+    Returns the inner SVG elements ready for embedding.
+    """
+    path = Path(filepath).resolve()
+    if not path.exists():
+        raise FileNotFoundError(f"File glyph '{path}' tidak ditemukan.")
+    content = path.read_text(encoding="utf-8").strip()
+    # Strip outer <svg ...> wrapper, keep inner content
+    inner = re.sub(r"^\s*<\s*svg[^>]*>", "", content, count=1, flags=re.IGNORECASE | re.DOTALL)
+    inner = re.sub(r"</\s*svg\s*>\s*$", "", inner, count=1, flags=re.IGNORECASE | re.DOTALL)
+    return sanitize_svg_glyph(inner.strip())
+
 # ---------------------------------------------------------------------------
 # Visual Presets (Cupertino Crystal Glass & Pastree Minimalist Systems)
 # ---------------------------------------------------------------------------
@@ -75,7 +113,8 @@ def build_svg_preset(
     style: str = "auto",
     bg1_custom: str = None,
     bg2_custom: str = None,
-    fg_custom: str = None
+    fg_custom: str = None,
+    glyph_raw: str = None
 ) -> str:
     """
     Generates high-aesthetic, production-grade vector SVG on a 64x64 grid.
@@ -99,8 +138,10 @@ def build_svg_preset(
         else:
             resolved_style = "glass"
 
-    # Build glyph geometry per preset
-    if preset_type in ["bolt", "lightning", "skill"]:
+    # Custom glyph overrides preset geometry
+    if glyph_raw:
+        glyph = "  " + sanitize_svg_glyph(glyph_raw)
+    elif preset_type in ["bolt", "lightning", "skill"]:
         # Signature Skill Megapass Style: Lucide high-voltage rounded bolt
         glyph = f"""  <!-- Centered Sharp Lightning Glyph -->
   <g transform="translate(8, 8) scale(2)">
@@ -523,6 +564,8 @@ def main():
     parser.add_argument("--out", "-o", type=str, default="./public", help="Direktori output aset (default: ./public)")
     parser.add_argument("--name", type=str, default="Megapass Web", help="Nama aplikasi untuk site.webmanifest")
     parser.add_argument("--prefix", "-p", type=str, default="/", help="URL prefix untuk tag HTML dan manifest (default: '/')")
+    parser.add_argument("--glyph", type=str, help="Raw SVG fragment kustom sebagai glyph (path/circle/g), menggantikan preset. Koordinat relatif terhadap viewBox 0 0 64 64.")
+    parser.add_argument("--glyph-file", type=str, help="Path ke file SVG yang isinya diekstrak sebagai glyph kustom (strip wrapper <svg>)")
 
     args = parser.parse_args()
 
@@ -538,6 +581,22 @@ def main():
     bg1_color = args.bg if args.bg else theme_cfg["bg1"]
     bg2_color = args.bg2 if args.bg2 else (args.bg if args.bg else theme_cfg["bg2"])
     fg_color = args.fg if args.fg else theme_cfg["fg"]
+    # Resolve custom glyph from --glyph or --glyph-file
+    custom_glyph = None
+    if hasattr(args, "glyph_file") and args.glyph_file:
+        try:
+            custom_glyph = load_glyph_from_file(args.glyph_file)
+            print(f"[+] Glyph kustom dimuat dari file: {args.glyph_file} ({len(custom_glyph)} bytes)")
+        except (FileNotFoundError, ValueError) as e:
+            print(f"[-] ERROR: {e}", file=sys.stderr)
+            sys.exit(1)
+    elif hasattr(args, "glyph") and args.glyph:
+        try:
+            custom_glyph = sanitize_svg_glyph(args.glyph)
+            print(f"[+] Glyph kustom inline: {len(custom_glyph)} bytes")
+        except ValueError as e:
+            print(f"[-] ERROR: {e}", file=sys.stderr)
+            sys.exit(1)
 
     if args.input:
         src_asset = Path(args.input).resolve()
@@ -552,7 +611,8 @@ def main():
             style=args.style,
             bg1_custom=bg1_color,
             bg2_custom=bg2_color,
-            fg_custom=fg_color
+            fg_custom=fg_color,
+            glyph_raw=custom_glyph
         )
         src_asset = out_dir / "favicon.svg"
         with open(src_asset, "w", encoding="utf-8") as f:

@@ -137,6 +137,34 @@ python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generat
   --out ./public
 ```
 
+
+### 4. Glyph Kustom (Siluet SVG Bebas):
+
+Untuk ikon dengan siluet khusus (logo kustom, maskot, bentuk organik) yang tidak tersedia di 10 preset bawaan, gunakan flag `--glyph` (inline SVG fragment) atau `--glyph-file` (path ke file SVG):
+
+```bash
+# Inline SVG glyph: siluet payung gaya Umbrel di atas squircle ungu
+python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
+  --glyph '<g transform="translate(14, 14) scale(1.5)"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.1.9 2 2 2h2v-2H4c0-4.42 3.58-8 8-8s8 3.58 8 8h-2v2h2c1.1 0 2-.9 2-2 0-5.52-4.48-10-10-10zm0 6c-2.21 0-4 1.79-4 4v6h2v-6c0-1.1.9-2 2-2s2 .9 2 2v6h2v-6c0-2.21-1.79-4-4-4z" fill="#FFFFFF"/></g>' \
+  --bg "#5351FB" \
+  --style flat \
+  --out ./public
+
+# Dari file SVG eksternal (wrapper <svg> otomatis di-strip, isi diekstrak)
+python3 ~/zero-bloat-skills/skills/zero-bloat-icon-favicon-skill/scripts/generate_favicon.py \
+  --glyph-file ./assets/my-logo-glyph.svg \
+  --bg "#1E40AF" \
+  --bg2 "#7C3AED" \
+  --style glass \
+  --out ./public
+```
+
+**Aturan koordinat glyph kustom:**
+- ViewBox kanvas adalah `0 0 64 64`. Semua koordinat glyph relatif terhadap grid ini.
+- Gunakan `<g transform="translate(X, Y) scale(S)">` untuk memposisikan dan menskala glyph agar terpusat.
+- Untuk ikon Lucide/Material 24x24, transformasi baku: `translate(8, 8) scale(2)` (menghasilkan 48x48 di tengah dengan 8px margin).
+- Untuk siluet organik yang sudah di-design pada grid 64x64, tidak perlu transform.
+- Elemen `<script>`, atribut `on*` (onclick, onload), dan `javascript:` URI otomatis ditolak oleh sanitizer keamanan.
 ---
 
 ## 4. Paket 11 Aset Produksi yang Dihasilkan
