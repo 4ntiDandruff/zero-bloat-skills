@@ -1,9 +1,9 @@
 ---
 name: liquid-apple-ui-skill
-description: "Apple-inspired Cupertino liquid crystal UI v2.0 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), soft dual-shadow neumorphism (.neo-groove, .neo-tab-active), glassmorphism + neumorphism harmonization matrix, radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
+description: "Apple-inspired Cupertino liquid crystal UI v2.1 design system: iridescent ambient mesh canvas (#F5F5F7), frosted translucent glass cards (backdrop-blur 32px), soft dual-shadow neumorphism (.neo-groove, .neo-tab-active), glassmorphism + neumorphism harmonization matrix, radial dial gauges, multi-segment waterfall timeline, radar scanning HUD, scoped transitions, concentric radii, and zero-bloat standalone Tailwind implementation without node_modules."
 ---
 
-# Liquid Apple UI Skill (v2.0)
+# Liquid Apple UI Skill (v2.1)
 
 Design system and frontend engineering patterns for crafting authentic Apple Cupertino-caliber light liquid crystal interfaces without heavyweight framework dependencies (React, Next.js, or runtime `node_modules`).
 
@@ -13,7 +13,7 @@ Directly reverse-engineered and extracted from the production-tested **AGY Route
 
 ## 1. Cupertino Canvas & Color Palette Tokens
 
-Strictly avoid generic dark hacker themes or flat muddy grays. The authentic Apple aesthetic uses an ultra-clean platinum foundation (`#F5F5F7`), dynamic ambient iridescent mesh gradients, and translucent frosted glass cards.
+Strictly avoid generic flat muddy grays. The authentic Apple light-mode aesthetic uses an ultra-clean platinum foundation (`#F5F5F7`), dynamic ambient iridescent mesh gradients, and translucent frosted glass cards. For dark mode tokens, see Section 10.
 
 ### Core Tokens & Variables
 
@@ -37,18 +37,18 @@ Strictly avoid generic dark hacker themes or flat muddy grays. The authentic App
 | Component Level | Visual Specification | Styling Class / CSS | Semantic Purpose |
 |---|---|---|---|
 | **Ambient Canvas** | `#F5F5F7` + Iridescent Mesh Radial Gradients | `.apple-ambient-canvas` | Deepest foundation layer; dynamic color hints at 5 coordinate points |
-| **Frosted Glass Cards** | `rgba(255,255,255,0.88)` + `blur(32px) saturate(190%)` | `.crystal-card` | Main content panels, data containers, and fixed sidebar navigation |
-| **Hero Crystal Island** | 135deg gradient `rgba(255,255,255,0.96)` ➔ `rgba(244,248,255,0.92)` | `.hero-crystal` | Top-level active status banner, widget islands, elevated cards |
+| **Frosted Glass Cards** | `rgba(255,255,255,0.92)` + `blur(32px) saturate(190%)` | `.crystal-card` | Main content panels, data containers, and fixed sidebar navigation |
+| **Hero Crystal Island** | 135deg gradient `rgba(255,255,255,0.97)` ➔ `rgba(244,248,255,0.94)` | `.hero-crystal` | Top-level active status banner, widget islands, elevated cards |
 | **Neomorphic Inset Groove** | Sunken ambient inset shadow + 1px white bottom highlight | `.neo-groove` | Recessed segmented track, tab wells, gauge slots |
 | **Neomorphic Active Pill** | Crisp elevated drop shadow + 1px white top highlight | `.neo-tab-active` | Selected tab state, active toggle switch, convex buttons |
 | **Neomorphic Crystal Box** | Dual specular highlight + frosted backdrop blur 24px | `.neo-crystal-box` | GTmetrix grade boxes, telemetry plaques, metric plaques |
 | **Primary Tactile Button** | `#0077ED` ➔ `#0066CC` gradient + 1px white top inset | `.btn-apple-blue` | Main call-to-action with Cupertino spring click haptics |
 | **Tactile Pill Button** | `rgba(255,255,255,0.94)` + border `rgba(0,0,0,0.08)` | `.btn-apple-pill` | Secondary controls, modal triggers, segmented buttons |
 | **Tactile Action Chip** | Micro-scaling `scale(0.95)` with cubic-bezier dampening | `.btn-tactile` | Interactive chips, copy buttons, dropdown items, switches |
-| **Sidebar Navigation** | Dynamic active gradient `#0077ED` ➔ `#0066CC` | `.nav-item` / `.nav-item.active` | Left rail navigation with subtle horizontal sliding |
+| **Sidebar Navigation** | Tinted translucent fill `rgba(brand, 0.12)` + brand text | `.nav-item` / `.nav-item.active` | Left rail navigation with subtle horizontal sliding |
 | **Form Inputs & Search** | `bg-white/95` + Neomorphic recessed well + blue glow ring | `.apple-input` | Clean form controls with keyboard shortcut badges |
 | **Progress Meters** | Silk flow ease with inset track shadow | `.fuel-progress-fill` + `.apple-meter-track` | Quota visualizers, usage histograms, fuel gauges |
-| **Fluid Scrollbar** | Native slim 5px translucent track | `::-webkit-scrollbar` | Discrete, unobtrusive scrolling for cards and timelines |
+| **Fluid Scrollbar** | Native 8px bordered translucent track + light/dark/hidden variants | `::-webkit-scrollbar` / `.custom-scrollbar` / `.custom-scrollbar-dark` / `.no-scrollbar` | Discrete, unobtrusive scrolling for cards, terminals, and timelines |
 
 ---
 
@@ -113,25 +113,28 @@ The workhorse container for content panels, telemetry tables, and navigation sid
 
 ```css
 .crystal-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(32px) saturate(190%);
   -webkit-backdrop-filter: blur(32px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.98);
   border-radius: 20px;
-  box-shadow: 
-    0 1px 2px rgba(0, 0, 0, 0.02),
-    0 6px 20px -4px rgba(0, 113, 227, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 4px 12px -2px rgba(0, 0, 0, 0.04),
+    0 8px 24px -4px rgba(0, 113, 227, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02);
   transition-property: transform, box-shadow, border-color;
   transition-duration: 180ms;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .crystal-card:not(aside):hover {
-  transform: translateY(-1px);
-  box-shadow: 
-    0 4px 14px rgba(0, 0, 0, 0.025),
-    0 14px 30px -8px rgba(0, 113, 227, 0.09),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.02),
+    0 8px 24px -4px rgba(0, 0, 0, 0.05),
+    0 16px 40px -8px rgba(0, 113, 227, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02);
 }
 ```
 
@@ -141,15 +144,17 @@ The flagship centerpiece panel used for mission status banners, widget islands, 
 ```css
 /* AGY Router Hero Widget Island */
 .hero-crystal {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.92) 50%, rgba(254, 244, 249, 0.94) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(244, 248, 255, 0.94) 50%, rgba(254, 244, 249, 0.95) 100%);
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1.5px solid rgba(255, 255, 255, 1);
   border-radius: 24px;
-  box-shadow: 
+  box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.02),
-    0 14px 36px -8px rgba(0, 113, 227, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
+    0 8px 24px -4px rgba(0, 113, 227, 0.06),
+    0 16px 48px -8px rgba(0, 113, 227, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.015);
 }
 
 /* CekWeb Elevated Centerpiece Card */
@@ -240,7 +245,7 @@ Never use browser-default `ease` or linear curves for clicks and hover states.
   transform: translateY(-0.5px);
 }
 .btn-apple-pill:active {
-  transform: scale(0.96) translateY(0.5px);
+  transform: scale(0.97) translateY(0.5px);
 }
 
 /* Universal Tactile Micro-Interactions (Chips, Badges, Icons) */
@@ -279,15 +284,18 @@ Never use browser-default `ease` or linear curves for clicks and hover states.
   transform: scale(0.98) translateX(1px);
 }
 .nav-item.active {
-  background: linear-gradient(180deg, #0077ED 0%, #0066CC 100%);
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 16px rgba(0, 113, 227, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 113, 227, 0.12);
+  color: #0071E3;
+  font-weight: 700;
+  border: 1px solid rgba(0, 113, 227, 0.08);
+  box-shadow: none;
 }
 .nav-item.active:hover {
-  background: linear-gradient(180deg, #0A84FF 0%, #0071E3 100%);
-  color: #FFFFFF !important;
+  background: rgba(0, 113, 227, 0.18);
   transform: translateX(0);
+}
+.nav-item.active:active {
+  transform: scale(0.98);
 }
 ```
 
@@ -301,10 +309,10 @@ Smooth fuel gauge animations for quota counters and token capacity:
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(0, 0, 0, 0.04) 100%);
 }
 .apple-meter-track {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 9999px;
   padding: 2px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.08), inset 0 1px 1px rgba(0,0,0,0.04), 0 1px 0 rgba(255,255,255,0.9);
 }
 ```
 
@@ -320,8 +328,40 @@ In dense dashboards (e.g. AGY Router cluster node list, CekWeb server racks, or 
 }
 .rack-row:hover {
   transform: translateY(-0.5px);
-  box-shadow: 0 4px 14px -3px rgba(0, 113, 227, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 16px -3px rgba(0, 113, 227, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
+```
+
+
+### F. Scrollbar Variants (Light, Dark, No-Scrollbar)
+
+Three scrollbar variants from AGY Router production. Global uses 8px width with bordered thumb for tactile visibility. `.custom-scrollbar` for inner card panels, `.custom-scrollbar-dark` for terminal/console containers, and `.no-scrollbar` for navigation rails.
+
+```css
+/* Native Apple Fluid Scrollbar (Global) */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.03); border-radius: 9999px; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.6); background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.8); background-clip: padding-box; }
+* { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.25) transparent; }
+
+/* Inner Card Container Scrollbar (Light) */
+.custom-scrollbar::-webkit-scrollbar { width: 7px; height: 7px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.02); border-radius: 9999px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 9999px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.45); }
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.25) transparent; }
+
+/* Dark Terminal Container Scrollbar */
+.custom-scrollbar-dark::-webkit-scrollbar { width: 7px; height: 7px; }
+.custom-scrollbar-dark::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 9999px; }
+.custom-scrollbar-dark::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-radius: 9999px; }
+.custom-scrollbar-dark::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.45); }
+.custom-scrollbar-dark { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.25) transparent; }
+
+/* Hide Scrollbar Completely */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 ```
 
 ---
@@ -339,23 +379,18 @@ Authentic Apple Cupertino Neomorphism operates on clean platinum (`#F5F5F7` / `r
 ```css
 /* Neomorphic Inset Groove & Recessed Wells (Segmented Track & Inset Bases) */
 .neo-groove {
-  background: rgba(0, 0, 0, 0.035);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.04), 
-    inset 0 1px 2px rgba(0, 0, 0, 0.02), 
-    0 1px 0 rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(0, 0, 0, 0.04), 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
 }
 
 /* Neomorphic Active Pill (Convex Elevated Tab State) */
 .neo-tab-active {
   background: #FFFFFF !important;
-  color: #0F172A !important;
+  color: #1D1D1F !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -0.5px 0 rgba(0, 0, 0, 0.03) !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.06), 
-    0 1px 2px rgba(0, 0, 0, 0.03), 
-    inset 0 1px 0 #FFFFFF !important;
 }
 
 /* Neomorphic Frosted Crystal Box (Grade Plaques & Dial Pedestals) */
@@ -620,7 +655,8 @@ Capsule notification dropping down from top-center with realistic optical spring
      x-transition:leave="transition ease-in duration-200 transform"
      x-transition:leave-start="opacity-100 scale-100"
      x-transition:leave-end="opacity-0 -translate-y-6 scale-90"
-     class="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center space-x-3 px-6 py-3 rounded-full bg-[#1A1A1E] text-white shadow-2xl border border-white/20 backdrop-blur-2xl text-xs font-semibold tracking-wide pointer-events-none">
+     style="top: max(1.5rem, calc(0.75rem + env(safe-area-inset-top)));"
+     class="fixed left-1/2 -translate-x-1/2 z-[9999] flex items-center space-x-3 px-6 py-3 rounded-full bg-[#1A1A1E] text-white shadow-2xl border border-white/20 backdrop-blur-2xl text-xs font-semibold tracking-wide pointer-events-none">
   <div class="w-4 h-4 rounded-full bg-[#30D158] flex items-center justify-center flex-shrink-0">
     <svg class="w-2.5 h-2.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
@@ -760,28 +796,217 @@ Cupertino-style radio/tab switcher inside a sunken track with concentric radii (
 </div>
 ```
 
+### D. Button Radius Override Utilities & Image Outline
+
+When buttons sit inside rectangular card contexts (non-pill layouts), override the default `rounded-full` with these utilities. `.img-outline` provides a subtle hairline border for screenshots and preview images without affecting image dimensions.
+
+```css
+/* Radius Override Utilities for Rectangular Contexts */
+.btn-apple-blue.rounded-2xl, .btn-apple-pill.rounded-2xl { border-radius: 16px !important; }
+.btn-apple-blue.rounded-xl, .btn-apple-pill.rounded-xl { border-radius: 12px !important; }
+
+/* Clean Image Outline for Screenshots & Previews */
+img.img-outline { outline: 1px solid rgba(0, 0, 0, 0.08); outline-offset: -1px; }
+```
+
 ---
 
-## 10. The Pure Light Crystal Discipline (Strict Anti-Dark Mode Mandate)
+## 10. Dual-Mode Light & Dark Crystal Discipline
 
-> [!IMPORTANT]
-> **AGY Router DNA adalah 100% Light Crystal (Daylight Cupertino).**
-> Estetika Liquid Apple dirancang khusus untuk refraksi cahaya kristal di atas latar platinum `#F5F5F7` dengan saturasi 190%. Mencampur dark mode merusak kalibrasi kontras dan membebani template dengan bloat utility classes.
+> [!NOTE]
+> **Proyek boleh memilih salah satu dari tiga mode operasional:**
+> 1. **Light-Only (AGY Router DNA)**: Gunakan hardcoded values dari Section 1-9 tanpa CSS variables. Tidak ada toggle tema.
+> 2. **Dual-Mode (Skill Hub DNA)**: Gunakan CSS custom properties (`var(--token)`) agar semua surface classes otomatis beradaptasi saat class `.dark` ditambahkan ke `<html>`. Wajib pakai `darkMode: 'class'` di Tailwind config.
+> 3. **Dark-Only**: Gunakan dark token values secara hardcoded. Jarang dipakai.
 
-### Aturan Disiplin Anti-Dark Mode:
-1. **Dilarang Menambahkan `darkMode: 'class'`**:
-   Dalam inisialisasi script Tailwind Play:
-   ```javascript
-   tailwind.config = {
-     // DILARANG: darkMode: 'class',
-     theme: { ... }
-   }
-   ```
-2. **Dilarang Menulis Class Prefiks `dark:`**:
-   Semua class `dark:bg-...`, `dark:text-...`, `dark:border-...` adalah **banned**. Jangan menyisakan residu dark mode pada template HTML.
-3. **Dilarang Menyematkan Tombol Toggle Dark Theme**:
-   Kecuali Cak secara eksplisit meminta switch mode gelap, jangan buat saklar tema matahari/bulan atau script `localStorage.getItem('theme')`.
+### A. Dual-Mode CSS Custom Properties Token Table
 
+```css
+/* Light tokens (default) */
+:root {
+  --bg-page: #F5F5F7;
+  --text-primary: #1D1D1F;
+  --text-secondary: #86868B;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(255, 255, 255, 0.98);
+  --hero-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(244, 248, 255, 0.94) 50%, rgba(254, 244, 249, 0.95) 100%);
+  --hero-border: rgba(255, 255, 255, 1);
+  --card-shadow: 0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.04), 0 8px 24px -4px rgba(0, 113, 227, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  --card-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 24px -4px rgba(0, 0, 0, 0.05), 0 16px 40px -8px rgba(0, 113, 227, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+  --topbar-bg: rgba(255, 255, 255, 0.78);
+  --topbar-border: rgba(0, 0, 0, 0.06);
+  --pill-bg: rgba(255, 255, 255, 0.94);
+  --pill-border: rgba(0, 0, 0, 0.08);
+  --pill-text: #1D1D1F;
+  --drawer-bg: rgba(255, 255, 255, 0.96);
+  --mesh-opacity: 1;
+  --groove-bg: rgba(0, 0, 0, 0.05);
+  --groove-border: rgba(0, 0, 0, 0.06);
+  --groove-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(0, 0, 0, 0.04), 0 1px 0 rgba(255, 255, 255, 0.9);
+  --tab-active-bg: #FFFFFF;
+  --tab-active-text: #1D1D1F;
+  --tab-active-border: rgba(0, 0, 0, 0.06);
+  --tab-active-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -0.5px 0 rgba(0, 0, 0, 0.03);
+  --input-bg: rgba(255, 255, 255, 0.94);
+  --input-border: rgba(0, 0, 0, 0.09);
+  --input-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Dark tokens (activated by .dark on <html>) */
+.dark {
+  --bg-page: #07090E;
+  --text-primary: #F9FAFB;
+  --text-secondary: #9CA3AF;
+  --card-bg: rgba(15, 20, 32, 0.78);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --hero-bg: linear-gradient(135deg, rgba(20, 27, 45, 0.88) 0%, rgba(13, 19, 33, 0.88) 100%);
+  --hero-border: rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 8px 30px rgba(0, 113, 227, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --topbar-bg: rgba(7, 9, 14, 0.82);
+  --topbar-border: rgba(255, 255, 255, 0.08);
+  --pill-bg: rgba(20, 27, 45, 0.92);
+  --pill-border: rgba(255, 255, 255, 0.12);
+  --pill-text: #F3F4F6;
+  --drawer-bg: rgba(10, 14, 23, 0.96);
+  --mesh-opacity: 0.85;
+  --groove-bg: rgba(255, 255, 255, 0.06);
+  --groove-border: rgba(255, 255, 255, 0.09);
+  --groove-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.20), inset 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.06);
+  --tab-active-bg: rgba(255, 255, 255, 0.12);
+  --tab-active-text: #F9FAFB;
+  --tab-active-border: rgba(255, 255, 255, 0.15);
+  --tab-active-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(15, 20, 32, 0.80);
+  --input-border: rgba(255, 255, 255, 0.10);
+  --input-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+```
+
+### B. Dual-Mode Surface Class Rewiring
+
+Jika memilih dual-mode, hardcoded values di `.crystal-card`, `.hero-crystal`, `.neo-groove`, `.neo-tab-active`, `.apple-input`, dan `.btn-apple-pill` WAJIB diganti dengan `var(--token)` references. Berikut 6 class yang sudah di-rewire:
+
+```css
+/* Dual-Mode Crystal Card */
+.crystal-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  transition-property: transform, box-shadow, border-color, background-color;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.crystal-card:not(aside):hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Dual-Mode Hero Crystal */
+.hero-crystal {
+  background: var(--hero-bg);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1.5px solid var(--hero-border);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+/* Dual-Mode Neomorphic Groove */
+.neo-groove {
+  background: var(--groove-bg);
+  border: 1px solid var(--groove-border);
+  box-shadow: var(--groove-shadow);
+  border-radius: 12px;
+}
+
+/* Dual-Mode Active Tab Pill */
+.neo-tab-active {
+  background: var(--tab-active-bg) !important;
+  color: var(--tab-active-text) !important;
+  border: 1px solid var(--tab-active-border) !important;
+  box-shadow: var(--tab-active-shadow) !important;
+}
+
+/* Dual-Mode Form Input */
+.apple-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  box-shadow: var(--input-shadow);
+  transition-property: border-color, box-shadow, background-color;
+  transition-duration: 140ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+.apple-input:focus {
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 3.5px rgba(0, 113, 227, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+/* Dual-Mode Pill Button */
+.btn-apple-pill {
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  border: 1px solid var(--pill-border);
+  /* ...rest unchanged... */
+}
+```
+
+### C. Dual-Mode Canvas Adaptation
+
+Untuk dark mode, canvas mesh tetap menggunakan gradient 5 titik yang sama, tetapi di-dim di atas latar hitam pekat. Body wajib menggunakan CSS variables dan transisi untuk pergantian tema yang mulus:
+
+```css
+/* Dark canvas uses same mesh but dimmed on deep black */
+.apple-ambient-canvas {
+  background-color: var(--bg-page);
+  /* background-image stays the same 5-point mesh */
+  opacity: var(--mesh-opacity, 1);
+}
+
+/* Body must use variables for seamless theme transition */
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  transition-property: background-color, color;
+  transition-duration: 200ms;
+}
+```
+
+### D. Theme Toggle Pattern (Alpine.js)
+
+Gunakan Alpine.js untuk toggle tema tanpa framework tambahan:
+
+```html
+<html :class="{ 'dark': theme === 'dark' }">
+```
+
+```javascript
+// In x-data or initApp()
+theme: localStorage.getItem('theme') || 'light',
+toggleTheme() {
+  this.theme = this.theme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('theme', this.theme);
+}
+```
+
+Tailwind config wajib menyertakan `darkMode: 'class'` agar utility classes `dark:` berfungsi jika diperlukan:
+
+```javascript
+tailwind.config = {
+  darkMode: 'class',
+  theme: { ... }
+}
+```
+
+### E. Dual-Mode Anti-Pattern Rules
+
+1. **DILARANG mencampur hardcoded dan var()**: Jika memilih dual-mode, SEMUA surface classes WAJIB pakai CSS variables. Mencampur menyebabkan kartu putih mencolok di atas latar gelap.
+2. **DILARANG menggunakan `text-slate-900` hardcoded di dual-mode template**: Gunakan `style="color: var(--text-primary)"` atau Tailwind arbitrary `text-[var(--text-primary)]`.
+3. **DILARANG lupa transisi pada body**: Tanpa `transition-property: background-color, color` pada body, pergantian tema terasa kasar.
+4. **Proyek light-only (AGY Router) tetap valid**: Hardcoded values di Section 1-9 adalah referensi resmi untuk proyek tanpa dark mode. Tidak perlu diubah ke variables.
 ---
 
 ## 11. Concentric Nested Radii & Optical Geometry Formula
@@ -837,6 +1062,9 @@ CSS typography smoothing & balance rules:
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 14px;
+  min-height: 100dvh;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -850,6 +1078,23 @@ p, .desc-text {
 .font-mono-apple {
   font-family: 'JetBrains Mono', -apple-system-monospaced, monospace;
   font-variant-numeric: tabular-nums;
+}
+
+/* Mobile Viewport Defensive Styles */
+@media (max-width: 768px) {
+  input:not([readonly]), select, textarea {
+    font-size: 16px !important; /* Prevents iOS Safari auto-zoom on focus */
+  }
+}
+
+/* Global Cupertino Input Focus Ring (Applied to all form elements) */
+input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+input:not([type="checkbox"]):not([type="radio"]):focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #0071E3 !important;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.16) !important;
 }
 ```
 
@@ -1066,7 +1311,7 @@ Selalu definisikan properti yang ditransisikan secara eksplisit:
 | Komponen | Styling Transisi Scoped Baku | Timing & Durasi |
 |---|---|---|
 | **Buttons & Chips** | `transition-[color,background-color,border-color,box-shadow,transform]` | `duration-140 ease-out` |
-| **Bento & Crystal Cards** | `transition-[border-color,box-shadow,transform]` | `duration-160 ease-out` |
+| **Bento & Crystal Cards** | `transition-[border-color,box-shadow,transform]` | `duration-180 ease-out` |
 | **Progress / Waterfall** | `transition-[flex,width]` | `duration-700 ease-out` |
 | **Radial Dial Gauge** | `transition-[stroke-dashoffset,stroke]` | `duration-500 ease-out` |
 | **Input Focus Rings** | `transition-[border-color,box-shadow]` | `duration-140 ease-out` |
@@ -1156,10 +1401,14 @@ def buat_kartu_apple_crystal(data: dict) -> io.BytesIO:
    Setiap tombol interaktif wajib memenuhi `min-h-[40px]` atau `min-h-[44px]`.
 6. **Verifikasi DOM Balance**:
    Selisih tag pembuka vs penutup `<div>`, `<section>`, `<nav>`, `<button>` harus sama dengan 0.
+7. **Verifikasi iOS Input Zoom**:
+   Pastikan rule `@media (max-width: 768px) { input:not([readonly]) ... font-size: 16px }` ada di `<style>` untuk mencegah auto-zoom Safari iOS saat fokus input.
 
 ---
 
 ## 18. Master Turnkey Production Template (Ready-to-Deploy Shell)
+
+### A. Light-Only Master Template (Hardcoded Values)
 
 For instant zero-guesswork bootstrapping, use this complete single-file HTML shell that weaves together all 17 chapters (Canvas Mesh + Frosted Cards + Neomorphic Wells + Bento Grid + Dynamic Island):
 
@@ -1217,6 +1466,12 @@ For instant zero-guesswork bootstrapping, use this complete single-file HTML she
       color: var(--text-primary);
       font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
       font-size: 14px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: clip;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+      max-width: 100%;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -1239,40 +1494,40 @@ For instant zero-guesswork bootstrapping, use this complete single-file HTML she
 
     /* Glass Surfaces */
     .crystal-card {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(32px) saturate(190%);
       -webkit-backdrop-filter: blur(32px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      border-radius: 24px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 6px 20px -4px rgba(0, 113, 227, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+      border: 1px solid rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.04), 0 8px 24px -4px rgba(0, 113, 227, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
       transition-property: transform, box-shadow, border-color;
       transition-duration: 180ms;
       transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     }
     .crystal-card:not(aside):hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.025), 0 14px 30px -8px rgba(0, 113, 227, 0.09), inset 0 1px 0 rgba(255, 255, 255, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 24px -4px rgba(0, 0, 0, 0.05), 0 16px 40px -8px rgba(0, 113, 227, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
     }
     .hero-crystal {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(244, 248, 255, 0.92) 50%, rgba(254, 244, 249, 0.94) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(244, 248, 255, 0.94) 50%, rgba(254, 244, 249, 0.95) 100%);
       backdrop-filter: blur(40px) saturate(200%);
       -webkit-backdrop-filter: blur(40px) saturate(200%);
       border: 1.5px solid rgba(255, 255, 255, 1);
       border-radius: 24px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 14px 36px -8px rgba(0, 113, 227, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 8px 24px -4px rgba(0, 113, 227, 0.06), 0 16px 48px -8px rgba(0, 113, 227, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.015);
     }
 
     /* Neomorphic Insets & Sockets */
     .neo-groove {
-      background: rgba(0, 0, 0, 0.035);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 0.95);
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(0, 0, 0, 0.04), 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
     }
     .neo-tab-active {
       background: #FFFFFF !important;
-      color: #0F172A !important;
+      color: #1D1D1F !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -0.5px 0 rgba(0, 0, 0, 0.03) !important;
       border: 1px solid rgba(0, 0, 0, 0.06) !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), inset 0 1px 0 #FFFFFF !important;
     }
     .neo-crystal-box {
       backdrop-filter: blur(24px) saturate(180%);
@@ -1326,11 +1581,27 @@ For instant zero-guesswork bootstrapping, use this complete single-file HTML she
     .btn-tactile:hover { transform: translateY(-0.5px); }
     .btn-tactile:active { transform: scale(0.96); }
 
-    /* Native Fluid Scrollbar */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.14); border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.28); }
+    /* Native Apple Fluid Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.03); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.6); background-clip: padding-box; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.8); background-clip: padding-box; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.25) transparent; }
+
+    /* Global Cupertino Input Focus Ring */
+    input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+      transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    }
+    input:not([type="checkbox"]):not([type="radio"]):focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0071E3 !important;
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.16) !important;
+    }
+
+    /* Mobile Zoom Prevention */
+    @media (max-width: 768px) {
+      input:not([readonly]), select, textarea { font-size: 16px !important; }
+    }
   </style>
 </head>
 <body class="min-h-screen apple-ambient-canvas p-4 sm:p-8 space-y-6 relative"
@@ -1426,6 +1697,419 @@ For instant zero-guesswork bootstrapping, use this complete single-file HTML she
         <input type="text"
                placeholder="Contoh: cekweb.megapass.web.id"
                class="apple-input w-full rounded-2xl px-4 py-3 text-xs font-mono-apple text-slate-900 placeholder:text-slate-400 outline-none min-h-[44px]">
+        <button type="button"
+                @click="toast.message = 'Memulai proses diagnosa...'; toast.visible = true; setTimeout(() => toast.visible = false, 2500)"
+                class="btn-apple-brand w-full sm:w-auto px-6 py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 whitespace-nowrap min-h-[44px]">
+          <span>Mulai Analisis</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
+```
+
+### B. Dual-Mode Master Template (Light + Dark Toggle)
+
+For projects requiring both light and dark modes, use this variant that replaces hardcoded values with CSS custom properties and includes an Alpine.js theme toggle. Extracted from the production architecture of **Skill Hub Megapass** (`https://skill.megapass.web.id/`).
+
+```html
+<!DOCTYPE html>
+<html lang="id" x-data="{ theme: 'light' }" x-init="theme = localStorage.getItem('theme') || 'light'" :class="{ 'dark': theme === 'dark' }">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cupertino Liquid Crystal - Dual Mode Console</title>
+
+  <!-- Font Imports -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Standalone Tailwind CDN & Density Scale -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        fontSize: {
+          'xs':   ['12px', '16px'],
+          'sm':   ['13px', '18px'],
+          'base': ['14px', '20px'],
+          'lg':   ['16px', '22px'],
+          'xl':   ['18px', '24px'],
+          '2xl':  ['20px', '26px'],
+          '3xl':  ['24px', '30px'],
+        },
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Alpine.js CDN -->
+  <script src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+
+    /* ── Light Mode Tokens (Default) ── */
+    :root {
+      --apple-blue: #0071E3;
+      --apple-blue-hover: #0077ED;
+      --bg-page: #F5F5F7;
+      --text-primary: #1D1D1F;
+      --text-secondary: #86868B;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: rgba(255, 255, 255, 0.98);
+      --hero-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(244, 248, 255, 0.94) 50%, rgba(254, 244, 249, 0.95) 100%);
+      --hero-border: rgba(255, 255, 255, 1);
+      --card-shadow: 0 1px 1px rgba(0, 0, 0, 0.02), 0 4px 12px -2px rgba(0, 0, 0, 0.04), 0 8px 24px -4px rgba(0, 113, 227, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+      --card-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 24px -4px rgba(0, 0, 0, 0.05), 0 16px 40px -8px rgba(0, 113, 227, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+      --topbar-bg: rgba(255, 255, 255, 0.78);
+      --topbar-border: rgba(0, 0, 0, 0.06);
+      --pill-bg: rgba(255, 255, 255, 0.94);
+      --pill-border: rgba(0, 0, 0, 0.08);
+      --pill-text: #1D1D1F;
+      --drawer-bg: rgba(255, 255, 255, 0.96);
+      --mesh-opacity: 1;
+      --groove-bg: rgba(0, 0, 0, 0.05);
+      --groove-border: rgba(0, 0, 0, 0.06);
+      --groove-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(0, 0, 0, 0.04), 0 1px 0 rgba(255, 255, 255, 0.9);
+      --tab-active-bg: #FFFFFF;
+      --tab-active-text: #1D1D1F;
+      --tab-active-border: rgba(0, 0, 0, 0.06);
+      --tab-active-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -0.5px 0 rgba(0, 0, 0, 0.03);
+      --input-bg: rgba(255, 255, 255, 0.94);
+      --input-border: rgba(0, 0, 0, 0.09);
+      --input-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    /* ── Dark Mode Tokens ── */
+    .dark {
+      --bg-page: #07090E;
+      --text-primary: #F9FAFB;
+      --text-secondary: #9CA3AF;
+      --card-bg: rgba(15, 20, 32, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --hero-bg: linear-gradient(135deg, rgba(20, 27, 45, 0.88) 0%, rgba(13, 19, 33, 0.88) 100%);
+      --hero-border: rgba(255, 255, 255, 0.12);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      --card-shadow-hover: 0 8px 30px rgba(0, 113, 227, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      --topbar-bg: rgba(7, 9, 14, 0.82);
+      --topbar-border: rgba(255, 255, 255, 0.08);
+      --pill-bg: rgba(20, 27, 45, 0.92);
+      --pill-border: rgba(255, 255, 255, 0.12);
+      --pill-text: #F3F4F6;
+      --drawer-bg: rgba(10, 14, 23, 0.96);
+      --mesh-opacity: 0.85;
+      --groove-bg: rgba(255, 255, 255, 0.06);
+      --groove-border: rgba(255, 255, 255, 0.09);
+      --groove-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.20), inset 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.06);
+      --tab-active-bg: rgba(255, 255, 255, 0.12);
+      --tab-active-text: #F9FAFB;
+      --tab-active-border: rgba(255, 255, 255, 0.15);
+      --tab-active-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(15, 20, 32, 0.80);
+      --input-border: rgba(255, 255, 255, 0.10);
+      --input-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: clip;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+      max-width: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition-property: background-color, color;
+      transition-duration: 200ms;
+    }
+
+    h1, h2, h3, h4 { text-wrap: balance; letter-spacing: -0.015em; }
+    p, .desc-text { text-wrap: pretty; }
+    .font-mono-apple { font-family: 'JetBrains Mono', -apple-system-monospaced, monospace; font-variant-numeric: tabular-nums; }
+
+    /* Canvas Iridescent Mesh */
+    .apple-ambient-canvas {
+      background-color: var(--bg-page);
+      background-image:
+        radial-gradient(at 0% 0%, rgba(94, 92, 230, 0.14) 0px, transparent 45%),
+        radial-gradient(at 100% 0%, rgba(0, 113, 227, 0.15) 0px, transparent 45%),
+        radial-gradient(at 50% 30%, rgba(255, 159, 10, 0.10) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(48, 209, 88, 0.12) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(255, 55, 95, 0.11) 0px, transparent 45%);
+      background-attachment: fixed;
+      opacity: var(--mesh-opacity);
+    }
+
+    /* Glass Surfaces */
+    .crystal-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(32px) saturate(190%);
+      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      transition-property: transform, box-shadow, border-color, background-color;
+      transition-duration: 180ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .crystal-card:not(aside):hover {
+      box-shadow: var(--card-shadow-hover);
+    }
+    .hero-crystal {
+      background: var(--hero-bg);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1.5px solid var(--hero-border);
+      border-radius: 24px;
+      box-shadow: var(--card-shadow);
+    }
+
+    /* Neomorphic Insets & Sockets */
+    .neo-groove {
+      background: var(--groove-bg);
+      box-shadow: var(--groove-shadow);
+      border: 1px solid var(--groove-border);
+      border-radius: 12px;
+    }
+    .neo-tab-active {
+      background: var(--tab-active-bg) !important;
+      color: var(--tab-active-text) !important;
+      box-shadow: var(--tab-active-shadow) !important;
+      border: 1px solid var(--tab-active-border) !important;
+    }
+    .apple-input {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      box-shadow: var(--input-shadow);
+      transition-property: border-color, box-shadow, background-color;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .apple-input:focus {
+      background: #FFFFFF;
+      border-color: #0071E3;
+      box-shadow: 0 0 0 3.5px rgba(0, 113, 227, 0.16), inset 0 1px 2px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(255, 255, 255, 1);
+    }
+    .dark .apple-input:focus {
+      background: rgba(20, 27, 45, 0.95);
+      box-shadow: 0 0 0 3.5px rgba(0, 113, 227, 0.24), inset 0 1px 2px rgba(0, 0, 0, 0.10);
+    }
+
+    /* Pill Button */
+    .btn-apple-pill {
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-weight: 600;
+      border: 1px solid var(--pill-border);
+      border-radius: 9999px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition-property: transform, background-color, border-color, box-shadow;
+      transition-duration: 150ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      min-height: 32px;
+    }
+    .btn-apple-pill:hover {
+      transform: translateY(-0.5px);
+    }
+    .btn-apple-pill:active {
+      transform: scale(0.97) translateY(0.5px);
+    }
+
+    /* Tactile Buttons */
+    .btn-apple-brand {
+      background: linear-gradient(180deg, #0077ED 0%, #0066CC 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.30), 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+      transition-property: transform, box-shadow, filter;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn-apple-brand:hover {
+      filter: brightness(1.03);
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transform: translateY(-1px);
+    }
+    .btn-apple-brand:active {
+      transform: scale(0.975) translateY(0.5px);
+      box-shadow: 0 1px 4px rgba(0, 113, 227, 0.20), inset 0 2px 4px rgba(0, 0, 0, 0.20);
+    }
+    .btn-tactile {
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      transition-property: transform, opacity, background-color, border-color, box-shadow;
+      transition-duration: 140ms;
+      transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-tactile:hover { transform: translateY(-0.5px); }
+    .btn-tactile:active { transform: scale(0.96); }
+
+    /* Native Apple Fluid Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.03); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.25); border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.6); background-clip: padding-box; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.8); background-clip: padding-box; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.25) transparent; }
+    .dark ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); }
+    .dark ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-color: rgba(0, 0, 0, 0.3); }
+    .dark ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.40); }
+    .dark * { scrollbar-color: rgba(255, 255, 255, 0.25) transparent; }
+
+    /* Global Cupertino Input Focus Ring */
+    input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+      transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    }
+    input:not([type="checkbox"]):not([type="radio"]):focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0071E3 !important;
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.16) !important;
+    }
+
+    /* Mobile Zoom Prevention */
+    @media (max-width: 768px) {
+      input:not([readonly]), select, textarea { font-size: 16px !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen apple-ambient-canvas p-4 sm:p-8 space-y-6 relative"
+      x-data="{
+        activeTab: 'audit',
+        toast: { visible: false, message: '' },
+        theme: 'light',
+        toggleTheme() {
+          this.theme = this.theme === 'light' ? 'dark' : 'light';
+          localStorage.setItem('theme', this.theme);
+        }
+      }"
+      x-init="theme = localStorage.getItem('theme') || 'light'">
+
+  <!-- Dynamic Island Notification -->
+  <div x-show="toast.visible" x-cloak
+       x-transition:enter="transition ease-out duration-300 transform"
+       x-transition:enter-start="opacity-0 -translate-y-6 scale-90"
+       x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+       x-transition:leave="transition ease-in duration-200 transform"
+       x-transition:leave-start="opacity-100 scale-100"
+       x-transition:leave-end="opacity-0 -translate-y-6 scale-90"
+       class="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex items-center space-x-3 px-6 py-3 rounded-full bg-[#1A1A1E] text-white shadow-2xl border border-white/20 backdrop-blur-2xl text-xs font-semibold tracking-wide pointer-events-none">
+    <div class="w-4 h-4 rounded-full bg-[#30D158] flex items-center justify-center flex-shrink-0">
+      <svg class="w-2.5 h-2.5 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <span class="text-white text-xs font-medium" x-text="toast.message"></span>
+  </div>
+
+  <!-- Main Container Wrapper (Zero Background to preserve Canvas Mesh) -->
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Top Header Bar -->
+    <header class="crystal-card p-4 sm:p-5 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+        <h1 class="text-base sm:text-lg font-black tracking-tight" style="color: var(--text-primary)">MEGAPASS CLUSTER</h1>
+        <span class="font-mono-apple text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#0071E3]/[0.08] text-[#0071E3] border border-[#0071E3]/20">
+          V2.1 DUAL
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="neo-groove p-1 rounded-2xl inline-flex items-center gap-1">
+          <button type="button" @click="activeTab = 'audit'"
+                  :class="activeTab === 'audit' ? 'neo-tab-active shadow-xs' : 'border border-transparent'"
+                  :style="activeTab !== 'audit' ? 'color: var(--text-secondary)' : ''"
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-[color,background-color,border-color,box-shadow,transform] duration-140 btn-tactile min-h-[36px]">
+            Audit
+          </button>
+          <button type="button" @click="activeTab = 'telemetry'"
+                  :class="activeTab === 'telemetry' ? 'neo-tab-active shadow-xs' : 'border border-transparent'"
+                  :style="activeTab !== 'telemetry' ? 'color: var(--text-secondary)' : ''"
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-[color,background-color,border-color,box-shadow,transform] duration-140 btn-tactile min-h-[36px]">
+            Telemetri
+          </button>
+        </div>
+        <!-- Theme Toggle -->
+        <button type="button" @click="toggleTheme()" class="btn-apple-pill p-2 rounded-full" :title="theme === 'light' ? 'Mode Gelap' : 'Mode Terang'">
+          <template x-if="theme === 'dark'">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </template>
+          <template x-if="theme === 'light'">
+            <svg class="w-4 h-4" style="color: var(--text-secondary)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </template>
+        </button>
+      </div>
+    </header>
+
+    <!-- 4-Column Bento Metric Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-secondary)">Kapasitas Slot</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black tabular-nums font-mono-apple" style="color: var(--text-primary)">100%</div>
+        <div class="text-[11px] font-medium" style="color: var(--text-secondary)">Rotasi akun otomatis aktif</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-secondary)">Throughput AI</span>
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black tabular-nums font-mono-apple" style="color: var(--text-primary)">182 t/s</div>
+        <div class="text-[11px] font-medium" style="color: var(--text-secondary)">Zero-buffer streaming pass</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-secondary)">Latensi RTT</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black tabular-nums font-mono-apple" style="color: var(--text-primary)">14 ms</div>
+        <div class="text-[11px] font-medium" style="color: var(--text-secondary)">Subnet Tailscale ruko</div>
+      </div>
+      <div class="crystal-card p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-secondary)">Status Gateway</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono-apple">ONLINE</div>
+        <div class="text-[11px] font-medium" style="color: var(--text-secondary)">Uptime 99.98% 30 hari</div>
+      </div>
+    </div>
+
+    <!-- Centerpiece Hero Console Island -->
+    <main class="hero-crystal p-6 sm:p-8 space-y-6">
+      <div class="space-y-1">
+        <h2 class="text-xl sm:text-2xl font-black tracking-tight" style="color: var(--text-primary)">Konsol Servis Mandiri</h2>
+        <p class="text-xs sm:text-sm" style="color: var(--text-secondary)">Ketik hostname atau parameter untuk memicu radar diagnosa.</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <input type="text"
+               placeholder="Contoh: cekweb.megapass.web.id"
+               class="apple-input w-full rounded-2xl px-4 py-3 text-xs font-mono-apple placeholder:text-slate-400 dark:placeholder:text-slate-600 outline-none min-h-[44px]"
+               style="color: var(--text-primary)">
         <button type="button"
                 @click="toast.message = 'Memulai proses diagnosa...'; toast.visible = true; setTimeout(() => toast.visible = false, 2500)"
                 class="btn-apple-brand w-full sm:w-auto px-6 py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 whitespace-nowrap min-h-[44px]">
@@ -1597,7 +2281,7 @@ Pola kartu instalasi mandiri PWA & biner Android (.apk) langsung dari server lok
       <!-- Tactile Copy Link Button with Checkmark Feedback -->
       <button type="button"
               @click="copyDownloadLink()" 
-              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-all">
+              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-[transform,background-color,border-color,box-shadow]">
         <svg class="w-3.5 h-3.5 text-[#0071E3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -1608,7 +2292,7 @@ Pola kartu instalasi mandiri PWA & biner Android (.apk) langsung dari server lok
       <!-- Scan QR Button for Instant Camera Handoff -->
       <button type="button"
               @click="showQrApk = true" 
-              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-all">
+              class="btn-apple-pill w-full py-2 px-3 text-xs font-semibold flex items-center justify-center space-x-1.5 cursor-pointer active:scale-95 transition-[transform,background-color,border-color,box-shadow]">
         <svg class="w-3.5 h-3.5 text-[#0071E3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="7" height="7"></rect>
           <rect x="14" y="3" width="7" height="7"></rect>
